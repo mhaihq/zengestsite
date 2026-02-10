@@ -1,0 +1,326 @@
+"use client";
+
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { ChevronDown, Menu, X, ArrowRight } from "lucide-react";
+import { cn } from "../../lib/utils";
+import { Link } from "react-router";
+import logoImage from 'figma:asset/55130a9cc9a8f890dc08e580a5cf6dd0df0df413.png';
+
+// --- Types ---
+type ImageProps = {
+  url?: string;
+  src: string;
+  alt?: string;
+};
+
+type NavLink = {
+  url: string;
+  title: string;
+  subMenuLinks?: NavLink[];
+};
+
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  title: string;
+  variant?: "primary" | "secondary" | "link";
+  size?: "sm" | "md" | "lg";
+  href?: string;
+};
+
+type Props = {
+  logo: ImageProps;
+  navLinks: NavLink[];
+  button: ButtonProps;
+};
+
+export type NavbarProps = React.ComponentPropsWithoutRef<"section"> & Partial<Props>;
+
+// --- Defaults ---
+export const NavbarDefaults: Props = {
+  logo: {
+    url: "/",
+    src: logoImage,
+    alt: "Hana Health",
+  },
+  navLinks: [
+    {
+      url: "/use-cases",
+      title: "Use cases",
+    },
+    {
+      url: "https://docs.hana.health/",
+      title: "Docs",
+    },
+    {
+      url: "/research",
+      title: "Research",
+    },
+  ],
+  button: {
+    title: "Book a demo",
+    size: "md",
+    variant: "primary",
+    href: "https://calendly.com/matteowastaken/discoverycall",
+  },
+};
+
+// --- Helper Hook ---
+function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const media = window.matchMedia(query);
+    setMatches(media.matches);
+    const listener = () => setMatches(media.matches);
+    media.addEventListener("change", listener);
+    return () => media.removeEventListener("change", listener);
+  }, [query]);
+  return matches;
+}
+
+// --- Helper for Links ---
+interface SmartLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  href: string;
+  children: React.ReactNode;
+  className?: string;
+  target?: string;
+}
+
+const SmartLink = ({ href, children, className, target, ...props }: SmartLinkProps) => {
+  const isInternal = href.startsWith("/") || href.startsWith("#");
+  if (isInternal) {
+    return (
+      <Link to={href} className={className}>
+        {children}
+      </Link>
+    );
+  }
+  return (
+    <a href={href} className={className} target={target || "_blank"} rel="noopener noreferrer" {...props}>
+      {children}
+    </a>
+  );
+};
+
+// --- Component ---
+export const Navbar = (props: NavbarProps) => {
+  const { logo, navLinks, button } = {
+    ...NavbarDefaults,
+    ...props,
+  };
+
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const isMobile = useMediaQuery("(max-width: 1023px)");
+  const menuRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node)
+      ) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <section className="sticky top-0 z-[999] w-full border-b border-[#e2e8f0] bg-[#f5f6f8]/90 backdrop-blur-md">
+      <div className="flex min-h-[80px] w-full max-w-[1200px] mx-auto items-center justify-between px-6 md:px-10 relative">
+        
+        {/* Left Side: Logo */}
+        <div className="flex-shrink-0 flex items-center">
+           <SmartLink href={logo.url} className="flex items-center" target="_self">
+             <img src={logo.src} alt={logo.alt} className="h-10 md:h-12 w-auto object-contain" />
+           </SmartLink>
+        </div>
+
+        {/* Center: Nav Links */}
+        <div className="hidden lg:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
+          {navLinks.map((navLink, index) =>
+            navLink.subMenuLinks && navLink.subMenuLinks.length > 0 ? (
+              <SubMenu key={index} navLink={navLink} isMobile={isMobile} />
+            ) : (
+              <SmartLink
+                key={index}
+                href={navLink.url}
+                className="text-[15px] font-medium text-[#1e2a3a] hover:text-[#2d3f54] transition-colors font-['DM_Sans']"
+              >
+                {navLink.title}
+              </SmartLink>
+            )
+          )}
+        </div>
+
+        {/* Right Side: Button & Mobile Toggle */}
+        <div className="flex items-center gap-4">
+          <div className="hidden lg:block">
+            <Button {...button} />
+          </div>
+          
+          <button
+            ref={buttonRef}
+            className="flex items-center justify-center lg:hidden p-2 text-[#1e2a3a]"
+            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+          >
+            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="border-t border-[#e2e8f0] bg-[#f5f6f8] overflow-hidden lg:hidden"
+          >
+            <div ref={menuRef} className="flex flex-col p-6 gap-4">
+              {navLinks.map((navLink, index) =>
+                navLink.subMenuLinks && navLink.subMenuLinks.length > 0 ? (
+                  <SubMenu key={index} navLink={navLink} isMobile={true} />
+                ) : (
+                  <SmartLink
+                    key={index}
+                    href={navLink.url}
+                    className="text-lg font-medium text-[#1e2a3a] py-3 font-['DM_Sans']"
+                  >
+                    {navLink.title}
+                  </SmartLink>
+                )
+              )}
+              <div className="mt-4 pt-4 border-t border-[#e2e8f0]">
+                <Button {...button} className="w-full justify-center" />
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+};
+
+const SubMenu = ({ navLink, isMobile }: { navLink: NavLink; isMobile: boolean }) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  if (isMobile) {
+    return (
+      <div className="flex flex-col">
+        <button
+          className="flex w-full items-center justify-between text-lg font-medium text-[#1e2a3a] py-2 font-['DM_Sans']"
+          onClick={() => setIsDropdownOpen((prev) => !prev)}
+        >
+          <span>{navLink.title}</span>
+          <ChevronDown className={cn("h-4 w-4 transition-transform", isDropdownOpen && "rotate-180")} />
+        </button>
+        <AnimatePresence>
+          {isDropdownOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="flex flex-col pl-4 border-l-2 border-[#e2e8f0] ml-2 overflow-hidden"
+            >
+              {navLink.subMenuLinks?.map((subMenuLink, index) => (
+                <SmartLink
+                  key={index}
+                  href={subMenuLink.url}
+                  className="py-2 text-[#718096] hover:text-[#1e2a3a] font-['DM_Sans']"
+                >
+                  {subMenuLink.title}
+                </SmartLink>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className="relative"
+      onMouseEnter={() => setIsDropdownOpen(true)}
+      onMouseLeave={() => setIsDropdownOpen(false)}
+    >
+      <button
+        className="flex items-center gap-1 text-[15px] font-medium text-[#1e2a3a] hover:text-[#2d3f54] transition-colors font-['DM_Sans']"
+      >
+        <span>{navLink.title}</span>
+        <ChevronDown className={cn("h-4 w-4 transition-transform duration-200", isDropdownOpen && "rotate-180")} />
+      </button>
+      <AnimatePresence>
+        {isDropdownOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.2 }}
+            className="absolute left-1/2 -translate-x-1/2 top-full pt-4 z-50"
+          >
+            <div className="w-48 rounded-xl bg-white border border-[#e2e8f0] shadow-lg p-2 overflow-hidden">
+              {navLink.subMenuLinks?.map((subMenuLink, index) => (
+                <SmartLink
+                  key={index}
+                  href={subMenuLink.url}
+                  className="block px-4 py-2 text-sm text-[#718096] hover:bg-[#f5f6f8] hover:text-[#1e2a3a] rounded-lg transition-colors font-['DM_Sans']"
+                >
+                  {subMenuLink.title}
+                </SmartLink>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+// --- Custom Button Component ---
+const Button = ({ className, title, variant = "primary", href, ...props }: ButtonProps) => {
+    // Styles matching the "Book a demo" button from the other component
+    const baseStyles = "inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3 text-[15px] font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 min-h-[44px] group";
+    const variants = {
+        primary: "bg-[#1e2a3a] text-white hover:bg-[#2d3f54] hover:-translate-y-[2px] shadow-sm hover:shadow-[0_8px_24px_rgba(30,42,58,0.2)]",
+        secondary: "bg-[#f5f6f8] text-[#1e2a3a] hover:bg-[#e2e8f0]",
+        link: "text-[#1e2a3a] underline-offset-4 hover:underline",
+    };
+
+    if (href) {
+      return (
+        <a 
+          href={href} 
+          className={cn(baseStyles, variants[variant], className)}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+            {title}
+            {variant === 'primary' && (
+              <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-[3px]" />
+            )}
+        </a>
+      );
+    }
+
+    return (
+        <button className={cn(baseStyles, variants[variant], className)} {...props}>
+            {title}
+            {variant === 'primary' && (
+              <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-[3px]" />
+            )}
+        </button>
+    );
+}
