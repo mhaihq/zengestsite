@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useConversation } from "@elevenlabs/react";
 import { toast, Toaster } from "sonner";
 import { BrowserRouter, Routes, Route } from "react-router";
 import { Navbar } from "./components/Navbar";
@@ -28,7 +29,37 @@ export default function App() {
   const [webCallStatus, setWebCallStatus] = useState<"idle" | "connecting" | "active">("idle");
   const vapiRef = useRef<any>(null);
   const vapiLoadedRef = useRef(false);
-  const elevenLabsConversationRef = useRef<any>(null);
+
+  const elevenLabsConversation = useConversation({
+    onConnect: () => {
+      setWebCallStatus("active");
+      toast.success("Call Connected", { description: "You are now speaking with the agent." });
+    },
+    onDisconnect: () => {
+      setWebCallStatus("idle");
+      setActiveAgentId(null);
+      toast.info("Call Ended");
+    },
+    onError: (error: any) => {
+      const msg: string = error?.message ?? String(error);
+      setWebCallStatus("idle");
+      setActiveAgentId(null);
+      if (msg.includes("Permission") || msg.includes("denied") || msg.includes("NotAllowed")) {
+        toast.error("Microphone Permission Denied", {
+          description: "Please allow microphone access and try again."
+        });
+      } else if (msg.includes("capacity")) {
+        toast.error("Agent Unavailable", {
+          description: "Agent is at max capacity. Please try again in a moment."
+        });
+      } else {
+        toast.error("Connection failed", { description: msg || "Could not connect to the agent." });
+      }
+    },
+    onModeChange: (mode: any) => {
+      console.log("[ElevenLabs] Mode changed to:", mode);
+    },
+  });
 
   // Lazily initialize Vapi SDK inside useEffect to avoid crashing at module load
   useEffect(() => {
@@ -83,19 +114,11 @@ export default function App() {
     const isElevenLabs = assistantId.startsWith("agent_");
 
     if (isElevenLabs) {
-      // Use ElevenLabs Conversational AI
-      // If another agent is active, don't allow
       if (activeAgentId && activeAgentId !== agentId) return;
 
       setActiveAgentId(agentId);
       setWebCallStatus("connecting");
 
-      // Request microphone access explicitly before starting the session.
-      // The ElevenLabs SDK connects the WebSocket first (firing onConnect) and
-      // then tries to acquire the mic internally — if the browser hasn't granted
-      // permission yet the audio streams fail silently, producing a "connected
-      // but silent" call. Gating here surfaces the error properly and ensures
-      // the MediaStream is already live when the SDK needs it.
       try {
         await navigator.mediaDevices.getUserMedia({ audio: true });
       } catch (err: any) {
@@ -114,79 +137,16 @@ export default function App() {
       }
 
       try {
-        // Import ElevenLabs Client SDK dynamically
-        const { Conversation } = await import("@elevenlabs/client");
-
-        console.log("[ElevenLabs] Starting session with agent:", assistantId);
-        console.log("[ElevenLabs] AgentId:", agentId);
-
-        const conversation = await Conversation.startSession({
+        await elevenLabsConversation.startSession({
           agentId: assistantId,
-          onConnect: () => {
-            console.log("[ElevenLabs] ✓ Connected - audio should be flowing");
-            setWebCallStatus("active");
-            toast.success("Call Connected", { description: "You are now speaking with the agent." });
-          },
-          onDisconnect: () => {
-            console.log("[ElevenLabs] Disconnected");
-            setWebCallStatus("idle");
-            setActiveAgentId(null);
-            toast.info("Call Ended");
-          },
-          onError: (error: any) => {
-            console.error("[ElevenLabs] Error event:", error);
-            console.error("[ElevenLabs] Error details:", JSON.stringify(error, null, 2));
-
-            // Check if this is a fatal error or just a warning
-            // Some errors might not be fatal and the call can continue
-            if (error?.message?.includes("Permission") || error?.message?.includes("denied") || error?.message?.includes("NotAllowed")) {
-              setWebCallStatus("idle");
-              setActiveAgentId(null);
-              toast.error("Microphone Permission Denied", {
-                description: "Please allow microphone access and try again."
-              });
-            } else if (error?.message?.includes("capacity")) {
-              setWebCallStatus("idle");
-              setActiveAgentId(null);
-              toast.error("Agent Unavailable", {
-                description: "Agent is at max capacity. Please try again in a moment."
-              });
-            } else {
-              // For other errors, log but don't necessarily disconnect
-              console.warn("[ElevenLabs] Non-fatal error, call may continue:", error);
-            }
-          },
-          onModeChange: ({ mode }: { mode: string }) => {
-            console.log("[ElevenLabs] Mode changed to:", mode);
-            if (mode === "speaking") {
-              console.log("[ElevenLabs] Agent is speaking");
-              setWebCallStatus("active");
-            } else if (mode === "listening") {
-              console.log("[ElevenLabs] Agent is listening");
-            }
-          },
-          onMessage: (message: any) => {
-            console.log("[ElevenLabs] Message received:", message);
-          }
+          connectionType: "websocket",
         });
-
-        console.log("[ElevenLabs] Session created successfully:", conversation);
-        console.log("[ElevenLabs] Conversation object:", JSON.stringify(conversation, null, 2));
-        elevenLabsConversationRef.current = conversation;
       } catch (error: any) {
-        console.error("[ElevenLabs] Fatal error during session start:", error);
-        console.error("[ElevenLabs] Error stack:", error?.stack);
         setWebCallStatus("idle");
         setActiveAgentId(null);
-
-        let errorDescription = "Could not initialize ElevenLabs agent.";
-        if (error?.message?.includes("Permission") || error?.message?.includes("denied")) {
-          errorDescription = "Microphone permission was denied. Please allow access and try again.";
-        } else if (error?.message) {
-          errorDescription = error.message;
-        }
-
-        toast.error("Failed to start call", { description: errorDescription });
+        toast.error("Failed to start call", {
+          description: error?.message || "Could not connect to the agent."
+        });
       }
     } else {
       // Use Vapi SDK
@@ -232,13 +192,7 @@ export default function App() {
   };
 
   const handleEndWebCall = () => {
-    // End ElevenLabs call if active
-    if (elevenLabsConversationRef.current) {
-      elevenLabsConversationRef.current.endSession();
-      elevenLabsConversationRef.current = null;
-    }
-
-    // End Vapi call if active
+    elevenLabsConversation.endSession();
     if (vapiRef.current) {
       vapiRef.current.stop();
     }
