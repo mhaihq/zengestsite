@@ -17,12 +17,12 @@ const certifications = [
     description: "Implementing ISO 27001 information security controls across EHR systems with real-time monitoring and compliance reporting."
   },
   {
-    icon: Stethoscope, // Closest to the medical staff symbol
+    icon: Stethoscope,
     title: "SOC 2 Type II",
     description: "Delivering continuous monitoring and automated evidence collection for SOC 2 Type II audits across different EHR environments."
   },
   {
-    icon: Command, // Visually matches the looped square in the image
+    icon: Command,
     title: "HIPAA",
     description: "Ensuring HIPAA compliance through encryption, access controls, and audit logging across EHR integrations."
   },
@@ -52,11 +52,11 @@ export function ComplianceSection() {
           {/* Left Content */}
           <div className="flex-1 lg:max-w-sm space-y-8 sticky top-24 self-start">
             <div className="inline-flex items-center rounded-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 shadow-sm">
-              Enterprise-Grade Compliance and Security
+              Enterprise Compliance
             </div>
             
             <h2 className="text-4xl md:text-5xl font-serif font-medium text-slate-900 dark:text-white leading-[1.1]">
-              Compliance and security best hospitals already trust
+              Enterprise compliance. Every deployment.
             </h2>
           </div>
 
@@ -64,11 +64,6 @@ export function ComplianceSection() {
           <div className="flex-1">
             <div className="grid grid-cols-1 md:grid-cols-2 border border-slate-200 dark:border-slate-800 divide-y md:divide-y-0 md:divide-x divide-slate-200 dark:divide-slate-800 bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-sm">
               {certifications.map((cert, index) => {
-                // Determine border classes for the grid effect
-                // Need to handle borders carefully if we want exactly the grid lines.
-                // Alternatively, just use gap and background color for grid lines, but the image shows clean lines.
-                // Tailwind's divide utilities work well for rows/cols but grid is tricker.
-                // Let's use individual borders.
                 const isEven = index % 2 !== 0;
                 const isLastRow = index >= certifications.length - 2;
                 
@@ -93,6 +88,13 @@ export function ComplianceSection() {
                   </div>
                 );
               })}
+            </div>
+
+            {/* Deployment flexibility note */}
+            <div className="mt-8 text-center">
+              <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
+                Cloud, private cloud, or dedicated environments. Same standards.
+              </p>
             </div>
           </div>
 

@@ -1,90 +1,60 @@
 import { useState } from "react";
-import { Phone, Loader2, StopCircle, Globe, MoveRight, ArrowRight } from "lucide-react";
-import { toast } from "sonner";
-import { motion, easeOut } from "framer-motion";
+import { Loader2, StopCircle, Globe, ArrowRight } from "lucide-react";
+import { motion, easeOut } from "motion/react";
+import { projectId, publicAnonKey } from "../../../utils/supabase/info";
 
-// Configuration duplicated from App.tsx
-// Private Key for server-side operations (Phone Calls)
-// WARNING: In a real production app, never expose this in client-side code.
-const VAPI_PRIVATE_KEY = "8747fd17-d730-4198-a038-c36c03a30372"; 
-const VAPI_PHONE_NUMBER_ID = "48860935-3001-4640-8d71-c146776b1f58";
-
-export function AgentCard({ 
-  title, 
-  description, 
+export function AgentCard({
+  title,
+  description,
   icon: Icon,
   colorClass,
   assistantId,
+  workflow,
   webCallStatus,
   isOtherAgentActive,
   onStartWebCall,
   onEndWebCall
-}: { 
-  title: string; 
-  description: string; 
+}: {
+  title: string;
+  description: string;
   icon: any;
   colorClass: "blue" | "emerald";
   assistantId: string;
+  workflow?: string;
   webCallStatus: "idle" | "connecting" | "active";
   isOtherAgentActive: boolean;
-  onStartWebCall: () => void;
+  onStartWebCall: (agentId: string, assistantId: string) => void;
   onEndWebCall: () => void;
 }) {
-  const [phoneNumber, setPhoneNumber] = useState("+1");
-  const [isCallingPhone, setIsCallingPhone] = useState(false);
+  const [email, setEmail] = useState("");
 
-  // Phone calls are independent and don't affect the global web call state
-  // We keep this local to the card
-  const handlePhoneCall = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!phoneNumber || phoneNumber.length < 10) {
-      toast.error("Please enter a valid phone number");
-      return;
-    }
-
-    setIsCallingPhone(true);
-    
-    try {
-      // Use the Private Key for this secure server-side simulated call
-      const response = await fetch('https://api.vapi.ai/call', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${VAPI_PRIVATE_KEY}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          assistantId: assistantId,
-          phoneNumberId: VAPI_PHONE_NUMBER_ID,
-          customer: {
-            number: phoneNumber
-          }
-        })
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to initiate call");
+  const handleWebCallClick = async () => {
+    // Capture email if provided
+    if (email && email.trim()) {
+      try {
+        await fetch(`https://${projectId}.supabase.co/functions/v1/make-server-77ada9a1/leads`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${publicAnonKey}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: email,
+            agent: workflow || title,
+            workflow: workflow || null,
+            page: "use-cases-web-call"
+          })
+        });
+      } catch (err) {
+        console.error("Failed to capture email:", err);
       }
-
-      toast.success(`Calling from ${title}...`, {
-        description: `Dialing ${phoneNumber}. Expect a call shortly.`,
-      });
-      setPhoneNumber("");
-    } catch (error: any) {
-      console.error("Phone call error:", error);
-      toast.error("Failed to initiate call", { 
-        description: error.message || "Please check your configuration." 
-      });
-    } finally {
-      setIsCallingPhone(false);
     }
-  };
 
-  const handleWebCallClick = () => {
     if (webCallStatus === "active") {
       onEndWebCall();
     } else {
-      onStartWebCall();
+      // Use the Vapi assistantId that's passed as a prop
+      onStartWebCall(title, assistantId);
     }
   };
 
@@ -107,6 +77,7 @@ export function AgentCard({
       transition: { duration: 0.6, ease: easeOut },
     },
   };
+
 
   return (
     <motion.div
@@ -139,32 +110,18 @@ export function AgentCard({
         </div>
 
         {/* Interactive Form Section */}
-        <form onSubmit={handlePhoneCall} className="mt-auto relative z-10 space-y-4">
+        <div className="mt-auto relative z-10 space-y-4">
+          {/* Email Input */}
           <motion.div variants={itemVariants}>
-            <div className="relative group/input">
-              <div className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-2 pointer-events-none">
-                <span className="text-xl opacity-80">🇺🇸</span>
-              </div>
-              <input
-                type="tel"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                placeholder="Enter Phone Number"
-                className="w-full bg-slate-50 dark:bg-[#132B4A] border border-slate-200 dark:border-slate-700/50 rounded-xl pl-14 pr-14 py-3.5 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 focus:ring-1 focus:ring-blue-500 dark:focus:ring-blue-400 transition-all"
-                disabled={webCallStatus === "active" || isOtherAgentActive}
-              />
-              <motion.button 
-                type="submit"
-                disabled={isCallingPhone || webCallStatus === "active" || isOtherAgentActive}
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-white dark:bg-[#0B1D36] border border-slate-200 dark:border-slate-700 rounded-lg p-2 transition-all hover:border-blue-400 dark:hover:border-blue-400 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
-              >
-                 {isCallingPhone ? (
-                  <Loader2 className="w-4 h-4 text-slate-900 dark:text-white animate-spin" />
-                 ) : (
-                  <Phone className="w-4 h-4 text-slate-900 dark:text-white" />
-                 )}
-              </motion.button>
-            </div>
+            <label className="block text-xs text-slate-500 dark:text-slate-400 mb-1.5 ml-1 tracking-wide">Email (Optional)</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@company.com"
+              className="w-full bg-slate-50 dark:bg-[#132B4A] border border-slate-200 dark:border-slate-700/50 rounded-xl px-4 py-3.5 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 focus:ring-1 focus:ring-blue-500 dark:focus:ring-blue-400 transition-all"
+              disabled={webCallStatus === "active" || isOtherAgentActive}
+            />
           </motion.div>
 
           <motion.div variants={itemVariants}>
@@ -173,12 +130,12 @@ export function AgentCard({
               whileHover={(webCallStatus === "connecting" || isOtherAgentActive) ? {} : { scale: 1.01 }}
               whileTap={(webCallStatus === "connecting" || isOtherAgentActive) ? {} : { scale: 0.99 }}
               onClick={handleWebCallClick}
-              disabled={isCallingPhone || webCallStatus === "connecting" || isOtherAgentActive}
-              className={`w-full border rounded-xl px-6 py-3.5 flex items-center justify-between transition-all duration-300 font-medium
-                ${webCallStatus === "active" 
-                  ? "bg-red-500/10 border-red-500/20 text-red-600 dark:text-red-400 hover:bg-red-500/20" 
+              disabled={webCallStatus === "connecting" || isOtherAgentActive}
+              className={`w-full border rounded-xl px-6 py-3.5 flex items-center justify-between transition-colors duration-300 font-medium
+                ${webCallStatus === "active"
+                  ? "bg-red-500/10 border-red-500/20 text-red-600 dark:text-red-400 hover:bg-red-500/20"
                   : "bg-[#0A2540] text-white border-transparent hover:bg-[#153457] shadow-lg shadow-blue-900/20 dark:shadow-blue-900/30"
-                } disabled:opacity-50 disabled:cursor-not-allowed`}
+                } disabled:cursor-not-allowed disabled:opacity-50`}
             >
               <div className="flex items-center gap-3">
                 <div className="flex items-center justify-center">
@@ -192,16 +149,15 @@ export function AgentCard({
                 </div>
                 <span>
                   {webCallStatus === "connecting" ? "Connecting..." : 
-                   webCallStatus === "active" ? "End Web Call" : 
-                   isOtherAgentActive ? "Agent Unavailable" : "Start Web Call"}
+                   webCallStatus === "active" ? "End Web Call" : "Start Web Call"}
                 </span>
               </div>
-              {webCallStatus !== "active" && webCallStatus !== "connecting" && !isOtherAgentActive && (
+              {webCallStatus !== "active" && webCallStatus !== "connecting" && (
                 <ArrowRight className="w-4 h-4" />
               )}
             </motion.button>
           </motion.div>
-        </form>
+        </div>
 
         {/* Footer */}
         <motion.div variants={itemVariants} className="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 relative z-10 flex items-center justify-between">

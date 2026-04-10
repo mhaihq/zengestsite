@@ -73,18 +73,18 @@ export function CTASection({ onStartCall, isConnecting = false, isActive = false
           <div className="flex flex-col items-center text-center z-20 pointer-events-auto max-w-5xl mx-auto mt-[-50px]">
              {/* Headline */}
              <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-slate-900 mb-8 leading-[0.95]">
-               AI patient <span className="text-blue-600">engagement</span> <br className="hidden md:block"/> infrastructure.
+               Voice AI infrastructure for patient <br className="hidden md:block"/><span className="text-blue-600">engagement</span>.
              </h1>
 
              {/* Subheadline */}
              <p className="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto mb-10 leading-relaxed font-normal">
-               Automate patient calls, texts, and monitoring across your care protocols – from first intake to long-term recovery.
+               AI agents that call, text, and engage your patients, your way, on our infrastructure.
              </p>
 
              {/* CTAs */}
              <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
                 <a href="https://calendly.com/matteowastaken/discoverycall" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-white text-slate-900 rounded-full font-medium text-lg hover:bg-slate-50 transition-all duration-300 w-full sm:w-auto shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 border border-slate-200 text-center">
-                    Book a Call
+                    Book a Demo
                 </a>
 
                 <button
@@ -114,6 +114,7 @@ export function CTASection({ onStartCall, isConnecting = false, isActive = false
                       </span>
                    </div>
                 </button>
+
              </div>
           </div>
         </div>

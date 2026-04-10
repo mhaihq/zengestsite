@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown, Menu, X, ArrowRight } from "lucide-react";
 import { cn } from "../../lib/utils";
@@ -45,10 +45,10 @@ export const NavbarDefaults: Props = {
   navLinks: [
     {
       url: "/use-cases",
-      title: "Use cases",
+      title: "Use Cases",
     },
     {
-      url: "https://docs.hana.health/",
+      url: "https://docs.hana.health/getting-started/overview",
       title: "Docs",
     },
     {
@@ -57,7 +57,7 @@ export const NavbarDefaults: Props = {
     },
   ],
   button: {
-    title: "Book a demo",
+    title: "Book a Demo",
     size: "md",
     variant: "primary",
     href: "https://calendly.com/matteowastaken/discoverycall",

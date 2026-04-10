@@ -31,13 +31,14 @@ import {
   Check
 } from 'lucide-react';
 import { AgentCard } from './AgentCard';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { SEO } from './SEO';
+import { breadcrumbSchema } from './SEO';
 
 interface UseCasesProps {
-  activeAssistantId: string | null;
+  activeAgentId: string | null;
   webCallStatus: "idle" | "connecting" | "active";
-  handleStartWebCall: (id: string) => void;
+  handleStartWebCall: (agentId: string, assistantId: string) => void;
   handleEndWebCall: () => void;
 }
 
@@ -468,7 +469,7 @@ function FilterDropdown({
 }
 
 export function UseCases({ 
-  activeAssistantId, 
+  activeAgentId, 
   webCallStatus, 
   handleStartWebCall, 
   handleEndWebCall 
@@ -495,6 +496,12 @@ export function UseCases({
       <SEO 
         title="Agent Catalogue"
         description="Explore Hana's catalogue of specialized clinical AI agents for monitoring, care coordination, outreach, and intake. Filter by workflow and specialty."
+        path="/use-cases"
+        keywords="clinical AI agents, healthcare use cases, patient monitoring AI, care coordination automation, medical intake automation, AI outreach agents"
+        jsonLd={breadcrumbSchema([
+          { name: "Home", url: "https://hanavoice.ai/" },
+          { name: "Agent Catalogue", url: "https://hanavoice.ai/use-cases" }
+        ])}
       />
 
       {/* Background Gradient Effect */}
@@ -552,11 +559,10 @@ export function UseCases({
         </div>
 
         {/* 3x Grid */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <AnimatePresence mode='popLayout'>
             {filteredCases.map((useCase) => (
               <motion.div
-                layout
                 key={useCase.id}
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -570,9 +576,10 @@ export function UseCases({
                   icon={useCase.icon}
                   colorClass={useCase.colorClass}
                   assistantId={useCase.assistantId}
-                  webCallStatus={activeAssistantId === useCase.assistantId ? webCallStatus : "idle"}
-                  isOtherAgentActive={activeAssistantId !== null && activeAssistantId !== useCase.assistantId}
-                  onStartWebCall={() => handleStartWebCall(useCase.assistantId)}
+                  workflow={useCase.workflow}
+                  webCallStatus={activeAgentId === useCase.id ? webCallStatus : "idle"}
+                  isOtherAgentActive={activeAgentId !== null && activeAgentId !== useCase.id}
+                  onStartWebCall={() => handleStartWebCall(useCase.id, useCase.assistantId)}
                   onEndWebCall={handleEndWebCall}
                 />
               </motion.div>

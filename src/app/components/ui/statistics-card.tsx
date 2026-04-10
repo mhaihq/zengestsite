@@ -1,9 +1,10 @@
 "use client";
 
 import NumberFlow from "@number-flow/react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import React from "react";
 import { cn } from "../../../lib/utils";
+import { AskAiAboutUs } from "../AskAiAboutUs";
 
 const css = `
 .candy-bg {
@@ -28,14 +29,14 @@ const Stats = () => {
       <div className="container mx-auto">
         <div className="mx-auto max-w-2xl text-center mb-16">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-slate-900 dark:text-white mb-6 font-serif">
-             Patients ignore&nbsp;notifications. <br />
-             <span className="italic">They respond to&nbsp;conversations.</span>
+             Your vision. Our engine. <br />
+             <span className="italic">Make&nbsp;it&nbsp;yours.</span>
           </h2>
           <p className="text-lg text-slate-500 dark:text-slate-400 max-w-xl mx-auto leading-relaxed">
-            Weekly patient engagement by method.
+            Off-the-shelf tools cap out at 15–35% engagement. Teams that build on Hana hit 85%, with their own workflows, their own brand, and none of the build time.
           </p>
         </div>
-        <div className="relative mx-auto mt-20 flex h-[500px] max-w-4xl items-center justify-center gap-4 md:gap-8">
+        <div className="relative mx-auto mt-20 flex h-[300px] md:h-[500px] max-w-4xl items-center justify-center gap-2 md:gap-8">
           {[
             { value: 15, label: "Patient portals", delay: 0.2 },
             { value: 20, label: "Health apps", delay: 0.4 },
@@ -67,6 +68,9 @@ const Stats = () => {
         <div className="mt-12 text-center">
              <p className="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">We achieved 85% patient engagement week over week.</p>
         </div>
+        {/* <div className="mt-10 text-center">
+          <AskAiAboutUs />
+        </div> */}
       </div>
     </section>
   );
@@ -89,18 +93,18 @@ const BarChart = ({
 }) => {
   return (
     <div className="group relative h-full w-full flex flex-col justify-end">
-      <div className="candy-bg relative h-full w-full overflow-hidden rounded-[40px] bg-slate-100 dark:bg-slate-800/50">
+      <div className="candy-bg relative h-full w-full overflow-hidden rounded-[24px] md:rounded-[40px] bg-slate-100 dark:bg-slate-800/50">
         <motion.div
           initial={{ opacity: 0, y: 100, height: 0 }}
           animate={{ opacity: 1, y: 0, height: `${value}%` }}
           transition={{ duration: 0.5, type: "spring", damping: 20, delay }}
           className={cn(
-            "absolute bottom-0 mt-auto w-full rounded-[40px] bg-zinc-800 dark:bg-zinc-700 p-3 text-white",
+            "absolute bottom-0 mt-auto w-full rounded-[24px] md:rounded-[40px] bg-zinc-800 dark:bg-zinc-700 p-2 md:p-3 text-white",
             className,
           )}
         >
-          <div className="relative flex h-14 w-full items-center justify-center gap-2 rounded-full bg-white/20 tracking-tighter">
-            <NumberFlow value={value} suffix="%" className="text-3xl font-bold" />
+          <div className="relative flex h-10 md:h-14 w-full items-center justify-center gap-2 rounded-full bg-white/20 tracking-tighter">
+            <NumberFlow value={value} suffix="%" className="text-lg md:text-3xl font-bold" />
           </div>
         </motion.div>
       </div>
@@ -147,7 +151,7 @@ const BarChart = ({
           Engagement
         </motion.div>
       </motion.div>
-      <p className="mx-auto mt-4 w-fit tracking-tight text-slate-500 dark:text-slate-400 font-medium">
+      <p className="mx-auto mt-3 md:mt-4 w-fit tracking-tight text-xs md:text-base text-slate-500 dark:text-slate-400 font-medium">
         {label}
       </p>
     </div>

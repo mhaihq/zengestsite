@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Footer } from "../components/Footer";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { SEO } from "../components/SEO";
+import { breadcrumbSchema } from "../components/SEO";
 
 const publications = [
   {
@@ -148,6 +150,16 @@ function PublicationRow({ pub, isLast, index }: { pub: any, isLast: boolean, ind
 export function Research() {
   return (
     <div className="bg-slate-50 min-h-screen">
+      <SEO 
+        title="Research"
+        description="Explore the clinical research and publications behind Hana Voice AI. Advancing conversational AI in healthcare with voice biomarkers, patient engagement studies, and adaptive engagement technology."
+        path="/research"
+        keywords="clinical AI research, voice biomarkers, healthcare AI publications, conversational AI healthcare, patient engagement research, voice analysis machine learning"
+        jsonLd={breadcrumbSchema([
+          { name: "Home", url: "https://hanavoice.ai/" },
+          { name: "Research", url: "https://hanavoice.ai/research" }
+        ])}
+      />
       {/* Hero Section */}
       <section className="pt-20 pb-20 md:pt-32 md:pb-24 px-6 relative bg-slate-50 overflow-hidden">
         {/* Abstract background blobs to match homepage feel */}

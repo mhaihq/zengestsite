@@ -1,8 +1,9 @@
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Mail, MapPin, Phone, Send } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { SEO } from "../components/SEO";
+import { breadcrumbSchema } from "../components/SEO";
 
 export function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,6 +28,12 @@ export function Contact() {
       <SEO 
         title="Contact Us"
         description="Get in touch with the Hana Voice AI team. Schedule a demo, ask about our clinical agents, or discuss partnership opportunities."
+        path="/contact"
+        keywords="contact Hana Health, schedule AI demo, healthcare AI partnership, clinical voice AI inquiry, book demo"
+        jsonLd={breadcrumbSchema([
+          { name: "Home", url: "https://hanavoice.ai/" },
+          { name: "Contact", url: "https://hanavoice.ai/contact" }
+        ])}
       />
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <motion.div 

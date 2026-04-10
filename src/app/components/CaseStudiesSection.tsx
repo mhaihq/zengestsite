@@ -23,6 +23,20 @@ interface CaseStudy {
 
 const caseStudies: CaseStudy[] = [
   {
+    id: "shoorah",
+    quote: "We're partnering exclusively with Hana in the UK because their reasoning models are fundamentally different from everyone else, positioning us with the strongest AI powered care coordination offering as we scale together.",
+    image: image_f650da2227696c54cef0e7df2c6156528919b7ef,
+    theme: "dark",
+    author: {
+        name: "Lorri Hanes",
+        role: "Shoorah",
+        avatarUrl: "https://images.unsplash.com/photo-1758518727592-706e80ebc354?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBidXNpbmVzc3dvbWFuJTIwZXhlY3V0aXZlJTIwbW9kZXJuJTIwcG9ydHJhaXR8ZW58MXx8fHwxNzcwNDEyOTY4fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+        logoUrl: "SHOORAH",
+        logoBg: "bg-white",
+        isDarkLogo: true
+    }
+  },
+  {
     id: "penry",
     quote: "The Hana team understood that quality assessments require both consistency and flexibility. Their Voice AI conducts standardized screening tools, adapts questions based on patient responses, and captures 340% more clinical data while maintaining protocol validity.",
     image: image_15b8b08ff934107140826361e6e3912f69618bae,
@@ -50,20 +64,6 @@ const caseStudies: CaseStudy[] = [
         role: "Founder of NTX",
         avatarUrl: "https://images.unsplash.com/photo-1696992443065-64eadfc2ded1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBtYW4lMjBzdWl0JTIwY29ycG9yYXRlJTIwbGVhZGVyJTIwc21pbGluZyUyMHBvcnRyYWl0fGVufDF8fHx8MTc3MDQxMjk2N3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
         logoUrl: "NTX",
-        logoBg: "bg-white",
-        isDarkLogo: true
-    }
-  },
-  {
-    id: "shoorah",
-    quote: "We're partnering exclusively with Hana in the UK because their reasoning models are fundamentally different from everyone else, positioning us with the strongest AI powered care coordination offering as we scale together.",
-    image: image_f650da2227696c54cef0e7df2c6156528919b7ef,
-    theme: "dark",
-    author: {
-        name: "Lorri Hanes",
-        role: "Shoorah",
-        avatarUrl: "https://images.unsplash.com/photo-1758518727592-706e80ebc354?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBidXNpbmVzc3dvbWFuJTIwZXhlY3V0aXZlJTIwbW9kZXJuJTIwcG9ydHJhaXR8ZW58MXx8fHwxNzcwNDEyOTY4fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-        logoUrl: "SHOORAH",
         logoBg: "bg-white",
         isDarkLogo: true
     }
