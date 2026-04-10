@@ -90,6 +90,29 @@ export default function App() {
       setActiveAgentId(agentId);
       setWebCallStatus("connecting");
 
+      // Request microphone access explicitly before starting the session.
+      // The ElevenLabs SDK connects the WebSocket first (firing onConnect) and
+      // then tries to acquire the mic internally — if the browser hasn't granted
+      // permission yet the audio streams fail silently, producing a "connected
+      // but silent" call. Gating here surfaces the error properly and ensures
+      // the MediaStream is already live when the SDK needs it.
+      try {
+        await navigator.mediaDevices.getUserMedia({ audio: true });
+      } catch (err: any) {
+        setWebCallStatus("idle");
+        setActiveAgentId(null);
+        if (err.name === "NotAllowedError" || err.name === "PermissionDeniedError") {
+          toast.error("Microphone Access Blocked", {
+            description: "Browser denied microphone access. Check permissions or try opening in a new window."
+          });
+        } else {
+          toast.error("Microphone Error", {
+            description: "Could not access microphone. Please check your device settings."
+          });
+        }
+        return;
+      }
+
       try {
         // Import ElevenLabs Client SDK dynamically
         const { Conversation } = await import("@elevenlabs/client");
