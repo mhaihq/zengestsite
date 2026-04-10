@@ -296,7 +296,7 @@ export function LiveDemoSection({
                     onClick={() => setStep(2)}
                   >
                      <h3 className="text-3xl font-light text-slate-900 mb-4 tracking-tight">
-                       Choose how to connect
+                       Talk to Hana
                      </h3>
                   </motion.div>
                 ) : webCallStatus !== "idle" ? (
