@@ -92,12 +92,12 @@ export default function App() {
 
       try {
         // Import ElevenLabs Client SDK dynamically
-        const { VoiceConversation } = await import("@elevenlabs/client");
+        const { Conversation } = await import("@elevenlabs/client");
 
         console.log("[ElevenLabs] Starting session with agent:", assistantId);
         console.log("[ElevenLabs] AgentId:", agentId);
 
-        const conversation = await VoiceConversation.startSession({
+        const conversation = await Conversation.startSession({
           agentId: assistantId,
           onConnect: () => {
             console.log("[ElevenLabs] ✓ Connected - audio should be flowing");
