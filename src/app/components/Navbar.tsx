@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { ChevronDown, Menu, X, ArrowRight } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { Link } from "react-router";
-import logoImage from 'figma:asset/55130a9cc9a8f890dc08e580a5cf6dd0df0df413.png';
+const logoImage = "https://cdn.prod.website-files.com/6985ec3788addb8b6efcb94f/6985ec3788addb8b6efcba5a_3-p-500.png";
 
 // --- Types ---
 type ImageProps = {
@@ -40,27 +40,14 @@ export const NavbarDefaults: Props = {
   logo: {
     url: "/",
     src: logoImage,
-    alt: "Hana Health",
+    alt: "ZenGest",
   },
-  navLinks: [
-    {
-      url: "/use-cases",
-      title: "Use Cases",
-    },
-    {
-      url: "https://docs.hana.health/getting-started/overview",
-      title: "Docs",
-    },
-    {
-      url: "/research",
-      title: "Research",
-    },
-  ],
+  navLinks: [],
   button: {
-    title: "Book a Demo",
+    title: "Entra in Waitlist",
     size: "md",
     variant: "primary",
-    href: "https://calendly.com/matteowastaken/discoverycall",
+    href: "#waitlist",
   },
 };
 
@@ -135,7 +122,7 @@ export const Navbar = (props: NavbarProps) => {
   }, []);
 
   return (
-    <section className="sticky top-0 z-[999] w-full border-b border-[#e2e8f0] bg-[#f5f6f8]/90 backdrop-blur-md">
+    <section className="sticky top-0 z-[999] w-full border-b border-white/10 bg-transparent backdrop-blur-md">
       <div className="flex min-h-[80px] w-full max-w-[1200px] mx-auto items-center justify-between px-6 md:px-10 relative">
         
         {/* Left Side: Logo */}
