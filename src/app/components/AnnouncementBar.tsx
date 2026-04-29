@@ -4,6 +4,7 @@ import { DownloadGuideModal } from "./DownloadGuideModal";
 import { projectId, publicAnonKey } from '/utils/supabase/info';
 
 export function AnnouncementBar() {
+  return null;
   const [isVisible, setIsVisible] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 

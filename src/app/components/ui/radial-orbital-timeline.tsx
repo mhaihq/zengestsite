@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./card";
 import { cn } from "../../../lib/utils";
-import centerOrbImage from "figma:asset/bd4bf20dbede33bcbcec4f5e7a3b05a23ea78cf4.png";
+const centerOrbImage = "";
 
 interface TimelineItem {
   id: number;
@@ -169,31 +169,35 @@ export default function RadialOrbitalTimeline({
 
   return (
     <div
-      className="w-full min-h-screen py-12 md:py-24 flex flex-col items-center justify-start bg-[#00122F] overflow-hidden relative"
+      className="w-full min-h-screen py-12 md:py-24 flex flex-col items-center justify-start overflow-hidden relative"
+      style={{ background: "#ffffff" }}
       ref={containerRef}
       onClick={handleContainerClick}
     >
+      {/* Blend fades */}
+      <div className="absolute top-0 left-0 right-0 h-24 pointer-events-none z-10" style={{ background: "linear-gradient(to bottom, #ffffff, transparent)" }} />
+      <div className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none z-10" style={{ background: "linear-gradient(to top, #ffffff, transparent)" }} />
       {/* Ambient glow */}
-      <div className="absolute top-[-200px] left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(59,130,246,0.15)_0%,transparent_70%)] pointer-events-none z-0" />
+      <div className="absolute top-[-200px] left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(167,188,245,0.25)_0%,transparent_70%)] pointer-events-none z-0" />
 
       {/* Header Section */}
       {(title || description || label) && (
         <div className="relative z-20 text-center px-4 mb-8 md:mb-16 pointer-events-auto max-w-7xl mx-auto">
           {label && (
-            <div className="inline-flex items-center gap-2 text-[13px] font-medium tracking-[0.08em] uppercase text-blue-400 mb-6
-              before:content-[''] before:w-6 before:h-px before:bg-blue-400 before:opacity-40
-              after:content-[''] after:w-6 after:h-px after:bg-blue-400 after:opacity-40
+            <div className="inline-flex items-center gap-2 text-[13px] font-medium tracking-[0.08em] uppercase text-slate-600 mb-6
+              before:content-[''] before:w-6 before:h-px before:bg-slate-600 before:opacity-60
+              after:content-[''] after:w-6 after:h-px after:bg-slate-600 after:opacity-60
             ">
               {label}
             </div>
           )}
           {title && (
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-normal leading-[1.1] text-white mb-5 tracking-tight">
+            <h2 className="font-['Instrument_Serif'] text-4xl md:text-5xl lg:text-6xl font-normal leading-[1.05] text-[#00122F] mb-5 tracking-[-0.025em]">
               {title}
             </h2>
           )}
           {description && (
-            <p className="text-lg leading-[1.65] text-slate-300 max-w-2xl mx-auto font-normal">
+            <p className="font-['DM_Sans'] text-base md:text-lg leading-relaxed text-slate-500 max-w-2xl mx-auto">
               {description}
             </p>
           )}
@@ -211,26 +215,18 @@ export default function RadialOrbitalTimeline({
         >
           {/* Central Orb */}
           <div className="absolute w-40 h-40 flex flex-col items-center justify-center z-10">
-            <img
-              src={centerOrbImage}
-              alt="Hana Reasoning Engine"
-              className="w-20 h-20 object-contain animate-spin-slow mb-2"
-              style={{ animationDuration: "20s" }}
-            />
-            <div className="text-[10px] font-bold tracking-[0.2em] text-blue-400 text-center uppercase whitespace-nowrap">
-              Hana Reasoning
-              <br />
-              Engine
+            <div className="w-20 h-20 rounded-full bg-[#3B6FD4] flex items-center justify-center shadow-lg">
+              <span className="font-['Instrument_Serif'] text-white text-xl tracking-wide">Zen</span>
             </div>
           </div>
 
           {/* Orbital Rings */}
           <div className={cn(
-            "absolute rounded-full border-[3px] border-slate-700 opacity-70",
+            "absolute rounded-full border-[2px] border-slate-300 opacity-60",
             isMobile ? "w-[300px] h-[300px]" : "w-[600px] h-[600px]"
           )} />
           <div className={cn(
-            "absolute rounded-full border-[3px] border-slate-800 border-dashed opacity-70",
+            "absolute rounded-full border-[2px] border-slate-300 border-dashed opacity-50",
             isMobile ? "w-[200px] h-[200px]" : "w-[400px] h-[400px]"
           )} />
 
@@ -288,10 +284,10 @@ export default function RadialOrbitalTimeline({
                 {/* Title Label - Moved to top and serif */}
                 <div
                   className={cn(
-                    "absolute bottom-14 md:bottom-20 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs md:text-lg font-serif font-medium tracking-wide transition-all duration-300",
+                    "absolute bottom-14 md:bottom-20 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs md:text-lg font-['DM_Sans'] font-medium tracking-wide transition-all duration-300",
                     isExpanded
-                      ? "text-white"
-                      : "text-slate-400"
+                      ? "text-[#00122F]"
+                      : "text-slate-800"
                   )}
                 >
                   {item.title}
