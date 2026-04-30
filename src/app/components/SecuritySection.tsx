@@ -37,14 +37,14 @@ export function SecuritySection() {
   return (
     <section className="py-24 md:py-32 bg-white px-6">
       <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-24">
 
           {/* Left */}
           <div className="lg:max-w-xs shrink-0 lg:sticky lg:top-24 lg:self-start">
             <div className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-slate-500 font-['DM_Sans'] mb-6">
               Sicurezza & Privacy
             </div>
-            <h2 className="font-['Instrument_Serif'] text-4xl md:text-5xl text-[#00122F] leading-[1.05] tracking-[-0.025em] mb-4">
+            <h2 className="font-['Instrument_Serif'] text-3xl md:text-4xl lg:text-5xl text-[#00122F] leading-[1.05] tracking-[-0.025em] mb-4">
               Costruito per i dati clinici. Non adattato.
             </h2>
             <p className="font-['DM_Sans'] text-sm text-slate-500 leading-relaxed">
@@ -63,7 +63,7 @@ export function SecuritySection() {
                   <div
                     key={item.title}
                     className={[
-                      "p-8 flex flex-col gap-3",
+                      "p-5 md:p-8 flex flex-col gap-3",
                       !isLastRow ? "border-b border-slate-100" : "",
                       isLeftCol ? "md:border-r md:border-slate-100" : "",
                     ].join(" ")}

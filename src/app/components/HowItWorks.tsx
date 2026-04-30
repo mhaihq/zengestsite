@@ -5,8 +5,8 @@ export function HowItWorks() {
 
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="font-['Instrument_Serif'] text-4xl md:text-5xl lg:text-6xl text-slate-900 leading-[1.05] tracking-[-0.025em] mb-5">
-            Non basta scrivere una nota.<br />Serve ricordare il caso.
+          <h2 className="font-['Instrument_Serif'] text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-slate-900 leading-[1.05] tracking-[-0.025em] mb-5">
+            Non basta scrivere una nota.<br className="hidden sm:block" /> Serve ricordare il caso.
           </h2>
           <p className="font-['DM_Sans'] text-base md:text-lg text-slate-500 max-w-xl mx-auto leading-relaxed">
             Ogni seduta aggiunge contesto: temi ricorrenti, obiettivi aperti, cambiamenti, intuizioni, dubbi clinici.

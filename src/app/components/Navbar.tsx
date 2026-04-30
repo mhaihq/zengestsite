@@ -123,7 +123,7 @@ export const Navbar = (props: NavbarProps) => {
 
   return (
     <section className="sticky top-0 z-[999] w-full border-b border-white/10 bg-transparent backdrop-blur-md">
-      <div className="flex min-h-[80px] w-full max-w-[1200px] mx-auto items-center justify-between px-6 md:px-10 relative">
+      <div className="flex min-h-[64px] md:min-h-[80px] w-full max-w-[1200px] mx-auto items-center justify-between px-4 md:px-10 relative">
         
         {/* Left Side: Logo */}
         <div className="flex-shrink-0 flex items-center">

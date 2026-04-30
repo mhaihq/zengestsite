@@ -150,7 +150,7 @@ export function ZenAssistantSection() {
         <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden bg-white">
 
           {/* Tabs */}
-          <div className="grid grid-cols-4 border-b border-slate-200">
+          <div className="grid grid-cols-2 md:grid-cols-4 border-b border-slate-200">
             {TABS.map((t, i) => (
               <button
                 key={t.id}
@@ -170,8 +170,8 @@ export function ZenAssistantSection() {
           {/* Chat area */}
           <div
             ref={chatRef}
-            className="bg-slate-50 px-5 py-5 flex flex-col gap-4 overflow-y-auto"
-            style={{ minHeight: 320, maxHeight: 420, scrollbarWidth: "none" }}
+            className="bg-slate-50 px-3 sm:px-5 py-4 sm:py-5 flex flex-col gap-3 sm:gap-4 overflow-y-auto"
+            style={{ minHeight: 280, maxHeight: 400, scrollbarWidth: "none" }}
           >
             {tab.messages.slice(0, visibleCount).map((msg, idx) => (
               <div

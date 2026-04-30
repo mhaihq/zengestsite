@@ -14,8 +14,8 @@ export function CTAFinal() {
         >
           Richiedi accesso anticipato
         </a>
-        <p className="font-['DM_Sans'] text-xs text-slate-500 mt-5">
-          Posti limitati nella prima fase · Nessuna carta richiesta · 30 giorni gratuiti al lancio
+        <p className="font-['DM_Sans'] text-xs text-slate-500 mt-5 leading-relaxed">
+          Posti limitati nella prima fase<br className="sm:hidden" /> · Nessuna carta richiesta<br className="sm:hidden" /> · 30 giorni gratuiti al lancio
         </p>
       </div>
     </section>

@@ -55,7 +55,7 @@ export function ComparisonSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 
           {/* Left — Generic AI */}
-          <div className="rounded-2xl bg-white border border-slate-200 p-8 shadow-sm">
+          <div className="rounded-2xl bg-white border border-slate-200 p-5 md:p-8 shadow-sm">
             {/* AI logos image */}
             <div className="mb-6">
               <img src="/logos.png" alt="ChatGPT, Gemini, Claude" className="h-11 w-auto object-contain" />
@@ -81,7 +81,7 @@ export function ComparisonSection() {
           </div>
 
           {/* Right — ZenGest */}
-          <div className="rounded-2xl bg-white border border-slate-100 p-8 shadow-xl">
+          <div className="rounded-2xl bg-white border border-slate-100 p-5 md:p-8 shadow-xl">
             {/* ZenGest logo */}
             <div className="mb-6">
               <img src="https://cdn.prod.website-files.com/6985ec3788addb8b6efcb94f/6985ec3788addb8b6efcba5a_3-p-500.png" alt="ZenGest" className="h-11 w-auto object-contain" />

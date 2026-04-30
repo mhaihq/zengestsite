@@ -68,7 +68,7 @@ export function FeaturesMarquee() {
             <div className="absolute left-0 z-50 h-full w-20 bg-gradient-to-r from-slate-50 to-transparent pointer-events-none" />
             <div className="absolute right-0 z-50 h-full w-20 bg-gradient-to-l from-slate-50 to-transparent pointer-events-none" />
 
-            <div className="-mx-6 flex w-screen flex-col gap-2 md:-mx-10 lg:-mx-16">
+            <div className="flex flex-col gap-2 overflow-hidden">
               <Marquee className="[--duration:30s] [--gap:0.75rem]" repeat={5}>
                 {group1.map((q) => (
                   <span key={q} className="font-['DM_Sans'] text-sm px-4 py-1.5 rounded-full border border-slate-200 bg-white text-slate-600 whitespace-nowrap">
