@@ -45,7 +45,7 @@ export function SecuritySection() {
               Sicurezza & Privacy
             </div>
             <h2 className="font-['Instrument_Serif'] text-3xl md:text-4xl lg:text-5xl text-[#00122F] leading-[1.05] tracking-[-0.025em] mb-4">
-              Costruito per i dati clinici. Non adattato.
+              Costruito per i dati clinici. <span style={{ background: "linear-gradient(135deg, #3B6FD4 0%, #A7BCF5 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Non adattato.</span>
             </h2>
             <p className="font-['DM_Sans'] text-sm text-slate-500 leading-relaxed">
               ZenGest è progettato per trattare informazioni cliniche sensibili con attenzione, trasparenza e controllo da parte del professionista.

@@ -23,13 +23,13 @@ export function CTASection() {
       </div>
 
       {/* Headline */}
-      <h1 className="relative z-10 font-['Instrument_Serif'] text-3xl sm:text-4xl md:text-6xl lg:text-7xl text-center max-w-4xl leading-[1.05] tracking-[-0.025em] mb-5 text-[#00122F] px-2">
-        Porta l'AI nella tua pratica clinica, senza perdere il controllo.
+      <h1 className="relative z-10 font-['Instrument_Serif'] text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center max-w-4xl leading-[1.05] tracking-[-0.025em] mb-5 text-[#00122F] px-2">
+        Cartelle, note, fatture e un assistente AI costruito per gli psicologi italiani.
       </h1>
 
       {/* Subheadline */}
-      <p className="relative z-10 font-['DM_Sans'] text-sm sm:text-base md:text-xl text-center max-w-2xl text-slate-600 mb-8 leading-relaxed px-2">
-        ZenGest genera note cliniche, organizza lo storico dei pazienti e ti permette di interrogare ogni caso con un assistente AI sicuro, costruito da psicologi per psicologi e psicoterapeuti.
+      <p className="relative z-10 font-['DM_Sans'] text-base md:text-lg text-center max-w-2xl text-slate-600 mb-8 leading-relaxed px-2">
+        Tutto quello che fai dopo una seduta — riassumere, prendere nota, fatturare, riprendere il filo col paziente — in un unico spazio. Conforme al GDPR, sviluppato con psicologi clinici.
       </p>
 
       {/* CTAs */}
@@ -53,10 +53,28 @@ export function CTASection() {
         Conforme GDPR · Dati in Europa · Anonimizzazione automatica
       </p>
 
-      {/* Dashboard preview — hidden on mobile, shown from md up */}
-      <div className="relative z-10 w-full max-w-5xl px-4 hidden md:block">
-        <HeroDashboard />
+      {/* Dashboard preview — scales down on mobile to keep all cards visible */}
+      <div className="relative z-10 w-full max-w-5xl px-4 dash-wrap">
+        <div className="dash-inner">
+          <HeroDashboard />
+        </div>
       </div>
+      <style>{`
+        .dash-wrap { overflow: hidden; height: ${Math.round(540 * 0.78)}px; }
+        .dash-inner { transform-origin: top center; transform: scale(0.78); }
+        @media (min-width: 640px) {
+          .dash-wrap { height: ${Math.round(540 * 0.88)}px; }
+          .dash-inner { transform: scale(0.88); }
+        }
+        @media (min-width: 768px) {
+          .dash-wrap { height: ${Math.round(540 * 0.94)}px; }
+          .dash-inner { transform: scale(0.94); }
+        }
+        @media (min-width: 1024px) {
+          .dash-wrap { height: 540px; }
+          .dash-inner { transform: scale(1); }
+        }
+      `}</style>
 
       {/* Blend into next section */}
       <div className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, #F8FAFC)" }} />
