@@ -1,4 +1,3 @@
-import { ArrowRight } from "lucide-react";
 import { HeroDashboard } from "../HeroDashboard";
 
 export function CTASection() {
@@ -10,41 +9,30 @@ export function CTASection() {
       }}
     >
       {/* Badge */}
-      <div className="relative z-10 mb-8 flex flex-wrap items-center justify-center gap-2 px-4 py-2 rounded-full border border-slate-300/60 bg-white/40 backdrop-blur-sm text-center">
-        <span className="text-xs text-slate-500 font-['DM_Sans']">
-          AI clinica per psicologi italiani
+      <div className="relative z-10 mb-8 inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-slate-300/60 bg-white/40 backdrop-blur-sm">
+        <span className="text-xs text-slate-600 font-['DM_Sans'] font-medium">
+          Conforme GDPR · Dati in Europa · Sviluppato da psicologi
         </span>
-        <a
-          href="#waitlist"
-          className="flex items-center gap-1 text-xs text-[#00122F] hover:text-[#00122F]/70 transition-colors font-['DM_Sans'] font-medium"
-        >
-          Entra in waitlist <ArrowRight size={12} />
-        </a>
       </div>
 
       {/* Headline */}
       <h1 className="relative z-10 font-['Instrument_Serif'] text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center max-w-4xl leading-[1.05] tracking-[-0.025em] mb-5 text-[#00122F] px-2">
-        Cartelle, note, fatture e un assistente AI costruito per gli psicologi italiani.
+        AI per Psicologi.<br />
+        Note, cartelle e fatture,<br className="hidden sm:block" /> in modo intelligente.
       </h1>
 
       {/* Subheadline */}
       <p className="relative z-10 font-['DM_Sans'] text-base md:text-lg text-center max-w-2xl text-slate-600 mb-8 leading-relaxed px-2">
-        Tutto quello che fai dopo una seduta — riassumere, prendere nota, fatturare, riprendere il filo col paziente — in un unico spazio. Conforme al GDPR, sviluppato con psicologi clinici.
+        Tutto quello che fai prima, durante e dopo una seduta, in un unico spazio. Conforme al GDPR, sviluppato da psicologi italiani.
       </p>
 
       {/* CTAs */}
       <div className="relative z-10 flex flex-col sm:flex-row items-center gap-3 mb-8 w-full sm:w-auto px-4 sm:px-0">
         <a
-          href="#waitlist"
+          href="https://app.zengest.it/sign-up/"
           className="inline-flex items-center justify-center gap-2 h-12 px-8 rounded-lg font-['DM_Sans'] font-medium text-white bg-[#00122F] hover:bg-[#00122F]/90 hover:scale-105 active:scale-95 transition-all duration-200 shadow-md text-base w-full sm:w-auto"
         >
-          Richiedi accesso anticipato
-        </a>
-        <a
-          href="#come-funziona"
-          className="inline-flex items-center justify-center gap-2 h-12 px-8 rounded-lg font-['DM_Sans'] font-medium text-[#00122F] border border-[#00122F]/10 bg-white/60 hover:bg-white/80 hover:scale-105 active:scale-95 transition-all duration-200 text-base w-full sm:w-auto"
-        >
-          Scopri di più <ArrowRight size={16} />
+          Prova gratis
         </a>
       </div>
 

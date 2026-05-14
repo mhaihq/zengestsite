@@ -1,54 +1,38 @@
 const cons = [
   {
-    title: "Server fuori dall'Unione Europea",
-    description: "I dati clinici escono dai confini UE. Trasferimento extra-UE non documentato (Art. 44 GDPR).",
+    title: "Rischi di conformità",
+    description: "Non è conforme al GDPR. Ogni volta che ci copi dati di un paziente, rischi una violazione.",
   },
   {
-    title: "Dati che possono finire nei modelli pubblici",
-    description: "Anche con le impostazioni \"no training\", non hai garanzia contrattuale né audit trail.",
+    title: "Nessuna memoria clinica",
+    description: "Non conosce i tuoi pazienti. Devi rispiegare il contesto da zero ad ogni seduta.",
   },
   {
-    title: "Pseudonimizzazione manuale",
-    description: "Sei tu a dover anonimizzare ogni nome, ogni dettaglio. E dimenticarsene una volta basta.",
+    title: "Inserimento manuale",
+    description: "Copi, incolli, anonimizzi a mano. E dimenticarsene una volta basta.",
   },
   {
-    title: "Nessuna base giuridica per dati sanitari",
-    description: "Trattare dati sanitari richiede Art. 9 GDPR. ChatGPT non è progettato per esso.",
-  },
-  {
-    title: "Nessun contesto clinico",
-    description: "Non conosce i tuoi pazienti, non ricorda le sedute precedenti. Ricominci da zero ogni volta.",
-  },
-  {
-    title: "La responsabilità è solo tua",
-    description: "In caso di reclamo o ispezione del Garante, sei tu a rispondere.",
+    title: "Solo risposte, nessuna azione",
+    description: "Ti dà del testo da incollare altrove. Non gestisce note, cartelle né fatture.",
   },
 ];
 
 const pros = [
   {
-    title: "Server in Unione Europea",
-    description: "Tutti i dati restano nell'UE. Conformità GDPR documentata e auditabile.",
-  },
-  {
-    title: "Mai usati per addestrare modelli di terzi",
-    description: "Garanzia contrattuale, non solo impostazione UI. I tuoi dati restano tuoi.",
-  },
-  {
-    title: "Pseudonimizzazione automatica",
-    description: "Avviene prima dell'elaborazione. Niente da ricordare, niente da fare a mano.",
-  },
-  {
-    title: "Costruito su Art. 9 GDPR",
-    description: "Pensato per dati sanitari sin dal disegno. Base giuridica chiara, ruoli definiti.",
+    title: "Conforme al GDPR by design",
+    description: "Dati in UE, pseudonimizzazione automatica, DPA incluso. Nessun rischio legale.",
   },
   {
     title: "Conosce ogni paziente",
-    description: "Storico, sedute, obiettivi, temi ricorrenti. Sempre richiamabili in linguaggio naturale.",
+    description: "Storico, sedute, obiettivi e temi ricorrenti. Sempre disponibili, senza ripetere nulla.",
   },
   {
-    title: "Contratto di trattamento dati incluso",
-    description: "DPA standard, ruoli chiari, responsabilità condivisa. Audit-ready.",
+    title: "Zero inserimento manuale",
+    description: "Trascrive, struttura e archivia in automatico. Tu parli, ZenGest si occupa del resto.",
+  },
+  {
+    title: "Agisce, non solo risponde",
+    description: "Genera note, aggiorna la cartella e, a fine seduta, prepara la fattura in automatico.",
   },
 ];
 
@@ -59,14 +43,14 @@ export function ComparisonSection() {
 
         {/* Header */}
         <div className="text-center mb-14">
-          <div className="inline-flex items-center rounded-full border border-slate-200 bg-white px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-slate-400 font-['DM_Sans'] mb-5">
+          <div className="inline-flex items-center rounded-full bg-[#0D9488] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-white font-['DM_Sans'] mb-5">
             Il vero rischio
           </div>
           <h2 className="font-['Instrument_Serif'] text-4xl md:text-5xl lg:text-6xl text-[#00122F] leading-[1.05] tracking-[-0.025em] mb-4">
             Stai ancora copiando le note su ChatGPT?
           </h2>
           <p className="font-['DM_Sans'] text-base md:text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed">
-            ChatGPT, Gemini e Claude sono troppo utili per rinunciarci — ma ogni volta che ci copi i dati di un paziente, stai facendo qualcosa che il GDPR e il Codice Deontologico non ti permettono. ZenGest fa le stesse cose, costruito per la clinica.
+            L'AI generica non è conforme al GDPR, non conosce i tuoi pazienti e non gestisce il tuo calendario. Usa ZenGest per fare meglio la cosa che sai fare: la clinica.
           </p>
         </div>
 

@@ -41,7 +41,7 @@ export function SecuritySection() {
 
           {/* Left */}
           <div className="lg:max-w-xs shrink-0 lg:sticky lg:top-24 lg:self-start">
-            <div className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-slate-500 font-['DM_Sans'] mb-6">
+            <div className="inline-flex items-center rounded-full bg-[#0D9488] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-white font-['DM_Sans'] mb-6">
               Sicurezza & Privacy
             </div>
             <h2 className="font-['Instrument_Serif'] text-3xl md:text-4xl lg:text-5xl text-[#00122F] leading-[1.05] tracking-[-0.025em] mb-4">

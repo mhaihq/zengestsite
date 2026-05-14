@@ -16,8 +16,10 @@ export function Footer() {
 
         {/* Links */}
         <div className="flex items-center gap-6 font-['DM_Sans'] text-sm text-slate-500">
+          <Link to="/sicurezza" className="hover:text-[#00122F] transition-colors">Sicurezza</Link>
+          <Link to="/termini" className="hover:text-[#00122F] transition-colors">Termini</Link>
+          <Link to="/dpa" className="hover:text-[#00122F] transition-colors">DPA</Link>
           <Link to="/terms" className="hover:text-[#00122F] transition-colors">Privacy</Link>
-          <Link to="/terms" className="hover:text-[#00122F] transition-colors">Termini</Link>
           <a href="mailto:hello@zengest.it" className="hover:text-[#00122F] transition-colors">Contatti</a>
         </div>
 

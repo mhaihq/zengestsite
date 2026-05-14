@@ -134,7 +134,7 @@ export function FatturazioneSection() {
 
         {/* Section header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center rounded-full border border-slate-200 bg-white px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-slate-400 font-['DM_Sans'] mb-5">
+          <div className="inline-flex items-center rounded-full bg-[#0D9488] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-white font-['DM_Sans'] mb-5">
             Fatturazione
           </div>
           <h2 className="font-['Instrument_Serif'] text-4xl md:text-5xl lg:text-6xl text-black leading-[1.05] tracking-[-0.025em] mb-4">
@@ -302,10 +302,10 @@ export function FatturazioneSection() {
             Hai studiato per diventare <span className="not-italic text-orange-400">psicologo</span>,<br />non commercialista.
           </p>
           <a
-            href="#waitlist"
+            href="https://app.zengest.it/sign-up/"
             className="inline-flex items-center justify-center h-12 px-8 rounded-xl font-['DM_Sans'] font-semibold text-base text-white bg-[#00122F] hover:bg-[#00122F]/90 hover:scale-105 active:scale-95 transition-all duration-200 shadow-md"
           >
-            Richiedi accesso anticipato
+            Prova gratis
           </a>
         </div>
 

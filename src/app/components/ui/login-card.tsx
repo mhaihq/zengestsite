@@ -119,7 +119,7 @@ export default function LoginPage() {
               <p className="text-gray-500 dark:text-gray-400 text-sm">
                 Don&apos;t have an account? 
                 <motion.a
-                  href="#"
+                  href="https://app.zengest.it/sign-in/"
                   className="text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-gray-300 transition-colors underline"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}

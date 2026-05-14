@@ -153,8 +153,14 @@ export function ZenAssistantSection() {
           <h2 className="font-['Instrument_Serif'] text-4xl md:text-5xl lg:text-6xl text-[#00122F] leading-[1.05] tracking-[-0.025em] mb-4">
             Non una chat generica.<br className="hidden md:block" /> <span style={{ background: "linear-gradient(135deg, #3B6FD4 0%, #A7BCF5 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Un assistente clinico.</span>
           </h2>
-          <p className="font-['DM_Sans'] text-base md:text-lg text-slate-500 leading-relaxed max-w-2xl mx-auto">
+          <p className="font-['DM_Sans'] text-base md:text-lg text-slate-500 leading-relaxed max-w-2xl mx-auto mb-2">
             Zen usa note, trascrizioni, riepiloghi e modelli terapeutici per aiutarti a preparare le sedute, leggere il percorso del paziente, adattare il materiale al tuo metodo e creare bozze cliniche modificabili.
+          </p>
+          <p className="font-['DM_Sans'] text-base md:text-lg text-slate-500 leading-relaxed max-w-2xl mx-auto">
+            Senza perdere tempo in documentazione. E alla fine della seduta, ti fa la fattura in automatico.
+          </p>
+          <p className="font-['DM_Sans'] text-sm text-slate-400 leading-relaxed max-w-xl mx-auto mt-4 italic">
+            Non hai studiato per diventare psicologo, non per fare il commercialista.
           </p>
         </div>
 
@@ -239,10 +245,10 @@ export function ZenAssistantSection() {
         {/* CTA */}
         <div className="flex justify-center mt-10">
           <a
-            href="#waitlist"
+            href="https://app.zengest.it/sign-up/"
             className="inline-flex items-center justify-center h-11 px-8 rounded-lg font-['DM_Sans'] font-semibold text-sm text-[#00122F] border border-[#00122F]/20 hover:bg-slate-50 transition-colors"
           >
-            Richiedi accesso anticipato
+            Prova gratis
           </a>
         </div>
 

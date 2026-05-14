@@ -17,7 +17,7 @@ export function TestimonialCarousel() {
 
           {/* Text */}
           <div className="flex flex-col items-start">
-            <div className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-slate-400 font-['DM_Sans'] mb-3">
+            <div className="inline-flex items-center rounded-full bg-[#0D9488] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-white font-['DM_Sans'] mb-3">
               La storia
             </div>
 
@@ -26,17 +26,13 @@ export function TestimonialCarousel() {
             </p>
 
             <blockquote className="font-['Instrument_Serif'] text-2xl md:text-3xl text-[#00122F] leading-[1.3] tracking-[-0.01em] mb-8">
-              "Ho passato anni a finire le sedute e ricominciare da capo ogni volta — rileggere appunti, ricostruire il contesto, scrivere note di notte. Volevo uno strumento che capisse come lavoro davvero, non uno che mi chiedesse di cambiare come lavoro."
+              "Ho immaginato ZenGest per aiutare lo psicologo a fare meglio il proprio lavoro, partendo dalla mia pratica clinica, che poi ho condiviso con altri colleghi e colleghe. ZenGest è costruito insieme e per gli psicologi, perché possano continuare a fare meglio ciò che sanno fare: la clinica."
             </blockquote>
-
-            <p className="font-['DM_Sans'] text-sm text-slate-500 leading-relaxed mb-8">
-              ZenGest nasce dall'esperienza diretta di uno studio di psicologia. Non da un'idea di prodotto, ma dalla frustrazione concreta di chi fa questo lavoro ogni giorno: la documentazione clinica porta via tempo prezioso, gli strumenti generici non sono sicuri per i dati dei pazienti, e la parte amministrativa — fatture, codici, ricevute — arriva sempre alla fine, quando sei già esausto.
-            </p>
 
             <div className="flex items-center gap-4">
               <div>
-                <p className="font-['DM_Sans'] font-semibold text-[#00122F]">Alessandra</p>
-                <p className="font-['DM_Sans'] text-sm text-slate-400">Co-fondatrice, ZenGest</p>
+                <p className="font-['DM_Sans'] font-semibold text-[#00122F]">Alessandro Lombardo</p>
+                <p className="font-['DM_Sans'] text-sm text-slate-400">Fondatore, ZenGest e Unozen</p>
               </div>
             </div>
           </div>

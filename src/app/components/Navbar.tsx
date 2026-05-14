@@ -160,13 +160,13 @@ export const Navbar = (props: NavbarProps) => {
         <div className="flex items-center gap-3">
           <div className="hidden lg:flex items-center gap-3">
             <a
-              href="#login"
+              href="https://app.zengest.it/sign-in/"
               className="font-['DM_Sans'] text-[15px] font-medium text-[#1e2a3a] hover:text-[#2d3f54] transition-colors px-2"
             >
               Login
             </a>
             <a
-              href="#waitlist"
+              href="https://app.zengest.it/sign-up/"
               className="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 font-['DM_Sans'] text-[15px] font-semibold text-white bg-[#00122F] hover:bg-[#00122F]/90 transition-all duration-200 shadow-sm"
             >
               Prova gratis
@@ -208,10 +208,10 @@ export const Navbar = (props: NavbarProps) => {
                 )
               )}
               <div className="mt-4 pt-4 border-t border-[#e2e8f0] flex flex-col gap-3">
-                <a href="#login" className="font-['DM_Sans'] text-base font-medium text-[#1e2a3a] text-center py-2">
+                <a href="https://app.zengest.it/sign-in/" className="font-['DM_Sans'] text-base font-medium text-[#1e2a3a] text-center py-2">
                   Login
                 </a>
-                <a href="#waitlist" className="inline-flex items-center justify-center rounded-lg px-5 py-3 font-['DM_Sans'] text-base font-semibold text-white bg-[#00122F] hover:bg-[#00122F]/90 transition-all">
+                <a href="https://app.zengest.it/sign-up/" className="inline-flex items-center justify-center rounded-lg px-5 py-3 font-['DM_Sans'] text-base font-semibold text-white bg-[#00122F] hover:bg-[#00122F]/90 transition-all">
                   Prova gratis
                 </a>
               </div>
