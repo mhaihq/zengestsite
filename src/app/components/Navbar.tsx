@@ -44,10 +44,10 @@ export const NavbarDefaults: Props = {
   },
   navLinks: [],
   button: {
-    title: "Entra in Waitlist",
+    title: "Prova gratis",
     size: "md",
     variant: "primary",
-    href: "#waitlist",
+    href: "https://app.zengest.it/sign-up/",
   },
 };
 

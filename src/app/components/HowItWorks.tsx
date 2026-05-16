@@ -238,7 +238,7 @@ export function HowItWorks() {
             href="https://app.zengest.it/sign-up/"
             className="inline-flex items-center justify-center h-14 px-12 rounded-xl font-['DM_Sans'] font-semibold text-base text-white bg-[#00122F] hover:bg-[#00122F]/90 hover:scale-105 active:scale-95 transition-all duration-200 shadow-md"
           >
-            Entra in Waitlist
+            Prova gratis
           </a>
         </div>
 
