@@ -11,7 +11,7 @@ export function CTASection() {
       {/* Badge */}
       <div className="relative z-10 mb-8 inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-slate-300/60 bg-white/40 backdrop-blur-sm">
         <span className="text-xs text-slate-600 font-['DM_Sans'] font-medium">
-          Conforme GDPR · Dati in Europa · Sviluppato da psicologi
+          Sviluppato e costruito da psicologi italiani
         </span>
       </div>
 
@@ -40,7 +40,7 @@ export function CTASection() {
       <div className="relative z-10 flex flex-wrap items-center justify-center gap-3 mb-12">
 
         {/* GDPR */}
-        <div className="inline-flex items-center gap-2.5 bg-white/70 backdrop-blur-sm border border-white/80 rounded-xl px-4 py-2.5 shadow-sm">
+        <div className="inline-flex items-center gap-2.5 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-xl px-4 py-3 shadow-md">
           <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
             {/* EU circle of stars */}
             {Array.from({ length: 12 }).map((_, i) => {
@@ -51,13 +51,13 @@ export function CTASection() {
             })}
           </svg>
           <div>
-            <p className="font-['DM_Sans'] text-[11px] font-bold text-[#00122F] leading-none mb-0.5">GDPR</p>
-            <p className="font-['DM_Sans'] text-[10px] text-slate-400 leading-none">Dati clinici protetti</p>
+            <p className="font-['DM_Sans'] text-[12px] font-bold text-[#00122F] leading-none mb-0.5">GDPR</p>
+            <p className="font-['DM_Sans'] text-[11px] text-slate-500 leading-none">Dati clinici protetti</p>
           </div>
         </div>
 
         {/* EU AI Act */}
-        <div className="inline-flex items-center gap-2.5 bg-white/70 backdrop-blur-sm border border-white/80 rounded-xl px-4 py-2.5 shadow-sm">
+        <div className="inline-flex items-center gap-2.5 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-xl px-4 py-3 shadow-md">
           <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
             {Array.from({ length: 12 }).map((_, i) => {
               const angle = (i * 30 - 90) * (Math.PI / 180);
@@ -82,13 +82,13 @@ export function CTASection() {
             <line x1="19" y1="17" x2="21" y2="17" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
           </svg>
           <div>
-            <p className="font-['DM_Sans'] text-[11px] font-bold text-[#00122F] leading-none mb-0.5">EU AI Act</p>
-            <p className="font-['DM_Sans'] text-[10px] text-slate-400 leading-none">AI ad alto rischio conforme</p>
+            <p className="font-['DM_Sans'] text-[12px] font-bold text-[#00122F] leading-none mb-0.5">EU AI Act</p>
+            <p className="font-['DM_Sans'] text-[11px] text-slate-500 leading-none">AI ad alto rischio conforme</p>
           </div>
         </div>
 
         {/* EU Data */}
-        <div className="inline-flex items-center gap-2.5 bg-white/70 backdrop-blur-sm border border-white/80 rounded-xl px-4 py-2.5 shadow-sm">
+        <div className="inline-flex items-center gap-2.5 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-xl px-4 py-3 shadow-md">
           <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
             {/* Database icon */}
             <ellipse cx="14" cy="9" rx="6" ry="2.5" stroke="#555" strokeWidth="1.4" fill="none"/>
@@ -96,8 +96,8 @@ export function CTASection() {
             <path d="M8 14v5c0 1.38 2.69 2.5 6 2.5s6-1.12 6-2.5v-5" stroke="#555" strokeWidth="1.4" fill="none"/>
           </svg>
           <div>
-            <p className="font-['DM_Sans'] text-[11px] font-bold text-[#00122F] leading-none mb-0.5">Dati in EU</p>
-            <p className="font-['DM_Sans'] text-[10px] text-slate-400 leading-none">Server solo europei</p>
+            <p className="font-['DM_Sans'] text-[12px] font-bold text-[#00122F] leading-none mb-0.5">Dati in EU</p>
+            <p className="font-['DM_Sans'] text-[11px] text-slate-500 leading-none">Server solo europei</p>
           </div>
         </div>
 
