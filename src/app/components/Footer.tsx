@@ -23,10 +23,14 @@ export function Footer() {
           <a href="mailto:hello@zengest.it" className="hover:text-[#00122F] transition-colors">Contatti</a>
         </div>
 
-        {/* Copyright */}
-        <p className="font-['DM_Sans'] text-xs text-slate-500">
-          © {new Date().getFullYear()} ZenGest. Tutti i diritti riservati.
-        </p>
+        {/* Company info */}
+        <div className="font-['DM_Sans'] text-xs text-slate-400 text-center md:text-right leading-relaxed">
+          <p className="font-medium text-slate-500">Unozen Srl</p>
+          <p>Via Cesare Battisti 15, Torino</p>
+          <p>P. IVA: 13448760010</p>
+          <p>PEC: <a href="mailto:UNOZEN@NAMIRIALPEC.IT" className="hover:text-[#00122F] transition-colors">UNOZEN@NAMIRIALPEC.IT</a></p>
+          <p className="mt-1">© {new Date().getFullYear()} ZenGest. Tutti i diritti riservati.</p>
+        </div>
 
       </div>
     </footer>
