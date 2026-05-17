@@ -8,25 +8,30 @@ export function CTASection() {
         background: "linear-gradient(160deg, #C8D9F0 0%, #D6E4F0 30%, #E8EEF5 55%, #EDE8DC 80%, #E8DFC8 100%)",
       }}
     >
-      {/* Badge */}
-      <div className="relative z-10 mb-8 inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-slate-300/60 bg-white/40 backdrop-blur-sm">
-        <span className="text-xs text-slate-600 font-['DM_Sans'] font-medium">
-          Sviluppato e costruito da psicologi italiani
+      {/* Badge — Alessandro + label */}
+      <div className="relative z-10 mb-8 inline-flex items-center gap-3 px-4 py-2.5 rounded-full bg-white/80 backdrop-blur-sm border border-white/90 shadow-sm">
+        <img
+          src="/ale.png"
+          alt="Alessandro Lombardo"
+          className="w-8 h-8 rounded-full object-cover object-top shrink-0"
+        />
+        <span className="font-['DM_Sans'] text-sm font-medium text-[#00122F]">
+          Sviluppato da psicologi italiani
         </span>
       </div>
 
       {/* Headline */}
       <h1 className="relative z-10 font-['Instrument_Serif'] text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center max-w-4xl leading-[1.05] tracking-[-0.025em] mb-5 text-[#00122F] px-2">
         AI per Psicologi.<br />
-        Note, Assistente e cartelle,<br className="hidden sm:block" /> in modo intelligente.
+        Note, Assistente e Cartelle,<br className="hidden sm:block" /> in modo intelligente.
       </h1>
 
       {/* Subheadline */}
       <p className="relative z-10 font-['DM_Sans'] text-base md:text-lg text-center max-w-2xl text-slate-600 mb-8 leading-relaxed px-2">
-        Tutto quello che fai prima, durante e dopo una seduta, in un unico spazio. Conforme al GDPR, sviluppato da psicologi italiani.
+        Trascrivi le sedute, aggiorna le cartelle e usa l'AI per note, piani di trattamento e analisi cliniche — conforme al GDPR e al Codice Deontologico.
       </p>
 
-      {/* CTAs */}
+      {/* CTA */}
       <div className="relative z-10 flex items-center gap-3 mb-8">
         <a
           href="https://app.zengest.it/sign-up/"
@@ -36,13 +41,12 @@ export function CTASection() {
         </a>
       </div>
 
-      {/* Compliance badges */}
+      {/* Trust strip */}
       <div className="relative z-10 flex flex-wrap items-center justify-center gap-3 mb-12">
 
         {/* GDPR */}
         <div className="inline-flex items-center gap-2.5 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-xl px-4 py-3 shadow-md">
           <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-            {/* EU circle of stars */}
             {Array.from({ length: 12 }).map((_, i) => {
               const angle = (i * 30 - 90) * (Math.PI / 180);
               const cx = 14 + 11 * Math.cos(angle);
@@ -65,7 +69,6 @@ export function CTASection() {
               const cy = 14 + 11 * Math.sin(angle);
               return <circle key={i} cx={cx} cy={cy} r="1.5" fill="#aaa" />;
             })}
-            {/* Chip icon */}
             <rect x="9" y="9" width="10" height="10" rx="1.5" stroke="#555" strokeWidth="1.4" fill="none"/>
             <rect x="11" y="11" width="6" height="6" rx="0.5" stroke="#555" strokeWidth="1" fill="none" strokeDasharray="1.5 0.8"/>
             <line x1="11" y1="7" x2="11" y2="9" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
@@ -87,10 +90,9 @@ export function CTASection() {
           </div>
         </div>
 
-        {/* EU Data */}
+        {/* Dati in EU */}
         <div className="inline-flex items-center gap-2.5 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-xl px-4 py-3 shadow-md">
           <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-            {/* Database icon */}
             <ellipse cx="14" cy="9" rx="6" ry="2.5" stroke="#555" strokeWidth="1.4" fill="none"/>
             <path d="M8 9v5c0 1.38 2.69 2.5 6 2.5s6-1.12 6-2.5V9" stroke="#555" strokeWidth="1.4" fill="none"/>
             <path d="M8 14v5c0 1.38 2.69 2.5 6 2.5s6-1.12 6-2.5v-5" stroke="#555" strokeWidth="1.4" fill="none"/>
@@ -103,7 +105,7 @@ export function CTASection() {
 
       </div>
 
-      {/* Dashboard preview — scales down on mobile to keep all cards visible */}
+      {/* Dashboard preview */}
       <div className="relative z-10 w-full max-w-5xl px-4 dash-wrap">
         <div className="dash-inner">
           <HeroDashboard />
