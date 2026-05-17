@@ -27,10 +27,10 @@ export function CTASection() {
       </p>
 
       {/* CTAs */}
-      <div className="relative z-10 flex flex-col sm:flex-row items-center gap-3 mb-8 w-full sm:w-auto px-4 sm:px-0">
+      <div className="relative z-10 flex items-center gap-3 mb-8">
         <a
           href="https://app.zengest.it/sign-up/"
-          className="inline-flex items-center justify-center gap-2 h-12 px-8 rounded-lg font-['DM_Sans'] font-medium text-white bg-[#00122F] hover:bg-[#00122F]/90 hover:scale-105 active:scale-95 transition-all duration-200 shadow-md text-base w-full sm:w-auto"
+          className="inline-flex items-center justify-center gap-2 h-12 px-8 rounded-lg font-['DM_Sans'] font-medium text-white bg-[#00122F] hover:bg-[#00122F]/90 hover:scale-105 active:scale-95 transition-all duration-200 shadow-md text-base"
         >
           Prova gratis
         </a>
@@ -48,13 +48,25 @@ export function CTASection() {
         </div>
       </div>
       <style>{`
-        .dash-wrap { overflow: hidden; height: ${Math.round(540 * 0.78)}px; }
-        .dash-inner { transform-origin: top center; transform: scale(0.78); }
+        .dash-wrap { overflow: hidden; height: ${Math.round(540 * 0.42)}px; }
+        .dash-inner { transform-origin: top center; transform: scale(0.42); }
+        @media (min-width: 400px) {
+          .dash-wrap { height: ${Math.round(540 * 0.52)}px; }
+          .dash-inner { transform: scale(0.52); }
+        }
+        @media (min-width: 500px) {
+          .dash-wrap { height: ${Math.round(540 * 0.64)}px; }
+          .dash-inner { transform: scale(0.64); }
+        }
         @media (min-width: 640px) {
+          .dash-wrap { height: ${Math.round(540 * 0.78)}px; }
+          .dash-inner { transform: scale(0.78); }
+        }
+        @media (min-width: 768px) {
           .dash-wrap { height: ${Math.round(540 * 0.88)}px; }
           .dash-inner { transform: scale(0.88); }
         }
-        @media (min-width: 768px) {
+        @media (min-width: 900px) {
           .dash-wrap { height: ${Math.round(540 * 0.94)}px; }
           .dash-inner { transform: scale(0.94); }
         }
