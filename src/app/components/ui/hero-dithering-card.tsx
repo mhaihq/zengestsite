@@ -18,7 +18,7 @@ export function CTASection() {
       {/* Headline */}
       <h1 className="relative z-10 font-['Instrument_Serif'] text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center max-w-4xl leading-[1.05] tracking-[-0.025em] mb-5 text-[#00122F] px-2">
         AI per Psicologi.<br />
-        Note, cartelle e fatture,<br className="hidden sm:block" /> in modo intelligente.
+        Note, Assistente e cartelle,<br className="hidden sm:block" /> in modo intelligente.
       </h1>
 
       {/* Subheadline */}
