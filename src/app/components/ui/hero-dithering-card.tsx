@@ -78,11 +78,15 @@ export function CTASection() {
         </a>
       </div>
 
-      {/* Dashboard preview */}
-      <div className="relative z-10 w-full max-w-5xl px-4 dash-wrap">
+      {/* Dashboard preview — desktop scaled layout */}
+      <div className="relative z-10 w-full max-w-5xl px-4 dash-wrap hidden md:block">
         <div className="dash-inner">
           <HeroDashboard />
         </div>
+      </div>
+      {/* Dashboard preview — mobile native layout */}
+      <div className="relative z-10 w-full md:hidden">
+        <HeroDashboard />
       </div>
       <style>{`
         .dash-wrap { overflow: hidden; height: ${Math.round(540 * 0.42)}px; }
