@@ -84,7 +84,7 @@ const FAQS = [
   },
   {
     q: "È inclusa la fatturazione?",
-    a: "No. ZenGest si concentra sulla parte clinica: note, storico paziente e assistente AI sui casi. La fatturazione è esclusa da tutti i piani attuali.",
+    a: "La fatturazione automatica con invio al Sistema Tessera Sanitaria non è ancora attiva. Potrai attivarla fra qualche settimana acquistando i pacchetti che metteremo a disposizione. Sarà anche possibile utilizzare solo il sistema di fatturazione.",
   },
 ];
 
