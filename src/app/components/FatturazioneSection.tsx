@@ -13,11 +13,11 @@ const FIELDS = [
 ];
 
 const APPS = [
-  { key: "excel", color: "#1a7e3e", abbr: "X",   name: "Excel — Sedute.xlsx",           detail: "Riga 247 da compilare manualmente",  badge: "In sospeso", badgeType: "warn", notif: "!" },
-  { key: "aruba", color: "#ff6b35", abbr: "A",   name: "Aruba — Crea fattura",          detail: "12 campi, codice fiscale, marca da bollo…", badge: "Bozza", badgeType: "warn", notif: "!" },
+  { key: "excel", color: "#1a7e3e", abbr: "X",   name: "Excel Sedute.xlsx",           detail: "Riga 247 da compilare manualmente",  badge: "In sospeso", badgeType: "warn", notif: "!" },
+  { key: "aruba", color: "#ff6b35", abbr: "A",   name: "Aruba Crea fattura",          detail: "12 campi, codice fiscale, marca da bollo…", badge: "Bozza", badgeType: "warn", notif: "!" },
   { key: "sdi",   color: "#003d80", abbr: "SDI", name: "Sistema di Interscambio",       detail: "Errore: codice natura non valido (N2.1)", badge: "Scartata", badgeType: "err", notif: "3" },
-  { key: "ts",    color: "#c8102e", abbr: "TS",  name: "Sistema TS — 730",              detail: "Carica spesa sanitaria · scadenza domani", badge: "Da fare", badgeType: "warn", notif: "!" },
-  { key: "email", color: "#4a90e2", abbr: "@",   name: "Email — commercialista@studio.it", detail: '"Mi mandi il riepilogo del mese?"', badge: "Risposta", badgeType: "warn", notif: "!" },
+  { key: "ts",    color: "#c8102e", abbr: "TS",  name: "Sistema TS 730",              detail: "Carica spesa sanitaria · scadenza domani", badge: "Da fare", badgeType: "warn", notif: "!" },
+  { key: "email", color: "#4a90e2", abbr: "@",   name: "Email commercialista@studio.it", detail: '"Mi mandi il riepilogo del mese?"', badge: "Risposta", badgeType: "warn", notif: "!" },
   { key: "bank",  color: "#2db84a", abbr: "€",   name: "Home banking",                 detail: "Verifica bonifico · 4 sospesi",       badge: "Manuale", badgeType: "warn", notif: "4" },
 ];
 

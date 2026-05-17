@@ -27,7 +27,7 @@ export function CartellaDigitaleSection() {
               </span>
             </h2>
             <p className="font-['DM_Sans'] text-base text-slate-500 leading-relaxed mb-8">
-              Foto, PDF, audio, Word — anche i tuoi appunti a mano. ZenGest legge tutto e lo trasforma in cartella clinica strutturata.
+              Foto, PDF, audio, Word, anche i tuoi appunti a mano. ZenGest legge tutto e lo trasforma in cartella clinica strutturata.
             </p>
 
             <div className="flex flex-col gap-3">

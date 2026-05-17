@@ -28,7 +28,7 @@ export function CTASection() {
 
       {/* Subheadline */}
       <p className="relative z-10 font-['DM_Sans'] text-base md:text-lg text-center max-w-2xl text-slate-600 mb-8 leading-relaxed px-2">
-        Trascrivi le sedute, aggiorna le cartelle e usa l'AI per note, piani di trattamento e analisi cliniche — conforme al GDPR e al Codice Deontologico.
+        Trascrivi le sedute, aggiorna le cartelle e usa l'AI per note, piani di trattamento e analisi cliniche. Conforme al GDPR e al Codice Deontologico.
       </p>
 
       {/* CTA */}

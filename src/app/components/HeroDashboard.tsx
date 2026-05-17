@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 const CHAT_SEQUENCE = [
   { role: "zen", text: "Seduta attiva. Come posso aiutarti con Giovanni?" },
   { role: "user", text: "Come sta rispondendo alle tecniche ACT?" },
-  { role: "zen", text: "Nelle ultime tre sedute ha mostrato maggiore apertura. Il tema familiare torna spesso — è un filo conduttore ricorrente." },
+  { role: "zen", text: "Nelle ultime tre sedute ha mostrato maggiore apertura. Il tema familiare torna spesso. È un filo conduttore ricorrente." },
   { role: "user", text: "Approfondisco il conflitto col fratello oggi?" },
   { role: "zen", text: "Ne ha parlato in quattro sedute su dodici. Hai già trascrizioni con quel contesto se vuoi rileggere prima." },
 ];
