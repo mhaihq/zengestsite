@@ -36,10 +36,72 @@ export function CTASection() {
         </a>
       </div>
 
-      {/* Trust microcopy */}
-      <p className="relative z-10 font-['DM_Sans'] text-xs text-slate-400 mb-12 text-center">
-        Conforme GDPR · Dati in Europa · Anonimizzazione automatica
-      </p>
+      {/* Compliance badges */}
+      <div className="relative z-10 flex flex-wrap items-center justify-center gap-3 mb-12">
+
+        {/* GDPR */}
+        <div className="inline-flex items-center gap-2.5 bg-white/70 backdrop-blur-sm border border-white/80 rounded-xl px-4 py-2.5 shadow-sm">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            {/* EU circle of stars */}
+            {Array.from({ length: 12 }).map((_, i) => {
+              const angle = (i * 30 - 90) * (Math.PI / 180);
+              const cx = 14 + 11 * Math.cos(angle);
+              const cy = 14 + 11 * Math.sin(angle);
+              return <circle key={i} cx={cx} cy={cy} r="1.5" fill="#aaa" />;
+            })}
+          </svg>
+          <div>
+            <p className="font-['DM_Sans'] text-[11px] font-bold text-[#00122F] leading-none mb-0.5">GDPR</p>
+            <p className="font-['DM_Sans'] text-[10px] text-slate-400 leading-none">Dati clinici protetti</p>
+          </div>
+        </div>
+
+        {/* EU AI Act */}
+        <div className="inline-flex items-center gap-2.5 bg-white/70 backdrop-blur-sm border border-white/80 rounded-xl px-4 py-2.5 shadow-sm">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            {Array.from({ length: 12 }).map((_, i) => {
+              const angle = (i * 30 - 90) * (Math.PI / 180);
+              const cx = 14 + 11 * Math.cos(angle);
+              const cy = 14 + 11 * Math.sin(angle);
+              return <circle key={i} cx={cx} cy={cy} r="1.5" fill="#aaa" />;
+            })}
+            {/* Chip icon */}
+            <rect x="9" y="9" width="10" height="10" rx="1.5" stroke="#555" strokeWidth="1.4" fill="none"/>
+            <rect x="11" y="11" width="6" height="6" rx="0.5" stroke="#555" strokeWidth="1" fill="none" strokeDasharray="1.5 0.8"/>
+            <line x1="11" y1="7" x2="11" y2="9" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
+            <line x1="14" y1="7" x2="14" y2="9" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
+            <line x1="17" y1="7" x2="17" y2="9" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
+            <line x1="11" y1="19" x2="11" y2="21" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
+            <line x1="14" y1="19" x2="14" y2="21" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
+            <line x1="17" y1="19" x2="17" y2="21" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
+            <line x1="7" y1="11" x2="9" y2="11" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
+            <line x1="7" y1="14" x2="9" y2="14" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
+            <line x1="7" y1="17" x2="9" y2="17" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
+            <line x1="19" y1="11" x2="21" y2="11" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
+            <line x1="19" y1="14" x2="21" y2="14" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
+            <line x1="19" y1="17" x2="21" y2="17" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
+          </svg>
+          <div>
+            <p className="font-['DM_Sans'] text-[11px] font-bold text-[#00122F] leading-none mb-0.5">EU AI Act</p>
+            <p className="font-['DM_Sans'] text-[10px] text-slate-400 leading-none">AI ad alto rischio conforme</p>
+          </div>
+        </div>
+
+        {/* EU Data */}
+        <div className="inline-flex items-center gap-2.5 bg-white/70 backdrop-blur-sm border border-white/80 rounded-xl px-4 py-2.5 shadow-sm">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            {/* Database icon */}
+            <ellipse cx="14" cy="9" rx="6" ry="2.5" stroke="#555" strokeWidth="1.4" fill="none"/>
+            <path d="M8 9v5c0 1.38 2.69 2.5 6 2.5s6-1.12 6-2.5V9" stroke="#555" strokeWidth="1.4" fill="none"/>
+            <path d="M8 14v5c0 1.38 2.69 2.5 6 2.5s6-1.12 6-2.5v-5" stroke="#555" strokeWidth="1.4" fill="none"/>
+          </svg>
+          <div>
+            <p className="font-['DM_Sans'] text-[11px] font-bold text-[#00122F] leading-none mb-0.5">Dati in EU</p>
+            <p className="font-['DM_Sans'] text-[10px] text-slate-400 leading-none">Server solo europei</p>
+          </div>
+        </div>
+
+      </div>
 
       {/* Dashboard preview — scales down on mobile to keep all cards visible */}
       <div className="relative z-10 w-full max-w-5xl px-4 dash-wrap">
