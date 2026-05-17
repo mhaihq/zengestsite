@@ -1,5 +1,48 @@
 import { HeroDashboard } from "../HeroDashboard";
 
+const BADGES = [
+  {
+    label: "GDPR",
+    sub: "Dati clinici protetti",
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        {Array.from({ length: 12 }).map((_, i) => {
+          const angle = (i * 30 - 90) * (Math.PI / 180);
+          return <circle key={i} cx={14 + 11 * Math.cos(angle)} cy={14 + 11 * Math.sin(angle)} r="1.5" fill="#aaa" />;
+        })}
+      </svg>
+    ),
+  },
+  {
+    label: "EU AI Act",
+    sub: "AI ad alto rischio conforme",
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        {Array.from({ length: 12 }).map((_, i) => {
+          const angle = (i * 30 - 90) * (Math.PI / 180);
+          return <circle key={i} cx={14 + 11 * Math.cos(angle)} cy={14 + 11 * Math.sin(angle)} r="1.5" fill="#aaa" />;
+        })}
+        <rect x="9" y="9" width="10" height="10" rx="1.5" stroke="#555" strokeWidth="1.4" fill="none"/>
+        <rect x="11" y="11" width="6" height="6" rx="0.5" stroke="#555" strokeWidth="1" fill="none" strokeDasharray="1.5 0.8"/>
+        {[[11,7,11,9],[14,7,14,9],[17,7,17,9],[11,19,11,21],[14,19,14,21],[17,19,17,21],[7,11,9,11],[7,14,9,14],[7,17,9,17],[19,11,21,11],[19,14,21,14],[19,17,21,17]].map(([x1,y1,x2,y2], i) => (
+          <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
+        ))}
+      </svg>
+    ),
+  },
+  {
+    label: "Dati in EU",
+    sub: "Server solo europei",
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <ellipse cx="14" cy="9" rx="6" ry="2.5" stroke="#555" strokeWidth="1.4" fill="none"/>
+        <path d="M8 9v5c0 1.38 2.69 2.5 6 2.5s6-1.12 6-2.5V9" stroke="#555" strokeWidth="1.4" fill="none"/>
+        <path d="M8 14v5c0 1.38 2.69 2.5 6 2.5s6-1.12 6-2.5v-5" stroke="#555" strokeWidth="1.4" fill="none"/>
+      </svg>
+    ),
+  },
+];
+
 export function CTASection() {
   return (
     <section
@@ -8,16 +51,10 @@ export function CTASection() {
         background: "linear-gradient(160deg, #C8D9F0 0%, #D6E4F0 30%, #E8EEF5 55%, #EDE8DC 80%, #E8DFC8 100%)",
       }}
     >
-      {/* Badge — Alessandro + label */}
+      {/* Top badge */}
       <div className="relative z-10 mb-8 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-sm border border-white/90 shadow-sm">
-        <img
-          src="/ale.png"
-          alt="Alessandro Lombardo"
-          className="w-5 h-5 rounded-full object-cover object-top shrink-0"
-        />
-        <span className="font-['DM_Sans'] text-xs font-medium text-[#00122F]">
-          Sviluppato da psicologi italiani
-        </span>
+        <img src="/ale.png" alt="Alessandro Lombardo" className="w-5 h-5 rounded-full object-cover object-top shrink-0" />
+        <span className="font-['DM_Sans'] text-xs font-medium text-[#00122F]">Sviluppato da psicologi italiani</span>
       </div>
 
       {/* Headline */}
@@ -32,77 +69,13 @@ export function CTASection() {
       </p>
 
       {/* CTA */}
-      <div className="relative z-10 flex items-center gap-3 mb-8">
+      <div className="relative z-10 flex items-center gap-3 mb-12">
         <a
           href="https://app.zengest.it/sign-up/"
           className="inline-flex items-center justify-center gap-2 h-12 px-8 rounded-lg font-['DM_Sans'] font-medium text-white bg-[#00122F] hover:bg-[#00122F]/90 hover:scale-105 active:scale-95 transition-all duration-200 shadow-md text-base"
         >
           Prova gratis
         </a>
-      </div>
-
-      {/* Trust strip */}
-      <div className="relative z-10 flex flex-wrap items-center justify-center gap-3 mb-12">
-
-        {/* GDPR */}
-        <div className="inline-flex items-center gap-2.5 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-xl px-4 py-3 shadow-md">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-            {Array.from({ length: 12 }).map((_, i) => {
-              const angle = (i * 30 - 90) * (Math.PI / 180);
-              const cx = 14 + 11 * Math.cos(angle);
-              const cy = 14 + 11 * Math.sin(angle);
-              return <circle key={i} cx={cx} cy={cy} r="1.5" fill="#aaa" />;
-            })}
-          </svg>
-          <div>
-            <p className="font-['DM_Sans'] text-[12px] font-bold text-[#00122F] leading-none mb-0.5">GDPR</p>
-            <p className="font-['DM_Sans'] text-[11px] text-slate-500 leading-none">Dati clinici protetti</p>
-          </div>
-        </div>
-
-        {/* EU AI Act */}
-        <div className="inline-flex items-center gap-2.5 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-xl px-4 py-3 shadow-md">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-            {Array.from({ length: 12 }).map((_, i) => {
-              const angle = (i * 30 - 90) * (Math.PI / 180);
-              const cx = 14 + 11 * Math.cos(angle);
-              const cy = 14 + 11 * Math.sin(angle);
-              return <circle key={i} cx={cx} cy={cy} r="1.5" fill="#aaa" />;
-            })}
-            <rect x="9" y="9" width="10" height="10" rx="1.5" stroke="#555" strokeWidth="1.4" fill="none"/>
-            <rect x="11" y="11" width="6" height="6" rx="0.5" stroke="#555" strokeWidth="1" fill="none" strokeDasharray="1.5 0.8"/>
-            <line x1="11" y1="7" x2="11" y2="9" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
-            <line x1="14" y1="7" x2="14" y2="9" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
-            <line x1="17" y1="7" x2="17" y2="9" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
-            <line x1="11" y1="19" x2="11" y2="21" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
-            <line x1="14" y1="19" x2="14" y2="21" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
-            <line x1="17" y1="19" x2="17" y2="21" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
-            <line x1="7" y1="11" x2="9" y2="11" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
-            <line x1="7" y1="14" x2="9" y2="14" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
-            <line x1="7" y1="17" x2="9" y2="17" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
-            <line x1="19" y1="11" x2="21" y2="11" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
-            <line x1="19" y1="14" x2="21" y2="14" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
-            <line x1="19" y1="17" x2="21" y2="17" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
-          </svg>
-          <div>
-            <p className="font-['DM_Sans'] text-[12px] font-bold text-[#00122F] leading-none mb-0.5">EU AI Act</p>
-            <p className="font-['DM_Sans'] text-[11px] text-slate-500 leading-none">AI ad alto rischio conforme</p>
-          </div>
-        </div>
-
-        {/* Dati in EU */}
-        <div className="inline-flex items-center gap-2.5 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-xl px-4 py-3 shadow-md">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-            <ellipse cx="14" cy="9" rx="6" ry="2.5" stroke="#555" strokeWidth="1.4" fill="none"/>
-            <path d="M8 9v5c0 1.38 2.69 2.5 6 2.5s6-1.12 6-2.5V9" stroke="#555" strokeWidth="1.4" fill="none"/>
-            <path d="M8 14v5c0 1.38 2.69 2.5 6 2.5s6-1.12 6-2.5v-5" stroke="#555" strokeWidth="1.4" fill="none"/>
-          </svg>
-          <div>
-            <p className="font-['DM_Sans'] text-[12px] font-bold text-[#00122F] leading-none mb-0.5">Dati in EU</p>
-            <p className="font-['DM_Sans'] text-[11px] text-slate-500 leading-none">Server solo europei</p>
-          </div>
-        </div>
-
       </div>
 
       {/* Dashboard preview */}
@@ -139,6 +112,19 @@ export function CTASection() {
           .dash-inner { transform: scale(1); }
         }
       `}</style>
+
+      {/* Trust badges — below dashboard */}
+      <div className="relative z-10 flex flex-wrap items-center justify-center gap-3 mt-10">
+        {BADGES.map(b => (
+          <div key={b.label} className="inline-flex items-center gap-2.5 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-xl px-4 py-3 shadow-md">
+            {b.icon}
+            <div>
+              <p className="font-['DM_Sans'] text-[12px] font-bold text-[#00122F] leading-none mb-0.5">{b.label}</p>
+              <p className="font-['DM_Sans'] text-[11px] text-slate-500 leading-none">{b.sub}</p>
+            </div>
+          </div>
+        ))}
+      </div>
 
       {/* Blend into next section */}
       <div className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, #F8FAFC)" }} />
