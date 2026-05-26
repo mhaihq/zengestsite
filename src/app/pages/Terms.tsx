@@ -7,219 +7,212 @@ export function Terms() {
         {/* Hero */}
         <section className="bg-[#00122F] text-white py-20 px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <p className="text-blue-400 text-sm font-semibold tracking-widest uppercase mb-4">HANA Health</p>
+            <p className="text-blue-400 text-sm font-semibold tracking-widest uppercase mb-4">ZenGest</p>
             <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl tracking-tight mb-6 leading-[1.1]">
-              Terms of Service<br />& Security Policy
+              Termini di Servizio<br />& Sicurezza
             </h1>
             <p className="text-slate-400 text-base">
-              Effective Date: 1 March 2025 &nbsp;|&nbsp; Version: 2.0
+              Data di efficacia: 1 gennaio 2025 &nbsp;|&nbsp; Versione: 1.0
             </p>
           </div>
         </section>
 
         <div className="max-w-3xl mx-auto px-4 py-16 text-[#1e2a3a]">
           <p className="text-[15px] leading-[1.8] text-[#718096] mb-12">
-            These Terms govern access to and use of the HANA patient engagement platform by healthcare providers (Clients) and their patients (End Users). A separate Data Processing Agreement (DPA) governs data protection obligations and is incorporated by reference.
+            I presenti Termini disciplinano l'accesso e l'utilizzo della piattaforma ZenGest da parte degli psicologi e professionisti della salute mentale (Clienti). Un separato Accordo per il Trattamento dei Dati (DPA) regola gli obblighi in materia di protezione dei dati ed è incorporato per riferimento.
           </p>
 
-          {/* PART A */}
+          {/* PARTE A */}
           <div className="border-b border-slate-200 pb-4 mb-10">
-            <h2 className="text-2xl font-semibold text-[#1e2a3a] tracking-tight">PART A — TERMS OF SERVICE</h2>
+            <h2 className="text-2xl font-semibold text-[#1e2a3a] tracking-tight">PARTE A — TERMINI DI SERVIZIO</h2>
           </div>
 
-          {/* 1. Definitions */}
-          <Section number="1" title="Definitions">
+          {/* 1. Definizioni */}
+          <Section number="1" title="Definizioni">
             <div className="overflow-x-auto">
               <table className="w-full text-sm border border-slate-200 rounded-lg overflow-hidden">
                 <thead>
                   <tr className="bg-slate-50">
-                    <th className="text-left px-4 py-3 font-semibold text-[#1e2a3a] border-b border-slate-200 w-1/3">Term</th>
-                    <th className="text-left px-4 py-3 font-semibold text-[#1e2a3a] border-b border-slate-200">Meaning</th>
+                    <th className="text-left px-4 py-3 font-semibold text-[#1e2a3a] border-b border-slate-200 w-1/3">Termine</th>
+                    <th className="text-left px-4 py-3 font-semibold text-[#1e2a3a] border-b border-slate-200">Significato</th>
                   </tr>
                 </thead>
                 <tbody className="text-[#718096]">
-                  <DefRow term="HANA / We / Company" meaning="HANA Health Ltd, the operator of the HANA platform" />
-                  <DefRow term="Client / Healthcare Provider" meaning="The licensed healthcare organisation or clinic that has contracted with HANA" />
-                  <DefRow term="Patient / End User" meaning="The individual patient who interacts with the HANA platform via voice or SMS" />
-                  <DefRow term="Platform" meaning="The HANA AI-powered patient engagement infrastructure, including all AI agents, APIs, integrations, and clinical workflows" />
-                  <DefRow term="Clinical Summary" meaning="An AI-assisted structured output generated from patient interactions, for review by a licensed clinician" />
-                  <DefRow term="PHI / Health Data" meaning="Protected Health Information as defined under HIPAA; special category personal data as defined under GDPR" />
+                  <DefRow term="ZenGest / Noi / Societa" meaning="Unozen Srl, operatore della piattaforma ZenGest, con sede in Via Cesare Battisti 15, Torino, P. IVA 13448760010" />
+                  <DefRow term="Cliente / Professionista" meaning="Lo psicologo o professionista della salute mentale che ha sottoscritto un abbonamento ZenGest" />
+                  <DefRow term="Paziente" meaning="L'individuo che e in carico al professionista e i cui dati sono trattati tramite ZenGest" />
+                  <DefRow term="Piattaforma" meaning="La piattaforma ZenGest, inclusi tutti i moduli AI, le API, le integrazioni e i flussi clinici" />
+                  <DefRow term="Nota Clinica" meaning="Un output strutturato generato con assistenza AI dalla registrazione di una seduta, soggetto a revisione da parte del professionista" />
+                  <DefRow term="Dati Sanitari" meaning="Dati particolari ai sensi dell'Art. 9 GDPR relativi alla salute fisica o mentale di una persona" />
                 </tbody>
               </table>
             </div>
           </Section>
 
-          {/* 2. Nature of the Platform */}
-          <Section number="2" title="Nature of the Platform">
+          {/* 2. Natura della Piattaforma */}
+          <Section number="2" title="Natura della Piattaforma">
             <p className="mb-4">
-              HANA is a clinical workflow and patient engagement infrastructure platform. It is not a medical device, does not provide diagnoses, and does not prescribe or recommend treatment.
+              ZenGest e una piattaforma di supporto alla documentazione clinica e alla gestione dello studio. Non e un dispositivo medico, non fornisce diagnosi e non prescrive o raccomanda trattamenti.
             </p>
             <ul className="list-disc pl-6 space-y-2">
-              <li>HANA augments, not replaces, clinical relationships and human clinical judgement</li>
-              <li>All AI-generated outputs are advisory and must be reviewed by a licensed clinician before clinical decisions are made</li>
-              <li>HANA operates on a human-in-the-loop architecture: AI workflows are designed to escalate to clinical staff whenever uncertainty, risk indicators, or safety flags are detected</li>
-              <li>HANA is not an emergency service. Patients in acute crisis are directed to emergency services</li>
+              <li>ZenGest affianca, senza sostituire, il giudizio clinico del professionista</li>
+              <li>Tutti gli output generati dall'AI sono indicativi e devono essere revisionati dal professionista prima di essere inseriti nella cartella clinica o utilizzati per decisioni cliniche</li>
+              <li>ZenGest non e un servizio di emergenza. In caso di crisi acuta, il paziente deve essere indirizzato ai servizi di emergenza competenti (numero unico 112)</li>
             </ul>
             <p className="mt-4">
-              Patients are always informed they are interacting with an AI system. HANA never impersonates a human clinician.
+              I pazienti non interagiscono direttamente con ZenGest. La piattaforma e uno strumento ad uso esclusivo del professionista.
             </p>
           </Section>
 
-          {/* 3. Client Obligations */}
-          <Section number="3" title="Client Obligations">
-            <h4 className="font-semibold text-[#1e2a3a] mb-3">3.1 Licensing and Clinical Responsibility</h4>
+          {/* 3. Obblighi del Cliente */}
+          <Section number="3" title="Obblighi del Cliente">
+            <h4 className="font-semibold text-[#1e2a3a] mb-3">3.1 Responsabilita Clinica e Deontologica</h4>
             <ul className="list-disc pl-6 space-y-2 mb-6">
-              <li>Clients must hold all relevant licences and regulatory approvals required to deliver healthcare services in their jurisdiction</li>
-              <li>Clients retain full clinical and professional responsibility for all patient care decisions, regardless of AI-generated outputs</li>
-              <li>Clients must designate a named clinician responsible for reviewing HANA-generated summaries and escalation alerts</li>
-              <li>Clients must ensure their deployment of HANA complies with all applicable national and local healthcare regulations</li>
+              <li>Il Cliente deve essere regolarmente iscritto all'Ordine degli Psicologi competente e in possesso di tutti i titoli necessari per l'esercizio della professione</li>
+              <li>Il Cliente mantiene piena responsabilita clinica e deontologica per tutte le decisioni relative alla cura dei propri pazienti, indipendentemente dagli output generati da ZenGest</li>
+              <li>Il Cliente deve assicurarsi che il proprio utilizzo di ZenGest sia conforme al Codice Deontologico degli Psicologi Italiani e alla normativa vigente</li>
             </ul>
 
-            <h4 className="font-semibold text-[#1e2a3a] mb-3">3.2 Patient Consent</h4>
+            <h4 className="font-semibold text-[#1e2a3a] mb-3">3.2 Consenso del Paziente</h4>
             <ul className="list-disc pl-6 space-y-2 mb-6">
-              <li>Clients are responsible for obtaining informed consent from patients prior to deploying HANA engagement workflows</li>
-              <li>Consent must include: notification that interactions are AI-mediated; explanation of data use; right to opt out; escalation procedures</li>
-              <li>For minors or patients lacking capacity, clients must obtain consent from an appropriate legal representative</li>
-              <li>Clients must provide patients with access to HANA's Privacy Policy at onboarding</li>
+              <li>Il Cliente e responsabile dell'ottenimento del consenso informato dei propri pazienti al trattamento dei loro dati tramite ZenGest, incluso l'utilizzo di strumenti AI</li>
+              <li>Il consenso deve includere: informazione sull'uso di strumenti AI per la generazione di note cliniche; finalita del trattamento; diritto di opposizione e cancellazione</li>
+              <li>Per i pazienti minorenni o privi di capacita, il consenso deve essere ottenuto dal rappresentante legale</li>
             </ul>
 
-            <h4 className="font-semibold text-[#1e2a3a] mb-3">3.3 Appropriate Use</h4>
+            <h4 className="font-semibold text-[#1e2a3a] mb-3">3.3 Uso Appropriato</h4>
             <ul className="list-disc pl-6 space-y-2">
-              <li>HANA may only be used for legitimate clinical and healthcare operational purposes</li>
-              <li>Clients must not use HANA for marketing, commercial profiling, or non-clinical communications</li>
-              <li>Clients must promptly notify HANA of any adverse events, safeguarding concerns, or patient safety issues arising from platform use</li>
-              <li>Clients must implement and maintain appropriate access controls for the HANA clinical dashboard</li>
+              <li>ZenGest puo essere utilizzato esclusivamente per scopi clinici e professionali legittimi</li>
+              <li>E vietato utilizzare ZenGest per finalita di marketing, profilazione commerciale o comunicazioni non cliniche</li>
+              <li>Il Cliente deve implementare adeguate misure di sicurezza per l'accesso al proprio account ZenGest (credenziali riservate, dispositivi sicuri)</li>
+              <li>Il Cliente deve notificare immediatamente ZenGest in caso di accesso non autorizzato o violazione della sicurezza del proprio account</li>
             </ul>
           </Section>
 
-          {/* 4. Patient Rights and Opt-Out */}
-          <Section number="4" title="Patient Rights and Opt-Out">
+          {/* 4. Diritti dell'Utente */}
+          <Section number="4" title="Diritti dell'Utente e Recesso">
             <p className="mb-4">
-              Patients may opt out of HANA engagement workflows at any time by replying STOP to any SMS or WhatsApp message, or by informing their healthcare provider. Opting out of HANA does not affect the patient's right to clinical care.
+              Il Cliente puo cancellare il proprio account in qualsiasi momento dall'interno della piattaforma. La cancellazione comporta la cessazione dell'accesso al servizio al termine del periodo di abbonamento in corso.
             </p>
             <ul className="list-disc pl-6 space-y-2">
-              <li>Opt-out requests are processed within 24 hours</li>
-              <li>No further automated engagement will be initiated following opt-out</li>
-              <li>Data deletion requests are handled under the Privacy Policy and applicable DPA</li>
+              <li>Prima della cancellazione e possibile esportare tutti i propri dati clinici in formato leggibile</li>
+              <li>I dati vengono conservati per 90 giorni dalla cancellazione, dopodiche vengono eliminati in modo sicuro, salvo obblighi di conservazione previsti dalla legge</li>
+              <li>Le richieste di esercizio dei diritti GDPR (accesso, rettifica, cancellazione, portabilita) possono essere inviate a hello@zengest.it</li>
             </ul>
           </Section>
 
-          {/* 5. AI Transparency and Limitations */}
-          <Section number="5" title="AI Transparency and Limitations">
-            <p className="mb-4">Clients and patients must understand the following limitations of HANA's AI systems:</p>
+          {/* 5. Trasparenza e Limiti dell'AI */}
+          <Section number="5" title="Trasparenza e Limiti dell'AI">
+            <p className="mb-4">Il Cliente deve comprendere i seguenti limiti dei sistemi AI di ZenGest:</p>
             <ul className="list-disc pl-6 space-y-2">
-              <li>AI systems may produce outputs that are incomplete, inaccurate, or insufficiently nuanced — clinical review is always required</li>
-              <li>HANA's AI performs best within its validated clinical protocols; use outside trained parameters may reduce accuracy</li>
-              <li>AI performance may vary across languages, dialects, and patient demographics — HANA conducts ongoing bias monitoring but cannot guarantee uniform performance</li>
-              <li>Voice analysis features (tone, pace, acoustic biomarkers) are indicative only and should not be used as standalone clinical evidence</li>
+              <li>I sistemi AI possono produrre output incompleti, imprecisi o insufficientemente sfumati: la revisione clinica e sempre necessaria</li>
+              <li>La qualita delle note generate dipende dalla qualita e chiarezza della registrazione audio o del testo inserito</li>
+              <li>ZenGest non garantisce la conformita degli output alle specifiche esigenze di ogni singolo orientamento terapeutico o sistema nosografico</li>
+              <li>I dati del paziente non vengono mai utilizzati per addestrare modelli AI di terzi: questa e una garanzia contrattuale inclusa in tutti i piani</li>
             </ul>
           </Section>
 
-          {/* 6. Intellectual Property */}
-          <Section number="6" title="Intellectual Property">
+          {/* 6. Proprieta Intellettuale */}
+          <Section number="6" title="Proprieta Intellettuale">
             <ul className="list-disc pl-6 space-y-2">
-              <li>The HANA platform, including all AI models, clinical protocols, conversation designs, APIs, and documentation, is the exclusive intellectual property of HANA Health Ltd</li>
-              <li>Client-specific data, clinical outputs, and conversation histories generated through the platform belong to the Client and their patients, subject to the DPA</li>
-              <li>HANA retains the right to use anonymised, aggregated, non-identifiable data to improve platform performance, subject to applicable law</li>
-              <li>Clients may not reverse-engineer, resell, sublicense, or replicate the HANA platform without prior written consent</li>
+              <li>La piattaforma ZenGest, inclusi tutti i modelli AI, i protocolli clinici, le interfacce, le API e la documentazione, e di proprieta esclusiva di Unozen Srl</li>
+              <li>I dati clinici, le note generate e le cartelle dei pazienti inseriti dal Cliente appartengono al Cliente e ai suoi pazienti, nel rispetto del DPA</li>
+              <li>Unozen Srl si riserva il diritto di utilizzare dati anonimizzati e aggregati non identificabili per migliorare le prestazioni della piattaforma, nel rispetto della normativa applicabile</li>
+              <li>E vietato reverse-engineering, rivendita, sub-licenza o replica della piattaforma ZenGest senza previo consenso scritto di Unozen Srl</li>
             </ul>
           </Section>
 
-          {/* 7. Service Levels */}
-          <Section number="7" title="Service Levels, Availability, and Support">
+          {/* 7. Livelli di Servizio */}
+          <Section number="7" title="Livelli di Servizio e Supporto">
             <div className="overflow-x-auto">
               <table className="w-full text-sm border border-slate-200 rounded-lg overflow-hidden">
                 <thead>
                   <tr className="bg-slate-50">
-                    <th className="text-left px-4 py-3 font-semibold text-[#1e2a3a] border-b border-slate-200 w-2/5">Metric</th>
-                    <th className="text-left px-4 py-3 font-semibold text-[#1e2a3a] border-b border-slate-200">Commitment</th>
+                    <th className="text-left px-4 py-3 font-semibold text-[#1e2a3a] border-b border-slate-200 w-2/5">Metrica</th>
+                    <th className="text-left px-4 py-3 font-semibold text-[#1e2a3a] border-b border-slate-200">Impegno</th>
                   </tr>
                 </thead>
                 <tbody className="text-[#718096]">
-                  <DefRow term="Platform Uptime Target" meaning="99.5% monthly (excluding scheduled maintenance)" />
-                  <DefRow term="Scheduled Maintenance Window" meaning="Sundays 02:00–06:00 UTC (advance notice provided)" />
-                  <DefRow term="Critical Incident Response" meaning="Within 2 hours (P1 — platform unavailable or safety system failure)" />
-                  <DefRow term="Support Response (Standard)" meaning="Within 1 business day" />
-                  <DefRow term="Clinical Escalation Support" meaning="24/7 escalation routing to designated on-call clinical staff" />
+                  <DefRow term="Disponibilita piattaforma" meaning="99% mensile (escluse manutenzioni programmate)" />
+                  <DefRow term="Finestra di manutenzione" meaning="Domenica 02:00-06:00 CET (comunicata in anticipo)" />
+                  <DefRow term="Risposta incidenti critici" meaning="Entro 4 ore (P1: piattaforma non disponibile)" />
+                  <DefRow term="Supporto standard" meaning="Entro 1 giorno lavorativo via hello@zengest.it" />
+                  <DefRow term="Backup dati" meaning="Giornaliero con replica geografica in UE" />
                 </tbody>
               </table>
             </div>
           </Section>
 
-          {/* 8. Liability and Indemnification */}
-          <Section number="8" title="Liability and Indemnification">
+          {/* 8. Responsabilita */}
+          <Section number="8" title="Responsabilita e Manleva">
             <p className="mb-4">
-              HANA's liability to Clients is limited to the total fees paid by the Client in the 12 months preceding the claim, except in cases of gross negligence, wilful misconduct, or breach of data protection obligations.
+              La responsabilita di Unozen Srl nei confronti dei Clienti e limitata al totale dei corrispettivi pagati dal Cliente nei 12 mesi precedenti il sinistro, salvo i casi di dolo, colpa grave o violazione degli obblighi in materia di protezione dei dati.
             </p>
 
-            <h4 className="font-semibold text-[#1e2a3a] mb-3">8.1 HANA is not liable for:</h4>
+            <h4 className="font-semibold text-[#1e2a3a] mb-3">8.1 ZenGest non e responsabile per:</h4>
             <ul className="list-disc pl-6 space-y-2 mb-6">
-              <li>Clinical decisions made by Client clinicians, regardless of whether AI-generated outputs were consulted</li>
-              <li>Harm resulting from the Client's failure to review escalation alerts</li>
-              <li>Service disruptions caused by third-party infrastructure failures (telephony, cloud), provided HANA has met its own SLA obligations</li>
-              <li>Outcomes in deployments where HANA's clinical protocols have been materially modified without HANA's approval</li>
+              <li>Decisioni cliniche adottate dal Cliente, indipendentemente dagli output AI consultati</li>
+              <li>Danni derivanti da un utilizzo improprio della piattaforma o dal mancato rispetto delle presenti condizioni</li>
+              <li>Interruzioni del servizio causate da guasti di infrastrutture terze (cloud provider, connettivita), purche ZenGest abbia rispettato i propri obblighi SLA</li>
             </ul>
 
-            <h4 className="font-semibold text-[#1e2a3a] mb-3">8.2 Client Indemnification</h4>
+            <h4 className="font-semibold text-[#1e2a3a] mb-3">8.2 Manleva del Cliente</h4>
             <p>
-              Clients agree to indemnify HANA against claims arising from: unlicensed clinical practice; failure to obtain patient consent; breach of these Terms; misuse of the platform for non-clinical purposes.
+              Il Cliente si impegna a manlevare Unozen Srl da qualsiasi pretesa derivante da: esercizio non autorizzato della professione; mancato ottenimento del consenso del paziente; violazione delle presenti Condizioni; utilizzo della piattaforma per scopi non clinici.
             </p>
           </Section>
 
-          {/* 9. Term, Termination, and Offboarding */}
-          <Section number="9" title="Term, Termination, and Offboarding">
+          {/* 9. Durata e Recesso */}
+          <Section number="9" title="Durata, Recesso e Offboarding">
             <ul className="list-disc pl-6 space-y-2">
-              <li>Initial contract term: 12 months, renewing automatically unless 60 days' written notice is provided</li>
-              <li>Either party may terminate with 30 days' notice in the event of a material breach not remedied within 14 days of written notice</li>
-              <li>Upon termination, HANA will provide a full data export within 30 days and will securely delete all Client and patient data within 90 days, unless legal retention obligations apply</li>
-              <li>During the offboarding window, clinical access to summaries and escalation logs remains available for continuity of care</li>
+              <li>I piani mensili si rinnovano automaticamente ogni mese; i piani annuali si rinnovano ogni 12 mesi, salvo disdetta</li>
+              <li>Il downgrade o la cancellazione dell'abbonamento e disponibile al rinnovo del periodo in corso</li>
+              <li>In caso di violazione grave delle presenti condizioni, ZenGest si riserva il diritto di sospendere o terminare l'account con preavviso di 14 giorni</li>
+              <li>A seguito della cancellazione, ZenGest fornira un export completo dei dati entro 30 giorni ed eliminera in modo sicuro tutti i dati entro 90 giorni, salvo obblighi di conservazione legale</li>
             </ul>
           </Section>
 
-          {/* 10. Governing Law */}
-          <Section number="10" title="Governing Law">
+          {/* 10. Legge Applicabile */}
+          <Section number="10" title="Legge Applicabile e Foro Competente">
             <p>
-              These Terms are governed by the laws of Ireland. For US-based Clients, HIPAA requirements govern data protection obligations and are incorporated into the BAA. EU Clients: GDPR and applicable national implementing legislation apply. UK Clients: UK GDPR and DCB0129 / DTAC apply. For disputes not resolved by negotiation, the parties agree to binding arbitration in Dublin, Ireland.
+              Le presenti Condizioni sono disciplinate dalla legge italiana. Per qualsiasi controversia relativa all'interpretazione o all'esecuzione delle presenti Condizioni, le parti si impegnano a ricercare una soluzione bonaria. In mancanza di accordo, la controversia sara deferita al Foro di Torino, che avra competenza esclusiva, fatta salva la competenza obbligatoria del foro del consumatore ove applicabile. Il Regolamento (UE) 2016/679 (GDPR) e il D.lgs. 196/2003 (Codice Privacy) si applicano integralmente al trattamento dei dati personali.
             </p>
           </Section>
 
-          {/* PART B */}
+          {/* PARTE B */}
           <div className="border-b border-slate-200 pb-4 mb-10 mt-16">
-            <h2 className="text-2xl font-semibold text-[#1e2a3a] tracking-tight">PART B — SECURITY POLICY</h2>
+            <h2 className="text-2xl font-semibold text-[#1e2a3a] tracking-tight">PARTE B — SICUREZZA E CONFORMITA</h2>
           </div>
 
-          {/* 11. Security Governance */}
-          <Section number="11" title="Security Governance">
+          {/* 11. Governance della Sicurezza */}
+          <Section number="11" title="Governance della Sicurezza">
             <p className="mb-6">
-              HANA maintains a formal Information Security Management System (ISMS) aligned with ISO 27001 principles. Security governance is the joint responsibility of the CTO and Privacy Lead, with quarterly reviews by the leadership team.
+              Unozen Srl mantiene un sistema di gestione della sicurezza delle informazioni allineato ai principi ISO 27001. La governance della sicurezza e responsabilita congiunta del CTO e del Responsabile della Protezione dei Dati (RPD), con revisioni periodiche.
             </p>
 
-            <h4 className="font-semibold text-[#1e2a3a] mb-3">Compliance Framework Summary</h4>
+            <h4 className="font-semibold text-[#1e2a3a] mb-3">Quadro di Conformita</h4>
             <div className="overflow-x-auto">
               <table className="w-full text-sm border border-slate-200 rounded-lg overflow-hidden">
                 <thead>
                   <tr className="bg-slate-50">
                     <th className="text-left px-4 py-3 font-semibold text-[#1e2a3a] border-b border-slate-200">Framework</th>
-                    <th className="text-left px-4 py-3 font-semibold text-[#1e2a3a] border-b border-slate-200">Status</th>
-                    <th className="text-left px-4 py-3 font-semibold text-[#1e2a3a] border-b border-slate-200">Scope</th>
+                    <th className="text-left px-4 py-3 font-semibold text-[#1e2a3a] border-b border-slate-200">Stato</th>
+                    <th className="text-left px-4 py-3 font-semibold text-[#1e2a3a] border-b border-slate-200">Ambito</th>
                   </tr>
                 </thead>
                 <tbody className="text-[#718096]">
                   {[
-                    ["GDPR", "Compliant", "EU-wide; data minimisation, privacy by design, DPA with all processors"],
-                    ["HIPAA", "Aligned", "BAA available; PHI architecture compliant; access controls in place"],
-                    ["SOC 2 Type II", "Completed", "Readiness complete; audit certificate process finalised"],
-                    ["EU AI Act", "Implementing", "Use-case risk classification complete; transparency & oversight measures deployed"],
-                    ["DCB0129", "Compliant", "Clinical risk management for UK health IT systems"],
-                    ["DTAC", "Compliant", "Digital Technology Assessment Criteria (NHS England)"],
-                    ["ISO 27001", "Aligned", "ISMS implemented; formal certification roadmap in progress"],
+                    ["GDPR Art. 9", "Conforme", "Dati sanitari: pseudonimizzazione, privacy by design, DPA con tutti i fornitori"],
+                    ["EU AI Act", "In implementazione", "Classificazione del rischio completata; misure di trasparenza e supervisione attive"],
+                    ["ISO 27001", "Allineato", "ISMS implementato; roadmap di certificazione formale in corso"],
+                    ["Codice Deontologico Psicologi", "Conforme", "Strumento di supporto al professionista; responsabilita clinica sempre in capo al psicologo"],
                   ].map(([fw, status, scope]) => (
                     <tr key={fw} className="border-b border-slate-100 last:border-0">
                       <td className="px-4 py-3 font-medium text-[#1e2a3a]">{fw}</td>
                       <td className="px-4 py-3">
                         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                          status === "Compliant" || status === "Completed" ? "bg-green-50 text-green-700" :
-                          status === "Aligned" ? "bg-blue-50 text-blue-700" :
+                          status === "Conforme" ? "bg-green-50 text-green-700" :
+                          status === "Allineato" ? "bg-blue-50 text-blue-700" :
                           "bg-amber-50 text-amber-700"
                         }`}>
                           {status}
@@ -233,138 +226,136 @@ export function Terms() {
             </div>
           </Section>
 
-          {/* 12. Data Encryption */}
-          <Section number="12" title="Data Encryption">
+          {/* 12. Cifratura dei Dati */}
+          <Section number="12" title="Cifratura dei Dati">
             <div className="overflow-x-auto">
               <table className="w-full text-sm border border-slate-200 rounded-lg overflow-hidden">
                 <thead>
                   <tr className="bg-slate-50">
-                    <th className="text-left px-4 py-3 font-semibold text-[#1e2a3a] border-b border-slate-200 w-2/5">Context</th>
+                    <th className="text-left px-4 py-3 font-semibold text-[#1e2a3a] border-b border-slate-200 w-2/5">Contesto</th>
                     <th className="text-left px-4 py-3 font-semibold text-[#1e2a3a] border-b border-slate-200">Standard</th>
                   </tr>
                 </thead>
                 <tbody className="text-[#718096]">
-                  <DefRow term="Data at Rest" meaning="AES-256 (AWS KMS-managed keys; customer-managed keys available for enterprise)" />
-                  <DefRow term="Data in Transit" meaning="TLS 1.2 / TLS 1.3 (mandatory; older protocols disabled)" />
-                  <DefRow term="Voice Channels" meaning="End-to-end encrypted where channel supports it; HIPAA-compliant SMS gateways for US" />
-                  <DefRow term="Database encryption" meaning="Column-level encryption for PHI fields; full disk encryption on all storage volumes" />
-                  <DefRow term="Backup encryption" meaning="AES-256 applied to all backups; cross-region replication for EU only" />
+                  <DefRow term="Dati a riposo" meaning="AES-256 (chiavi gestite tramite KMS; server localizzati in UE)" />
+                  <DefRow term="Dati in transito" meaning="TLS 1.2 / TLS 1.3 (obbligatorio; protocolli piu vecchi disabilitati)" />
+                  <DefRow term="Registrazioni audio" meaning="Cifrate in transito e a riposo; eliminate dopo l'elaborazione salvo archiviazione esplicita" />
+                  <DefRow term="Cifratura database" meaning="Cifratura a livello di colonna per i campi contenenti dati sanitari" />
+                  <DefRow term="Backup" meaning="AES-256 su tutti i backup; replica geografica in UE" />
                 </tbody>
               </table>
             </div>
           </Section>
 
-          {/* 13. Access Control */}
-          <Section number="13" title="Access Control">
+          {/* 13. Controllo degli Accessi */}
+          <Section number="13" title="Controllo degli Accessi">
             <ul className="list-disc pl-6 space-y-2">
-              <li>Role-based access control (RBAC) applied to all platform components</li>
-              <li>Clinicians access only their own patients' data; cross-clinic data isolation enforced at infrastructure level</li>
-              <li>Multi-factor authentication (MFA) mandatory for all clinical dashboard access</li>
-              <li>Privileged access management (PAM) controls applied to all infrastructure administration</li>
-              <li>Access logs retained for 24 months; anomaly detection alerts are reviewed daily</li>
-              <li>Employee access rights reviewed quarterly; terminated immediately upon offboarding</li>
+              <li>Controllo degli accessi basato su ruoli (RBAC) applicato a tutti i componenti della piattaforma</li>
+              <li>Ogni professionista accede esclusivamente ai dati dei propri pazienti; l'isolamento tra account e garantito a livello infrastrutturale</li>
+              <li>Autenticazione a due fattori (2FA) disponibile e raccomandata per tutti gli account</li>
+              <li>Log di accesso conservati per 24 mesi; rilevamento anomalie con alert giornalieri</li>
+              <li>I diritti di accesso dei dipendenti Unozen Srl sono rivisti trimestralmente e revocati immediatamente al termine del rapporto di lavoro</li>
             </ul>
           </Section>
 
-          {/* 14. Vulnerability Management */}
-          <Section number="14" title="Vulnerability Management">
+          {/* 14. Gestione delle Vulnerabilita */}
+          <Section number="14" title="Gestione delle Vulnerabilita">
             <ul className="list-disc pl-6 space-y-2">
-              <li>Automated vulnerability scanning: daily on all production infrastructure</li>
-              <li>Penetration testing: annual third-party external pentest; results reviewed within 5 business days</li>
-              <li>Patch management: critical vulnerabilities patched within 48 hours; high within 7 days; medium within 30 days</li>
-              <li>Dependency scanning: all third-party libraries monitored via automated tooling (CVE tracking)</li>
-              <li>Bug bounty programme: responsible disclosure policy available at hanahealth.ai/security</li>
+              <li>Scansione automatica delle vulnerabilita: giornaliera su tutta l'infrastruttura di produzione</li>
+              <li>Penetration testing: annuale da parte di terzi esterni; risultati revisionati entro 5 giorni lavorativi</li>
+              <li>Patch management: vulnerabilita critiche risolte entro 48 ore; alte entro 7 giorni; medie entro 30 giorni</li>
+              <li>Monitoraggio delle dipendenze: tutte le librerie di terzi sono monitorate tramite strumenti automatici (tracciamento CVE)</li>
+              <li>Responsible disclosure: per segnalare vulnerabilita contattare hello@zengest.it con oggetto "Security Disclosure"</li>
             </ul>
           </Section>
 
-          {/* 15. Incident Response */}
-          <Section number="15" title="Incident Response">
+          {/* 15. Risposta agli Incidenti */}
+          <Section number="15" title="Risposta agli Incidenti">
             <div className="overflow-x-auto">
               <table className="w-full text-sm border border-slate-200 rounded-lg overflow-hidden">
                 <thead>
                   <tr className="bg-slate-50">
-                    <th className="text-left px-4 py-3 font-semibold text-[#1e2a3a] border-b border-slate-200 w-2/5">Phase</th>
-                    <th className="text-left px-4 py-3 font-semibold text-[#1e2a3a] border-b border-slate-200">HANA Commitment</th>
+                    <th className="text-left px-4 py-3 font-semibold text-[#1e2a3a] border-b border-slate-200 w-2/5">Fase</th>
+                    <th className="text-left px-4 py-3 font-semibold text-[#1e2a3a] border-b border-slate-200">Impegno ZenGest</th>
                   </tr>
                 </thead>
                 <tbody className="text-[#718096]">
-                  <DefRow term="Detection & Triage" meaning="Automated alerting; P1 incidents acknowledged within 30 minutes" />
-                  <DefRow term="Containment" meaning="Affected systems isolated within 2 hours of P1 detection" />
-                  <DefRow term="Client Notification" meaning="Within 24 hours of confirmed breach (72 hours for GDPR Article 33 notification to DPA)" />
-                  <DefRow term="Patient Notification" meaning="As required by GDPR Art. 34 and applicable law; coordinated with Client" />
-                  <DefRow term="Post-Incident Review" meaning="Root cause analysis delivered within 5 business days" />
-                  <DefRow term="Regulatory Reporting" meaning="HANA supports Clients in fulfilling all mandatory regulatory breach notifications" />
+                  <DefRow term="Rilevamento e Triage" meaning="Alerting automatico; incidenti P1 riconosciuti entro 30 minuti" />
+                  <DefRow term="Contenimento" meaning="Sistemi interessati isolati entro 2 ore dal rilevamento P1" />
+                  <DefRow term="Notifica al Cliente" meaning="Entro 24 ore dalla conferma della violazione" />
+                  <DefRow term="Notifica all'Autorita" meaning="Entro 72 ore all'Autorita Garante per la Protezione dei Dati Personali (Art. 33 GDPR)" />
+                  <DefRow term="Notifica all'Interessato" meaning="Come previsto dall'Art. 34 GDPR, in coordinamento con il Cliente" />
+                  <DefRow term="Post-Incident Review" meaning="Analisi della causa radice consegnata entro 5 giorni lavorativi" />
                 </tbody>
               </table>
             </div>
           </Section>
 
-          {/* 16. Subprocessor Security */}
-          <Section number="16" title="Subprocessor Security">
+          {/* 16. Sub-responsabili */}
+          <Section number="16" title="Sub-responsabili del Trattamento">
             <p className="mb-4">
-              All sub-processors with access to personal or health data must meet the following minimum standards before engagement:
+              Tutti i sub-responsabili con accesso a dati personali o sanitari devono soddisfare i seguenti requisiti minimi prima dell'ingaggio:
             </p>
             <ul className="list-disc pl-6 space-y-2 mb-4">
-              <li>Signed Data Processing Agreement (DPA) incorporating GDPR Standard Contractual Clauses where required</li>
-              <li>Evidence of SOC 2 Type II or ISO 27001 certification, or equivalent</li>
-              <li>BAA executed for any US-based processor with access to PHI</li>
-              <li>Annual security assessment by HANA's security team</li>
-              <li>Right to audit provisions included in all sub-processor contracts</li>
+              <li>Accordo per il Trattamento dei Dati (DPA) firmato, con Clausole Contrattuali Standard GDPR ove richiesto</li>
+              <li>Server e infrastruttura di elaborazione localizzati nell'Unione Europea</li>
+              <li>Nessun utilizzo dei dati dei pazienti per l'addestramento di modelli AI</li>
+              <li>Valutazione della sicurezza annuale da parte del team tecnico di Unozen Srl</li>
             </ul>
             <p>
-              An up-to-date list of active sub-processors is available at hanahealth.ai/subprocessors. Clients will be notified 30 days in advance of any new sub-processor engagement and may object.
+              L'elenco aggiornato dei sub-responsabili attivi e disponibile su richiesta scrivendo a hello@zengest.it. I Clienti saranno informati con 30 giorni di anticipo di qualsiasi nuovo sub-responsabile e potranno opporsi.
             </p>
           </Section>
 
-          {/* 17. Business Continuity and Disaster Recovery */}
-          <Section number="17" title="Business Continuity and Disaster Recovery">
+          {/* 17. Continuita Operativa */}
+          <Section number="17" title="Continuita Operativa e Disaster Recovery">
             <ul className="list-disc pl-6 space-y-2">
-              <li>Recovery Time Objective (RTO): 4 hours for P1 platform failure</li>
-              <li>Recovery Point Objective (RPO): 1 hour (continuous replication; point-in-time recovery available)</li>
-              <li>Hot standby infrastructure maintained in secondary AWS region</li>
-              <li>Full DR tests conducted bi-annually; results reviewed by leadership</li>
-              <li>Clinical escalation routing remains operational during platform outages via SMS failover</li>
+              <li>Recovery Time Objective (RTO): 4 ore in caso di guasto critico della piattaforma</li>
+              <li>Recovery Point Objective (RPO): 1 ora (replica continua; ripristino point-in-time disponibile)</li>
+              <li>Infrastruttura di standby mantenuta in una regione cloud secondaria all'interno dell'UE</li>
+              <li>Test di Disaster Recovery condotti semestralmente; risultati revisionati dal team di leadership</li>
             </ul>
           </Section>
 
-          {/* 18. AI-Specific Security Measures */}
-          <Section number="18" title="AI-Specific Security Measures">
-            <p className="mb-4">Given HANA's AI-driven architecture, the following additional security controls apply:</p>
+          {/* 18. Misure di Sicurezza AI */}
+          <Section number="18" title="Misure di Sicurezza Specifiche per l'AI">
+            <p className="mb-4">Data l'architettura AI di ZenGest, si applicano i seguenti controlli aggiuntivi:</p>
             <ul className="list-disc pl-6 space-y-2">
-              <li>Prompt injection prevention: all patient inputs are sanitised and validated before reaching AI models</li>
-              <li>Model output filtering: AI responses are passed through safety classifiers before delivery</li>
-              <li>Hallucination mitigation: clinical reasoning engine is grounded in clinic-specific protocols and knowledge bases; outputs outside validated parameters are flagged for human review</li>
-              <li>Data isolation between clients: AI model inference is stateless; no cross-client data leakage at model layer</li>
-              <li>Open-source model deployments (Llama 3.1): run on HANA-controlled infrastructure; no patient data transmitted to external model providers</li>
-              <li>AI audit logs: all AI inference requests and outputs are logged with full traceability for auditability</li>
+              <li>Prevenzione del prompt injection: tutti gli input sono sanificati e validati prima di raggiungere i modelli AI</li>
+              <li>Filtraggio degli output: le risposte AI sono sottoposte a classificatori di sicurezza prima della consegna</li>
+              <li>Pseudonimizzazione automatica: i dati identificativi del paziente vengono pseudonimizzati prima di qualsiasi elaborazione AI</li>
+              <li>Isolamento dei dati tra account: l'inferenza del modello AI e stateless; non vi e contaminazione di dati tra account diversi</li>
+              <li>Nessun dato clinico trasmesso a provider di modelli terzi per l'addestramento</li>
+              <li>Log di audit AI: tutte le richieste di inferenza e i relativi output sono registrati con piena tracciabilita</li>
             </ul>
           </Section>
 
-          {/* 19. Physical Security */}
-          <Section number="19" title="Physical Security">
+          {/* 19. Sicurezza Fisica */}
+          <Section number="19" title="Sicurezza Fisica e Organizzativa">
             <ul className="list-disc pl-6 space-y-2">
-              <li>HANA is a cloud-native company; no patient data is processed on employee devices</li>
-              <li>For on-premise deployments (Italy, Middle East): physical server access is controlled by the healthcare institution partner, with HANA providing hardened server configurations and audit logging</li>
-              <li>All HANA employees complete mandatory security awareness training on joining and annually thereafter</li>
-              <li>Clean desk / clear screen policy enforced for all remote and office workers</li>
+              <li>ZenGest e una piattaforma cloud-native; nessun dato del paziente e elaborato su dispositivi dei dipendenti</li>
+              <li>Tutti i dipendenti e collaboratori di Unozen Srl completano una formazione obbligatoria sulla sicurezza informatica all'assunzione e annualmente</li>
+              <li>Policy di scrivania pulita e schermo bloccato per tutti i lavoratori da remoto e in ufficio</li>
+              <li>Accesso fisico ai datacenter gestito dal provider cloud certificato ISO 27001 con infrastruttura in UE</li>
             </ul>
           </Section>
 
-          {/* 20. Security Contact */}
-          <Section number="20" title="Security Contact">
+          {/* 20. Contatti per la Sicurezza */}
+          <Section number="20" title="Contatti per la Sicurezza e la Privacy">
             <div className="overflow-x-auto">
               <table className="w-full text-sm border border-slate-200 rounded-lg overflow-hidden">
                 <thead>
                   <tr className="bg-slate-50">
-                    <th className="text-left px-4 py-3 font-semibold text-[#1e2a3a] border-b border-slate-200 w-2/5">Contact Type</th>
-                    <th className="text-left px-4 py-3 font-semibold text-[#1e2a3a] border-b border-slate-200">Details</th>
+                    <th className="text-left px-4 py-3 font-semibold text-[#1e2a3a] border-b border-slate-200 w-2/5">Tipo di Contatto</th>
+                    <th className="text-left px-4 py-3 font-semibold text-[#1e2a3a] border-b border-slate-200">Dettagli</th>
                   </tr>
                 </thead>
                 <tbody className="text-[#718096]">
-                  <DefRow term="Security incidents and breach reports" meaning="security@hanahealth.ai" />
-                  <DefRow term="Responsible disclosure / bug reports" meaning="security@hanahealth.ai (PGP key available on request)" />
-                  <DefRow term="Compliance and audit requests" meaning="compliance@hanahealth.ai" />
-                  <DefRow term="General security questions" meaning="security@hanahealth.ai" />
+                  <DefRow term="Incidenti di sicurezza e violazioni" meaning="hello@zengest.it (oggetto: Security Incident)" />
+                  <DefRow term="Responsible disclosure / segnalazione bug" meaning="hello@zengest.it (oggetto: Security Disclosure)" />
+                  <DefRow term="Richieste di conformita e audit" meaning="hello@zengest.it (oggetto: Compliance)" />
+                  <DefRow term="Esercizio diritti GDPR" meaning="hello@zengest.it (oggetto: Diritti GDPR)" />
+                  <DefRow term="PEC aziendale" meaning="UNOZEN@NAMIRIALPEC.IT" />
                 </tbody>
               </table>
             </div>
@@ -373,7 +364,7 @@ export function Terms() {
           {/* Footer note */}
           <div className="mt-16 pt-8 border-t border-slate-200 text-center">
             <p className="text-sm text-[#718096]">
-              HANA Health Ltd &nbsp;|&nbsp; <a href="mailto:privacy@hanahealth.ai" className="text-blue-600 hover:text-blue-800 transition-colors">privacy@hanahealth.ai</a>
+              Unozen Srl &nbsp;|&nbsp; Via Cesare Battisti 15, Torino &nbsp;|&nbsp; P. IVA 13448760010 &nbsp;|&nbsp; <a href="mailto:hello@zengest.it" className="text-blue-600 hover:text-blue-800 transition-colors">hello@zengest.it</a>
             </p>
           </div>
         </div>
@@ -383,7 +374,6 @@ export function Terms() {
   );
 }
 
-/* Reusable section wrapper */
 function Section({ number, title, children }: { number: string; title: string; children: React.ReactNode }) {
   return (
     <section className="mb-12">
@@ -397,7 +387,6 @@ function Section({ number, title, children }: { number: string; title: string; c
   );
 }
 
-/* Reusable table row */
 function DefRow({ term, meaning }: { term: string; meaning: string }) {
   return (
     <tr className="border-b border-slate-100 last:border-0">
