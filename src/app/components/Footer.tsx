@@ -16,6 +16,7 @@ export function Footer() {
 
         {/* Links */}
         <div className="flex items-center gap-6 font-['DM_Sans'] text-sm text-slate-500">
+          <Link to="/blog" className="hover:text-[#00122F] transition-colors">Blog</Link>
           <Link to="/sicurezza" className="hover:text-[#00122F] transition-colors">Sicurezza</Link>
           <Link to="/termini" className="hover:text-[#00122F] transition-colors">Termini</Link>
           <Link to="/dpa" className="hover:text-[#00122F] transition-colors">DPA</Link>

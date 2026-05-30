@@ -14,6 +14,8 @@ import { StateOfAI } from "./pages/StateOfAI";
 import { Sicurezza } from "./pages/Sicurezza";
 import { Termini } from "./pages/Termini";
 import { DPA } from "./pages/DPA";
+import { Blog } from "./pages/Blog";
+import { BlogPost } from "./pages/BlogPost";
 
 export default function App() {
   return (
@@ -25,6 +27,7 @@ export default function App() {
         <AnnouncementBar />
         <Navbar navLinks={[
           { url: "/pricing", title: "Prezzi" },
+          { url: "/blog", title: "Blog" },
           { url: "/about", title: "Chi Siamo" },
           { url: "/sicurezza", title: "Sicurezza" },
         ]} />
@@ -40,6 +43,9 @@ export default function App() {
             <Route path="/sicurezza" element={<Sicurezza />} />
             <Route path="/termini" element={<Termini />} />
             <Route path="/dpa" element={<DPA />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/categoria/:category" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
           </Routes>
         </main>
       </div>
