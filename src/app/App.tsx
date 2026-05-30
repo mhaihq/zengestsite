@@ -19,6 +19,7 @@ import { BlogPost } from "./pages/BlogPost";
 import { VsPsicogest } from "./pages/comparisons/VsPsicogest";
 import { VsGesto } from "./pages/comparisons/VsGesto";
 import { VsAppuntoo } from "./pages/comparisons/VsAppuntoo";
+import { VsChatgpt } from "./pages/comparisons/VsChatgpt";
 
 export default function App() {
   return (
@@ -51,6 +52,7 @@ export default function App() {
             <Route path="/vs/psicogest" element={<VsPsicogest />} />
             <Route path="/vs/gesto" element={<VsGesto />} />
             <Route path="/vs/appuntoo" element={<VsAppuntoo />} />
+            <Route path="/vs/chatgpt" element={<VsChatgpt />} />
           </Routes>
         </main>
       </div>
