@@ -16,6 +16,9 @@ import { Termini } from "./pages/Termini";
 import { DPA } from "./pages/DPA";
 import { Blog } from "./pages/Blog";
 import { BlogPost } from "./pages/BlogPost";
+import { VsPsicogest } from "./pages/comparisons/VsPsicogest";
+import { VsGesto } from "./pages/comparisons/VsGesto";
+import { VsAppuntoo } from "./pages/comparisons/VsAppuntoo";
 
 export default function App() {
   return (
@@ -45,6 +48,9 @@ export default function App() {
             <Route path="/dpa" element={<DPA />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/vs/psicogest" element={<VsPsicogest />} />
+            <Route path="/vs/gesto" element={<VsGesto />} />
+            <Route path="/vs/appuntoo" element={<VsAppuntoo />} />
           </Routes>
         </main>
       </div>
