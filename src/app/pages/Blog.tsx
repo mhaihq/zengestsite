@@ -15,8 +15,8 @@ const PLACEHOLDERS = [
 ]
 
 function PostCard({ post }: { post: PostCard }) {
-  const date = post.publishedAt
-    ? new Date(post.publishedAt).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })
+  const date = post.pubblicatoIl
+    ? new Date(post.pubblicatoIl).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })
     : null
 
   return (
@@ -27,13 +27,13 @@ function PostCard({ post }: { post: PostCard }) {
       <div className="p-6 flex flex-col flex-1">
         <Link to={`/blog/${post.slug.current}`} className="mb-3 block">
           <h3 className="font-['Instrument_Serif'] text-[20px] text-[#00122F] leading-[1.25] group-hover:opacity-75 transition-opacity">
-            {post.title}
+            {post.titolo}
           </h3>
         </Link>
 
-        {post.excerpt && (
+        {post.estratto && (
           <p className="font-['DM_Sans'] text-[13px] text-slate-500 leading-relaxed line-clamp-3 mb-5">
-            {post.excerpt}
+            {post.estratto}
           </p>
         )}
 
@@ -51,8 +51,8 @@ function PostCard({ post }: { post: PostCard }) {
 }
 
 function FeaturedPost({ post }: { post: PostCard }) {
-  const date = post.publishedAt
-    ? new Date(post.publishedAt).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })
+  const date = post.pubblicatoIl
+    ? new Date(post.pubblicatoIl).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })
     : null
 
   return (
@@ -67,14 +67,14 @@ function FeaturedPost({ post }: { post: PostCard }) {
 
         <Link to={`/blog/${post.slug.current}`}>
           <h2 className="font-['Instrument_Serif'] text-[28px] md:text-[36px] lg:text-[42px] text-[#00122F] leading-[1.1] mb-4 max-w-3xl hover:opacity-75 transition-opacity">
-            {post.title}
+            {post.titolo}
           </h2>
         </Link>
 
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-          {post.excerpt && (
+          {post.estratto && (
             <p className="font-['DM_Sans'] text-[15px] text-slate-500 leading-relaxed max-w-2xl">
-              {post.excerpt}
+              {post.estratto}
             </p>
           )}
           <div className="flex items-center gap-4 shrink-0">

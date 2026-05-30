@@ -2,45 +2,41 @@ import { sanityClient } from './sanity'
 
 export type PostCard = {
   _id: string
-  title: string
+  titolo: string
   slug: { current: string }
-  excerpt?: string
-  mainImage?: { asset?: { url?: string; _ref?: string }; alt?: string }
+  estratto?: string
   category?: string
-  publishedAt?: string
+  pubblicatoIl?: string
 }
 
 export type Post = PostCard & {
-  body?: unknown[]
-  seoTitle?: string
-  seoDescription?: string
+  corpo?: unknown[]
+  titoloSeo?: string
+  descrizioneSeo?: string
 }
 
 const CARD_FIELDS = `
   _id,
-  title,
+  titolo,
   slug,
-  excerpt,
-  "mainImage": mainImage { alt, asset-> { url } },
+  estratto,
   category,
-  publishedAt
+  pubblicatoIl
 `
 
-export async function getPosts(opts?: { category?: string }): Promise<PostCard[]> {
-  const filter = opts?.category ? `&& category == $category` : ''
+export async function getPosts(): Promise<PostCard[]> {
   return sanityClient.fetch(
-    `*[_type == "post" && defined(title) && defined(slug) ${filter}] | order(publishedAt desc) { ${CARD_FIELDS} }`,
-    { category: opts?.category ?? null },
+    `*[_type == "post" && defined(titolo) && defined(slug)] | order(pubblicatoIl desc) { ${CARD_FIELDS} }`,
   )
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   return sanityClient.fetch(
-    `*[_type == "post" && defined(title) && slug.current == $slug][0] {
+    `*[_type == "post" && defined(titolo) && slug.current == $slug][0] {
       ${CARD_FIELDS},
-      body,
-      seoTitle,
-      seoDescription
+      corpo,
+      titoloSeo,
+      descrizioneSeo
     }`,
     { slug },
   )
@@ -53,5 +49,3 @@ export const CATEGORY_LABELS: Record<string, string> = {
   'psicologia-pratica': 'Psicologia e Pratica',
   'zengest-updates': 'ZenGest Updates',
 }
-
-export const ALL_CATEGORIES = Object.keys(CATEGORY_LABELS)

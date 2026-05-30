@@ -99,16 +99,16 @@ export function BlogPost() {
     )
   }
 
-  const date = post.publishedAt
-    ? new Date(post.publishedAt).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })
+  const date = post.pubblicatoIl
+    ? new Date(post.pubblicatoIl).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })
     : null
 
   return (
     <div className="bg-white min-h-screen">
       <SEO
-        title={post.seoTitle ?? post.title}
+        title={post.titoloSeo ?? post.titolo}
         useExactTitle={true}
-        description={post.seoDescription ?? post.excerpt ?? ''}
+        description={post.descrizioneSeo ?? post.estratto ?? ''}
         path={`/blog/${post.slug.current}`}
       />
 
@@ -116,7 +116,7 @@ export function BlogPost() {
       <div className="border-b border-slate-100">
         <div className="max-w-3xl mx-auto px-6 pt-12 pb-10">
           <h1 className="font-['Instrument_Serif'] text-3xl md:text-4xl lg:text-5xl text-[#00122F] leading-[1.1] mb-4">
-            {post.title}
+            {post.titolo}
           </h1>
           {date && <p className="font-['DM_Sans'] text-[12px] text-slate-400">{date}</p>}
         </div>
@@ -124,15 +124,15 @@ export function BlogPost() {
 
       {/* Body */}
       <div className="max-w-3xl mx-auto px-6 py-12 md:py-16">
-        {post.excerpt && (
+        {post.estratto && (
           <p className="font-['Instrument_Serif'] text-xl md:text-2xl text-slate-500 leading-relaxed mb-10 pb-10 border-b border-slate-100">
-            {post.excerpt}
+            {post.estratto}
           </p>
         )}
 
-        {post.body && post.body.length > 0 && (
+        {post.corpo && post.corpo.length > 0 && (
           // @ts-expect-error portabletext types
-          <PortableText value={post.body} components={ptComponents} />
+          <PortableText value={post.corpo} components={ptComponents} />
         )}
 
         {/* CTA */}
