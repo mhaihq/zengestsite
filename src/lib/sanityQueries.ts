@@ -29,14 +29,14 @@ const CARD_FIELDS = `
 export async function getPosts(opts?: { category?: string }): Promise<PostCard[]> {
   const filter = opts?.category ? `&& category == $category` : ''
   return sanityClient.fetch(
-    `*[_type == "post" ${filter}] | order(publishedAt desc) { ${CARD_FIELDS} }`,
+    `*[_type == "post" && defined(title) && defined(slug) ${filter}] | order(publishedAt desc) { ${CARD_FIELDS} }`,
     { category: opts?.category ?? null },
   )
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   return sanityClient.fetch(
-    `*[_type == "post" && slug.current == $slug][0] {
+    `*[_type == "post" && defined(title) && slug.current == $slug][0] {
       ${CARD_FIELDS},
       body,
       seoTitle,
