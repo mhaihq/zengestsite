@@ -8,6 +8,9 @@ Disallow: /api/
 # Sitemap
 Sitemap: https://zengest.it/sitemap.xml
 
+# IndexNow key
+Sitemap: https://zengest.it/llms.txt
+
 # Search engines
 User-agent: Googlebot
 Allow: /

@@ -1,0 +1,45 @@
+# ZenGest
+
+> ZenGest è una piattaforma AI per psicologi italiani. Trascrive le sedute, genera note cliniche strutturate (SOAP, DAP, BIRP), aggiorna automaticamente la cartella paziente e risponde a domande sui casi tramite Ask ZenGest — un assistente clinico contestualizzato sullo storico reale del paziente.
+
+ZenGest è sviluppato da Unozen Srl (Torino, Italia) ed è costruito specificamente per il contesto clinico italiano: conforme al GDPR Art. 9, dati elaborati esclusivamente su server europei, nessun dato clinico usato per addestrare modelli AI di terzi. Include un DPA (Data Processing Agreement) in tutti i piani.
+
+## Cosa fa ZenGest
+
+- **Trascrizione e note AI**: registra la seduta, genera automaticamente la nota clinica nel formato scelto dallo psicologo (SOAP, DAP, BIRP o libero)
+- **Cartella paziente digitale**: aggrega note, documenti, PDF, audio e appunti scritti a mano in un'unica cartella interrogabile
+- **Ask ZenGest**: assistente clinico che risponde a domande sui pazienti usando lo storico reale delle sedute — non un chatbot generico
+- **Timeline clinica**: visualizzazione cronologica dell'evoluzione del paziente seduta per seduta
+- **Template personalizzabili**: adattabili a ogni orientamento terapeutico (CBT, psicodinamico, sistemico, ecc.)
+
+## A chi è rivolto
+
+Psicologi e psicoterapeuti italiani in libera professione o in studio. Non è destinato a ospedali, reparti ospedalieri o usi non clinici.
+
+## Piani
+
+- **Free**: 10 sedute/mese, note AI base, scheda paziente
+- **Clinical** (€39+IVA/mese): 50 sedute/mese, cartella completa, Ask ZenGest, timeline, export documenti
+- **Professional** (€79+IVA/mese): sedute illimitate, tutto di Clinical, processing prioritario, supporto prioritario
+
+## Conformità e sicurezza
+
+- GDPR Art. 9 (dati sanitari): pseudonimizzazione automatica prima di qualsiasi elaborazione AI
+- EU AI Act: classificazione del rischio completata, misure di trasparenza attive
+- Server esclusivamente nell'Unione Europea
+- DPA incluso in tutti i piani — garanzia contrattuale che nessun dato clinico viene usato per addestrare modelli
+- Nessuna condivisione di dati tra account
+
+## Pagine principali
+
+- [Home](https://zengest.it/) — panoramica del prodotto
+- [Prezzi](https://zengest.it/pricing) — piani Free, Clinical, Professional
+- [Sicurezza](https://zengest.it/sicurezza) — dettaglio conformità GDPR, EU AI Act, infrastruttura
+- [Termini di Servizio](https://zengest.it/termini) — condizioni d'uso in italiano
+- [DPA](https://zengest.it/dpa) — accordo per il trattamento dei dati
+
+## Contatti
+
+- Email: hello@zengest.it
+- PEC: UNOZEN@NAMIRIALPEC.IT
+- Azienda: Unozen Srl, Via Cesare Battisti 15, Torino — P. IVA 13448760010
