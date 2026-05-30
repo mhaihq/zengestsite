@@ -5,7 +5,7 @@ import { Link, useParams } from 'react-router'
 import { PortableText } from '@portabletext/react'
 import { SEO } from '../components/SEO'
 import { Footer } from '../components/Footer'
-import { getPostBySlug, CATEGORY_LABELS, type Post } from '../../lib/sanityQueries'
+import { getPostBySlug, type Post } from '../../lib/sanityQueries'
 
 const ptComponents = {
   block: {
@@ -102,8 +102,6 @@ export function BlogPost() {
   const date = post.publishedAt
     ? new Date(post.publishedAt).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })
     : null
-  const categoryLabel = post.category ? CATEGORY_LABELS[post.category] : null
-  const imageUrl = post.mainImage?.asset?.url
 
   return (
     <div className="bg-white min-h-screen">
@@ -114,48 +112,12 @@ export function BlogPost() {
         path={`/blog/${post.slug.current}`}
       />
 
-      {/* Hero */}
-      {imageUrl ? (
-        <div className="relative w-full overflow-hidden" style={{ height: 'clamp(280px, 42vw, 520px)' }}>
-          <img
-            src={`${imageUrl}?w=1600&auto=format`}
-            alt={post.mainImage?.alt ?? post.title}
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 30%, rgba(0,18,47,0.6) 100%)' }} />
-          <div className="absolute bottom-0 left-0 right-0 max-w-3xl mx-auto px-6 pb-10">
-            {categoryLabel && (
-              <span className="inline-block font-['DM_Sans'] text-[11px] font-semibold tracking-[0.08em] uppercase text-white/80 mb-3">
-                {categoryLabel}
-              </span>
-            )}
-            <h1 className="font-['Instrument_Serif'] text-3xl md:text-4xl lg:text-5xl text-white leading-[1.1]">
-              {post.title}
-            </h1>
-          </div>
-        </div>
-      ) : (
-        <div className="bg-[#00122F] pt-20 pb-16 px-6 text-center">
-          {categoryLabel && (
-            <span className="inline-block font-['DM_Sans'] text-[11px] font-semibold tracking-[0.08em] uppercase text-[#A7BCF5] mb-4">
-              {categoryLabel}
-            </span>
-          )}
-          <h1 className="font-['Instrument_Serif'] text-3xl md:text-4xl lg:text-5xl text-white leading-[1.1] max-w-3xl mx-auto">
+      {/* Header */}
+      <div className="border-b border-slate-100">
+        <div className="max-w-3xl mx-auto px-6 pt-12 pb-10">
+          <h1 className="font-['Instrument_Serif'] text-3xl md:text-4xl lg:text-5xl text-[#00122F] leading-[1.1] mb-4">
             {post.title}
           </h1>
-        </div>
-      )}
-
-      {/* Meta bar */}
-      <div className="border-b border-slate-100">
-        <div className="max-w-3xl mx-auto px-6 py-5 flex items-center justify-between gap-4">
-          <Link to="/blog" className="font-['DM_Sans'] text-[12px] text-slate-400 hover:text-[#00122F] transition-colors flex items-center gap-1.5">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="15 18 9 12 15 6"/>
-            </svg>
-            Blog
-          </Link>
           {date && <p className="font-['DM_Sans'] text-[12px] text-slate-400">{date}</p>}
         </div>
       </div>

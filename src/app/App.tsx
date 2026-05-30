@@ -44,7 +44,6 @@ export default function App() {
             <Route path="/termini" element={<Termini />} />
             <Route path="/dpa" element={<DPA />} />
             <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/categoria/:category" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
           </Routes>
         </main>
