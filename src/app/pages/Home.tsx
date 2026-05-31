@@ -10,6 +10,7 @@ import { IntelligenceSection } from "../components/IntelligenceSection";
 import { TestimonialsSection } from "../components/TestimonialsSection";
 import { TestimonialCarousel } from "../components/TestimonialCarousel";
 import { CTAFinal } from "../components/CTAFinal";
+import { VsLinksSection } from "../components/VsLinksSection";
 import { Footer } from "../components/Footer";
 import { SEO } from "../components/SEO";
 import { organizationSchema, websiteSchema, softwareApplicationSchema } from "../components/SEO";
@@ -36,6 +37,7 @@ export function Home() {
       <TestimonialCarousel />
       <SecuritySection />
       <IntelligenceSection />
+      <VsLinksSection />
       <CTAFinal />
       <Footer />
     </div>
