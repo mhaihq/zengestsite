@@ -85,10 +85,10 @@ const GROUPS: Group[] = [
 ];
 
 const COMPETITORS = [
-  { key: "chatgpt",   label: "ChatGPT",   slug: "/vs/chatgpt"   },
-  { key: "psicogest", label: "PsicoGest", slug: "/vs/psicogest" },
-  { key: "gesto",     label: "Gesto",     slug: "/vs/gesto"     },
-  { key: "appuntoo",  label: "Appuntoo",  slug: "/vs/appuntoo"  },
+  { key: "chatgpt",   label: "ChatGPT",   slug: "/vs/chatgpt",   logo: "https://upload.wikimedia.org/wikipedia/commons/1/13/ChatGPT-Logo.png" },
+  { key: "psicogest", label: "PsicoGest", slug: "/vs/psicogest", logo: "https://psicogest.it/wp-content/uploads/2024/04/logo-psicogest.png" },
+  { key: "gesto",     label: "Gesto",     slug: "/vs/gesto",     logo: "https://s3-eu-west-1.amazonaws.com/tpd/logos/66c5b467eb620c5977db795f/0x0.png" },
+  { key: "appuntoo",  label: "Appuntoo",  slug: "/vs/appuntoo",  logo: "https://appuntoo.com/images/logo.webp" },
 ];
 
 function renderCell(cell: Cell) {
@@ -125,13 +125,17 @@ export function VsLinksSection() {
               <tr>
                 <th className="bg-slate-50 text-left px-5 py-3.5 font-['DM_Sans'] text-[11px] font-semibold uppercase tracking-widest text-slate-400 border-b border-slate-200 w-[36%]" />
                 {/* ZenGest */}
-                <th className="bg-[#00122F] px-3 py-3.5 text-center border-b border-[#00122F] w-[13%]">
-                  <span className="font-['DM_Sans'] text-[12px] font-bold text-white">ZenGest</span>
+                <th className="bg-[#00122F] px-3 py-4 text-center border-b border-[#00122F] w-[13%]">
+                  <div className="flex flex-col items-center gap-1.5">
+                    <img src="https://cdn.prod.website-files.com/6985ec3788addb8b6efcb94f/6985ec3788addb8b6efcba5a_3-p-500.png" alt="ZenGest" className="h-5 w-auto object-contain" style={{ filter: "brightness(0) invert(1)" }} />
+                    <span className="font-['DM_Sans'] text-[10px] font-semibold text-white/70 tracking-wide">ZenGest</span>
+                  </div>
                 </th>
                 {COMPETITORS.map(c => (
-                  <th key={c.key} className="bg-slate-50 px-3 py-3.5 text-center border-b border-slate-200 w-[13%]">
-                    <Link to={c.slug} className="font-['DM_Sans'] text-[11px] font-semibold text-slate-500 hover:text-[#3B6FD4] transition-colors">
-                      {c.label}
+                  <th key={c.key} className="bg-slate-50 px-3 py-4 text-center border-b border-slate-200 w-[13%]">
+                    <Link to={c.slug} className="flex flex-col items-center gap-1.5 group">
+                      <img src={c.logo} alt={c.label} className="h-5 w-auto object-contain max-w-[72px] grayscale group-hover:grayscale-0 transition-all duration-200" />
+                      <span className="font-['DM_Sans'] text-[10px] font-semibold text-slate-400 group-hover:text-[#3B6FD4] transition-colors">{c.label}</span>
                     </Link>
                   </th>
                 ))}
