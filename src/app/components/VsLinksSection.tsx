@@ -129,10 +129,10 @@ export function VsLinksSection() {
                   <img src="https://cdn.prod.website-files.com/6985ec3788addb8b6efcb94f/6985ec3788addb8b6efcba5a_3-p-500.png" alt="ZenGest" className="h-5 w-auto object-contain mx-auto" style={{ filter: "brightness(0) invert(1)" }} />
                 </th>
                 {COMPETITORS.map(c => (
-                  <th key={c.key} className="px-3 py-4 text-center border-b w-[13%]" style={{ background: c.bg, borderBottomColor: c.bg }}>
-                    <Link to={c.slug} className="flex items-center justify-center h-5">
+                  <th key={c.key} className="px-3 py-5 text-center border-b w-[13%]" style={{ background: c.bg, borderBottomColor: c.bg }}>
+                    <Link to={c.slug} className="flex items-center justify-center">
                       {c.logo
-                        ? <img src={c.logo} alt={c.label} className="h-5 w-auto object-contain max-w-[72px]" style={{ filter: "brightness(0) invert(1)" }} />
+                        ? <img src={c.logo} alt={c.label} className="h-6 w-auto object-contain max-w-[80px]" />
                         : <span className="font-['DM_Sans'] text-[11px] font-bold text-white tracking-wide">{c.label}</span>
                       }
                     </Link>
