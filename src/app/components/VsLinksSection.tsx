@@ -85,10 +85,10 @@ const GROUPS: Group[] = [
 ];
 
 const COMPETITORS = [
-  { key: "chatgpt",   label: "ChatGPT",   slug: "/vs/chatgpt",   logo: "https://upload.wikimedia.org/wikipedia/commons/1/13/ChatGPT-Logo.png" },
-  { key: "psicogest", label: "PsicoGest", slug: "/vs/psicogest", logo: "https://psicogest.it/wp-content/uploads/2024/04/logo-psicogest.png" },
-  { key: "gesto",     label: "Gesto",     slug: "/vs/gesto",     logo: "https://s3-eu-west-1.amazonaws.com/tpd/logos/66c5b467eb620c5977db795f/0x0.png" },
-  { key: "appuntoo",  label: "Appuntoo",  slug: "/vs/appuntoo",  logo: "https://appuntoo.com/images/logo.webp" },
+  { key: "chatgpt",   label: "ChatGPT",   slug: "/vs/chatgpt",   logo: "https://upload.wikimedia.org/wikipedia/commons/1/13/ChatGPT-Logo.png", bg: "#10A37F" },
+  { key: "psicogest", label: "PsicoGest", slug: "/vs/psicogest", logo: null,                                                                     bg: "#1D4ED8" },
+  { key: "gesto",     label: "Gesto",     slug: "/vs/gesto",     logo: "https://s3-eu-west-1.amazonaws.com/tpd/logos/66c5b467eb620c5977db795f/0x0.png", bg: "#7C3AED" },
+  { key: "appuntoo",  label: "Appuntoo",  slug: "/vs/appuntoo",  logo: "https://appuntoo.com/images/logo.webp", bg: "#0891B2" },
 ];
 
 function renderCell(cell: Cell) {
@@ -125,17 +125,16 @@ export function VsLinksSection() {
               <tr>
                 <th className="bg-slate-50 text-left px-5 py-3.5 font-['DM_Sans'] text-[11px] font-semibold uppercase tracking-widest text-slate-400 border-b border-slate-200 w-[36%]" />
                 {/* ZenGest */}
-                <th className="bg-[#00122F] px-3 py-4 text-center border-b border-[#00122F] w-[13%]">
-                  <div className="flex flex-col items-center gap-1.5">
-                    <img src="https://cdn.prod.website-files.com/6985ec3788addb8b6efcb94f/6985ec3788addb8b6efcba5a_3-p-500.png" alt="ZenGest" className="h-5 w-auto object-contain" style={{ filter: "brightness(0) invert(1)" }} />
-                    <span className="font-['DM_Sans'] text-[10px] font-semibold text-white/70 tracking-wide">ZenGest</span>
-                  </div>
+                <th className="px-3 py-4 text-center border-b border-[#00122F] w-[13%]" style={{ background: "#00122F" }}>
+                  <img src="https://cdn.prod.website-files.com/6985ec3788addb8b6efcb94f/6985ec3788addb8b6efcba5a_3-p-500.png" alt="ZenGest" className="h-5 w-auto object-contain mx-auto" style={{ filter: "brightness(0) invert(1)" }} />
                 </th>
                 {COMPETITORS.map(c => (
-                  <th key={c.key} className="bg-slate-50 px-3 py-4 text-center border-b border-slate-200 w-[13%]">
-                    <Link to={c.slug} className="flex flex-col items-center gap-1.5 group">
-                      <img src={c.logo} alt={c.label} className="h-5 w-auto object-contain max-w-[72px] grayscale group-hover:grayscale-0 transition-all duration-200" />
-                      <span className="font-['DM_Sans'] text-[10px] font-semibold text-slate-400 group-hover:text-[#3B6FD4] transition-colors">{c.label}</span>
+                  <th key={c.key} className="px-3 py-4 text-center border-b w-[13%]" style={{ background: c.bg, borderBottomColor: c.bg }}>
+                    <Link to={c.slug} className="flex items-center justify-center h-5">
+                      {c.logo
+                        ? <img src={c.logo} alt={c.label} className="h-5 w-auto object-contain max-w-[72px]" style={{ filter: "brightness(0) invert(1)" }} />
+                        : <span className="font-['DM_Sans'] text-[11px] font-bold text-white tracking-wide">{c.label}</span>
+                      }
                     </Link>
                   </th>
                 ))}
