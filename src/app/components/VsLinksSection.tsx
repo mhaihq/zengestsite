@@ -85,10 +85,10 @@ const GROUPS: Group[] = [
 ];
 
 const COMPETITORS = [
-  { key: "chatgpt",   label: "ChatGPT",   slug: "/vs/chatgpt",   logo: "https://upload.wikimedia.org/wikipedia/commons/1/13/ChatGPT-Logo.png", bg: "#10A37F" },
-  { key: "psicogest", label: "PsicoGest", slug: "/vs/psicogest", logo: null,                                                                     bg: "#1D4ED8" },
-  { key: "gesto",     label: "Gesto",     slug: "/vs/gesto",     logo: "https://s3-eu-west-1.amazonaws.com/tpd/logos/66c5b467eb620c5977db795f/0x0.png", bg: "#7C3AED" },
-  { key: "appuntoo",  label: "Appuntoo",  slug: "/vs/appuntoo",  logo: "https://appuntoo.com/images/logo.webp", bg: "#0891B2" },
+  { key: "chatgpt",   label: "ChatGPT",   slug: "/vs/chatgpt",   logo: "https://upload.wikimedia.org/wikipedia/commons/1/13/ChatGPT-Logo.png" },
+  { key: "psicogest", label: "PsicoGest", slug: "/vs/psicogest", logo: "https://psicogest.it/wp-content/uploads/2024/04/logo-psicogest.png" },
+  { key: "gesto",     label: "Gesto",     slug: "/vs/gesto",     logo: "https://s3-eu-west-1.amazonaws.com/tpd/logos/66c5b467eb620c5977db795f/0x0.png" },
+  { key: "appuntoo",  label: "Appuntoo",  slug: "/vs/appuntoo",  logo: "https://appuntoo.com/images/logo.webp" },
 ];
 
 function renderCell(cell: Cell) {
@@ -129,12 +129,9 @@ export function VsLinksSection() {
                   <img src="https://cdn.prod.website-files.com/6985ec3788addb8b6efcb94f/6985ec3788addb8b6efcba5a_3-p-500.png" alt="ZenGest" className="h-5 w-auto object-contain mx-auto" style={{ filter: "brightness(0) invert(1)" }} />
                 </th>
                 {COMPETITORS.map(c => (
-                  <th key={c.key} className="px-3 py-5 text-center border-b w-[13%]" style={{ background: c.bg, borderBottomColor: c.bg }}>
+                  <th key={c.key} className="bg-slate-50 px-3 py-5 text-center border-b border-slate-200 w-[13%]">
                     <Link to={c.slug} className="flex items-center justify-center">
-                      {c.logo
-                        ? <img src={c.logo} alt={c.label} className="h-6 w-auto object-contain max-w-[80px]" />
-                        : <span className="font-['DM_Sans'] text-[11px] font-bold text-white tracking-wide">{c.label}</span>
-                      }
+                      <img src={c.logo} alt={c.label} className="h-6 w-auto object-contain max-w-[80px]" />
                     </Link>
                   </th>
                 ))}
