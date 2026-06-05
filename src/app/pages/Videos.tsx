@@ -1,0 +1,362 @@
+'use client';
+
+import { useState, useEffect } from 'react'
+import * as Dialog from '@radix-ui/react-dialog'
+import { Play, X, Clock } from 'lucide-react'
+import { SEO } from '../components/SEO'
+import { Footer } from '../components/Footer'
+
+const G = { background: 'linear-gradient(135deg, #3B6FD4 0%, #A7BCF5 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }
+
+/* ──────────────────────────────────────────────────────────────────────────
+   VIDEO LIST — edit this array to add / change videos.
+
+   Each entry:
+     - id:          unique string (used as React key)
+     - title:       video title
+     - description: one-line summary shown under the title
+     - duration:    e.g. "2:30" (optional, shown as a badge)
+     - category:    groups videos into sections (see CATEGORIES below for order)
+     - url:         a YouTube, Vimeo, or direct .mp4 URL — playback is auto-detected
+     - thumbnail:   optional image URL. If omitted, YouTube thumbnails are
+                    auto-generated; otherwise a branded placeholder is shown.
+
+   Paste real URLs in `url`. Examples of accepted formats:
+     YouTube:  https://www.youtube.com/watch?v=XXXX   |  https://youtu.be/XXXX
+     Vimeo:    https://vimeo.com/123456789
+     MP4:      https://cdn.example.com/clip.mp4
+   ────────────────────────────────────────────────────────────────────────── */
+
+type Video = {
+  id: string
+  title: string
+  description: string
+  duration?: string
+  category: string
+  url: string
+  thumbnail?: string
+}
+
+// Section order + labels. Any video whose `category` matches a key here is
+// grouped under that label, in this order. Unknown categories appear last.
+const CATEGORIES: { key: string; label: string }[] = [
+  { key: 'inizia', label: 'Inizia da qui' },
+  { key: 'sessioni', label: 'Sessioni cliniche' },
+  { key: 'ai', label: 'Assistente AI' },
+]
+
+const VIDEOS: Video[] = [
+  // ── Inizia da qui ──────────────────────────────────────────────────────
+  {
+    id: 'profilo-impostazioni',
+    title: 'Profilo e impostazioni',
+    description: 'Configura il tuo profilo e personalizza le impostazioni del tuo spazio.',
+    category: 'inizia',
+    url: 'https://vimeo.com/1198870419',
+  },
+  {
+    id: 'creare-paziente',
+    title: 'Creare un paziente',
+    description: 'Aggiungi un nuovo paziente e imposta la sua anagrafica in pochi passaggi.',
+    category: 'inizia',
+    url: 'https://vimeo.com/1198870421',
+  },
+  {
+    id: 'caricare-file',
+    title: 'Caricare file e dati',
+    description: 'Importa documenti e dati clinici nella cartella del paziente.',
+    category: 'inizia',
+    url: 'https://vimeo.com/1198870445',
+  },
+  // ── Sessioni cliniche ──────────────────────────────────────────────────
+  {
+    id: 'iniziare-sessione',
+    title: 'Iniziare una sessione',
+    description: 'Avvia una seduta e registra le note in tempo reale.',
+    category: 'sessioni',
+    url: 'https://vimeo.com/1198870457',
+  },
+  {
+    id: 'modulo-consenso',
+    title: 'Modulo di consenso',
+    description: 'Genera e gestisci il consenso informato per i tuoi pazienti.',
+    category: 'sessioni',
+    url: 'https://vimeo.com/1198870475',
+  },
+  // ── Assistente AI ──────────────────────────────────────────────────────
+  {
+    id: 'agenti-clinici',
+    title: 'Agenti clinici',
+    description: "Scopri come gli agenti clinici ti supportano nel lavoro quotidiano.",
+    category: 'ai',
+    url: 'https://vimeo.com/1198870440',
+  },
+  {
+    id: 'contesto-clinico',
+    title: 'Contesto clinico',
+    description: "Fornisci il contesto clinico per risposte più precise dell'assistente.",
+    category: 'ai',
+    url: 'https://vimeo.com/1198870420',
+  },
+  // ── Senza URL (in attesa del link) ─────────────────────────────────────
+  // {
+  //   id: 'terapia-coppia',
+  //   title: 'Terapia di coppia',
+  //   description: 'Gestisci sedute e cartelle per la terapia di coppia.',
+  //   category: 'sessioni',
+  //   url: '', // ← manca il link Vimeo; aggiungilo qui per attivare il video
+  // },
+]
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Playback helpers — turn a raw URL into an embeddable player source.
+   ────────────────────────────────────────────────────────────────────────── */
+
+type Embed =
+  | { kind: 'youtube'; id: string }
+  | { kind: 'vimeo'; id: string }
+  | { kind: 'file'; src: string }
+  | { kind: 'unknown'; src: string }
+
+function parseVideoUrl(url: string): Embed {
+  const yt = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/)
+  if (yt) return { kind: 'youtube', id: yt[1] }
+
+  const vimeo = url.match(/vimeo\.com\/(?:video\/)?(\d+)/)
+  if (vimeo) return { kind: 'vimeo', id: vimeo[1] }
+
+  if (/\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(url)) return { kind: 'file', src: url }
+
+  return { kind: 'unknown', src: url }
+}
+
+// Resolve a thumbnail synchronously when possible (static override or YouTube).
+// Vimeo thumbnails are fetched at runtime via oEmbed — see useVideoThumbnail.
+function staticThumbnailFor(video: Video): string | null {
+  if (video.thumbnail) return video.thumbnail
+  const embed = parseVideoUrl(video.url)
+  if (embed.kind === 'youtube') return `https://img.youtube.com/vi/${embed.id}/hqdefault.jpg`
+  return null
+}
+
+// Cache Vimeo oEmbed lookups so we hit the network once per video, even across
+// re-renders or repeated cards.
+const vimeoThumbCache = new Map<string, string>()
+
+function useVideoThumbnail(video: Video): string | null {
+  const initial = staticThumbnailFor(video)
+  const [thumb, setThumb] = useState<string | null>(
+    initial ?? vimeoThumbCache.get(video.url) ?? null,
+  )
+
+  useEffect(() => {
+    if (initial) return // static or YouTube — nothing to fetch
+    const cached = vimeoThumbCache.get(video.url)
+    if (cached) { setThumb(cached); return }
+
+    const embed = parseVideoUrl(video.url)
+    if (embed.kind !== 'vimeo') return
+
+    let cancelled = false
+    fetch(`https://vimeo.com/api/oembed.json?url=${encodeURIComponent(video.url)}&width=640`)
+      .then(r => (r.ok ? r.json() : Promise.reject(r.status)))
+      .then((data: { thumbnail_url?: string }) => {
+        if (cancelled || !data.thumbnail_url) return
+        vimeoThumbCache.set(video.url, data.thumbnail_url)
+        setThumb(data.thumbnail_url)
+      })
+      .catch(() => { /* fall back to branded placeholder */ })
+
+    return () => { cancelled = true }
+  }, [video.url, initial])
+
+  return thumb
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   UI
+   ────────────────────────────────────────────────────────────────────────── */
+
+function VideoThumb({ video, onPlay }: { video: Video; onPlay: () => void }) {
+  const thumb = useVideoThumbnail(video)
+
+  return (
+    <button
+      onClick={onPlay}
+      className="group text-left flex flex-col focus:outline-none"
+    >
+      <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-slate-100 border border-slate-200/70">
+        {thumb ? (
+          <img
+            src={thumb}
+            alt={video.title}
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#0b1f44] to-[#3B6FD4]">
+            <span className="font-['Instrument_Serif'] text-white/80 text-2xl">ZenGest</span>
+          </div>
+        )}
+
+        {/* dim + play overlay */}
+        <div className="absolute inset-0 bg-[#00122F]/0 group-hover:bg-[#00122F]/25 transition-colors duration-300" />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/90 backdrop-blur shadow-lg transition-transform duration-300 group-hover:scale-110">
+            <Play className="h-5 w-5 translate-x-[1px] fill-[#00122F] text-[#00122F]" />
+          </span>
+        </div>
+
+        {video.duration && (
+          <span className="absolute bottom-2.5 right-2.5 flex items-center gap-1 rounded-md bg-[#00122F]/80 px-2 py-0.5 font-['DM_Sans'] text-[11px] font-medium text-white backdrop-blur">
+            <Clock className="h-3 w-3" />
+            {video.duration}
+          </span>
+        )}
+      </div>
+
+      <h3 className="font-['Instrument_Serif'] text-[19px] text-[#00122F] leading-[1.25] mt-4 mb-1 group-hover:opacity-70 transition-opacity">
+        {video.title}
+      </h3>
+      <p className="font-['DM_Sans'] text-[13.5px] text-slate-500 leading-relaxed line-clamp-2">
+        {video.description}
+      </p>
+    </button>
+  )
+}
+
+function PlayerModal({ video, onClose }: { video: Video | null; onClose: () => void }) {
+  const embed = video ? parseVideoUrl(video.url) : null
+
+  return (
+    <Dialog.Root open={!!video} onOpenChange={(open) => !open && onClose()}>
+      <Dialog.Portal>
+        <Dialog.Overlay className="fixed inset-0 z-[1000] bg-[#00122F]/70 backdrop-blur-sm data-[state=open]:animate-in data-[state=open]:fade-in-0" />
+        <Dialog.Content
+          className="fixed left-1/2 top-1/2 z-[1001] w-[calc(100%-2rem)] max-w-4xl -translate-x-1/2 -translate-y-1/2 focus:outline-none data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95"
+          aria-describedby={undefined}
+        >
+          <Dialog.Title className="sr-only">{video?.title ?? 'Video'}</Dialog.Title>
+
+          <Dialog.Close
+            className="absolute -top-11 right-0 flex items-center gap-1.5 font-['DM_Sans'] text-[13px] text-white/80 hover:text-white transition-colors"
+            aria-label="Chiudi"
+          >
+            Chiudi
+            <X className="h-4 w-4" />
+          </Dialog.Close>
+
+          <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-black shadow-2xl ring-1 ring-white/10">
+            {embed?.kind === 'youtube' && (
+              <iframe
+                className="absolute inset-0 h-full w-full"
+                src={`https://www.youtube-nocookie.com/embed/${embed.id}?autoplay=1&rel=0`}
+                title={video?.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            )}
+            {embed?.kind === 'vimeo' && (
+              <iframe
+                className="absolute inset-0 h-full w-full"
+                src={`https://player.vimeo.com/video/${embed.id}?autoplay=1`}
+                title={video?.title}
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowFullScreen
+              />
+            )}
+            {embed?.kind === 'file' && (
+              <video className="absolute inset-0 h-full w-full" src={embed.src} controls autoPlay />
+            )}
+            {embed?.kind === 'unknown' && (
+              <div className="absolute inset-0 flex items-center justify-center p-8 text-center">
+                <a
+                  href={embed.src}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-['DM_Sans'] text-sm text-white/80 hover:text-white underline"
+                >
+                  Apri il video →
+                </a>
+              </div>
+            )}
+          </div>
+
+          {video && (
+            <div className="mt-4 px-1">
+              <h2 className="font-['Instrument_Serif'] text-[22px] text-white leading-tight">{video.title}</h2>
+              <p className="font-['DM_Sans'] text-[13.5px] text-white/70 mt-1">{video.description}</p>
+            </div>
+          )}
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  )
+}
+
+export function Videos() {
+  const [active, setActive] = useState<Video | null>(null)
+
+  // group videos by category, preserving CATEGORIES order, unknowns last
+  const known = CATEGORIES
+    .map(c => ({ ...c, items: VIDEOS.filter(v => v.category === c.key) }))
+    .filter(c => c.items.length > 0)
+  const knownKeys = new Set(CATEGORIES.map(c => c.key))
+  const otherItems = VIDEOS.filter(v => !knownKeys.has(v.category))
+  const sections = otherItems.length > 0
+    ? [...known, { key: '_altro', label: 'Altro', items: otherItems }]
+    : known
+
+  return (
+    <div className="bg-white min-h-screen">
+      <SEO
+        title="Video guida · ZenGest"
+        useExactTitle={true}
+        description="Tutorial e video guida per usare ZenGest: dai primi passi alle note cliniche e all'assistente AI."
+        path="/video"
+      />
+
+      {/* Header */}
+      <div className="border-b border-slate-100">
+        <div className="max-w-5xl mx-auto px-6 py-14 md:py-20">
+          <p className="font-['DM_Sans'] text-[11px] font-semibold tracking-[0.1em] uppercase text-slate-400 mb-4">
+            ZenGest · Video guida
+          </p>
+          <h1 className="font-['Instrument_Serif'] text-4xl md:text-5xl text-[#00122F] leading-[1.05] mb-3">
+            Impara a usare ZenGest,{' '}
+            <span style={G}>passo dopo passo.</span>
+          </h1>
+          <p className="font-['DM_Sans'] text-[15px] text-slate-500 leading-relaxed max-w-xl">
+            Tutorial brevi e flussi reali. Tutto quello che ti serve per iniziare con chiarezza.
+          </p>
+        </div>
+      </div>
+
+      {/* Grid */}
+      <div className="max-w-5xl mx-auto px-6 py-12 md:py-16">
+        {sections.length === 0 && (
+          <p className="font-['DM_Sans'] text-slate-400 text-sm py-16 text-center">
+            Nessun video ancora disponibile.
+          </p>
+        )}
+
+        {sections.map((section, i) => (
+          <section key={section.key} className={i === 0 ? '' : 'mt-16'}>
+            <h2 className="font-['DM_Sans'] text-[12px] font-semibold tracking-[0.08em] uppercase text-[#0D9488] mb-6">
+              {section.label}
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-7 gap-y-10">
+              {section.items.map(video => (
+                <VideoThumb key={video.id} video={video} onPlay={() => setActive(video)} />
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+
+      <PlayerModal video={active} onClose={() => setActive(null)} />
+
+      <Footer />
+    </div>
+  )
+}
