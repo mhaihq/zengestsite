@@ -9,7 +9,7 @@ export function ProblemSection() {
           Ogni seduta aggiunge contesto: temi ricorrenti, obiettivi aperti, cambiamenti, intuizioni, dubbi clinici.
         </p>
         <p className="font-['DM_Sans'] text-base md:text-xl text-slate-500 leading-relaxed max-w-2xl mx-auto mt-4">
-          ZenGest raccoglie tutto in una cartella clinica intelligente, così puoi ritrovare subito ciò che conta e usare l'AI sullo storico del paziente — senza copiare dati su strumenti generici.
+          ZenGest raccoglie tutto in una cartella clinica intelligente, così puoi ritrovare subito ciò che conta e usare l'AI sullo storico del paziente. Senza copiare dati su strumenti generici.
         </p>
       </div>
     </section>

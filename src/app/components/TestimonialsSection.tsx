@@ -15,7 +15,7 @@ const testimonials: Testimonial[] = [
     role: "Psicoterapeuta, Roma",
   },
   {
-    text: "Ero scettico sull'AI in ambito clinico. ZenGest mi ha convinto perché capisce il linguaggio psicologico e non inventa nulla — rispecchia quello che è davvero emerso in seduta.",
+    text: "Ero scettico sull'AI in ambito clinico. ZenGest mi ha convinto perché capisce il linguaggio psicologico e non inventa nulla. Rispecchia quello che è davvero emerso in seduta.",
     image: "https://randomuser.me/api/portraits/men/32.jpg",
     name: "Marco B.",
     role: "Psicologo, Torino",

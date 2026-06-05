@@ -56,7 +56,7 @@ export function FeaturesMarquee() {
 
         {/* Header */}
         <div className="mx-auto flex max-w-5xl flex-col items-center justify-center space-y-5 px-5 text-center md:px-10">
-          <h2 className="font-['Instrument_Serif'] max-w-3xl text-4xl sm:text-5xl lg:text-6xl text-slate-900 leading-[1.1] tracking-[-0.025em]">
+          <h2 className="font-['Instrument_Serif'] max-w-3xl text-4xl sm:text-5xl lg:text-6xl text-black leading-[1.1] tracking-[-0.025em]">
             Chiedi a ZenGest quello che normalmente dovresti cercare a mano.
           </h2>
           <p className="font-['DM_Sans'] max-w-xl text-base md:text-lg text-slate-500 leading-relaxed">
@@ -68,7 +68,7 @@ export function FeaturesMarquee() {
             <div className="absolute left-0 z-50 h-full w-20 bg-gradient-to-r from-slate-50 to-transparent pointer-events-none" />
             <div className="absolute right-0 z-50 h-full w-20 bg-gradient-to-l from-slate-50 to-transparent pointer-events-none" />
 
-            <div className="-mx-6 flex w-screen flex-col gap-2 md:-mx-10 lg:-mx-16">
+            <div className="flex flex-col gap-2 overflow-hidden">
               <Marquee className="[--duration:30s] [--gap:0.75rem]" repeat={5}>
                 {group1.map((q) => (
                   <span key={q} className="font-['DM_Sans'] text-sm px-4 py-1.5 rounded-full border border-slate-200 bg-white text-slate-600 whitespace-nowrap">
@@ -107,7 +107,7 @@ export function FeaturesMarquee() {
                   <Icon className="w-6 h-6 text-[#00122F]" strokeWidth={1.5} />
                 </div>
                 <div className="flex flex-col gap-2 pt-2">
-                  <h3 className="font-['Instrument_Serif'] text-2xl text-slate-900 tracking-tight">
+                  <h3 className="font-['Instrument_Serif'] text-2xl text-black tracking-tight">
                     {feature.title}
                   </h3>
                   <p className="font-['DM_Sans'] text-sm leading-relaxed text-slate-500">

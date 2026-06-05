@@ -3,10 +3,14 @@ import { FeaturesMarquee } from "../components/FeaturesMarquee";
 import { ZenAssistantSection } from "../components/ZenAssistantSection";
 import { ComparisonSection } from "../components/ComparisonSection";
 import { HowItWorks } from "../components/HowItWorks";
+import { CartellaDigitaleSection } from "../components/CartellaSectionDigitale";
+import { FatturazioneSection } from "../components/FatturazioneSection";
 import { SecuritySection } from "../components/SecuritySection";
 import { IntelligenceSection } from "../components/IntelligenceSection";
 import { TestimonialsSection } from "../components/TestimonialsSection";
+import { TestimonialCarousel } from "../components/TestimonialCarousel";
 import { CTAFinal } from "../components/CTAFinal";
+import { VsLinksSection } from "../components/VsLinksSection";
 import { Footer } from "../components/Footer";
 import { SEO } from "../components/SEO";
 import { organizationSchema, websiteSchema, softwareApplicationSchema } from "../components/SEO";
@@ -23,13 +27,17 @@ export function Home() {
         jsonLd={[organizationSchema, websiteSchema, softwareApplicationSchema]}
       />
       <CTASection />
-      <FeaturesMarquee />
       <ComparisonSection />
+      <FeaturesMarquee />
+      <TestimonialsSection />
       <HowItWorks />
+      <CartellaDigitaleSection />
+      <FatturazioneSection />
       <ZenAssistantSection />
+      <TestimonialCarousel />
       <SecuritySection />
       <IntelligenceSection />
-      <TestimonialsSection />
+      <VsLinksSection />
       <CTAFinal />
       <Footer />
     </div>

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 const CHAT_SEQUENCE = [
   { role: "zen", text: "Seduta attiva. Come posso aiutarti con Giovanni?" },
   { role: "user", text: "Come sta rispondendo alle tecniche ACT?" },
-  { role: "zen", text: "Nelle ultime tre sedute ha mostrato maggiore apertura. Il tema familiare torna spesso — è un filo conduttore ricorrente." },
+  { role: "zen", text: "Nelle ultime tre sedute ha mostrato maggiore apertura. Il tema familiare torna spesso. È un filo conduttore ricorrente." },
   { role: "user", text: "Approfondisco il conflitto col fratello oggi?" },
   { role: "zen", text: "Ne ha parlato in quattro sedute su dodici. Hai già trascrizioni con quel contesto se vuoi rileggere prima." },
 ];
@@ -91,10 +91,75 @@ export function HeroDashboard() {
   }, [visibleMessages, isTyping]);
 
   return (
-    <div
-      className="relative w-full mx-auto select-none"
-      style={{ height: 540, maxWidth: 900 }}
-    >
+    <div className="w-full mx-auto select-none">
+
+      {/* ── MOBILE layout (< md) ── */}
+      <div className="flex md:hidden flex-col items-center gap-4 px-4 pb-4">
+        {/* Recorder card */}
+        <div className="bg-white rounded-2xl text-center w-full max-w-xs"
+          style={{ padding: "14px 18px 16px", boxShadow: "0 0 0 1px rgba(0,18,47,.06), 0 12px 32px -10px rgba(0,18,47,.16)" }}>
+          <div className="flex items-center justify-center gap-2 text-[11px] text-slate-500 font-medium mb-1">
+            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+            Le note AI sono <strong className="text-[#00122F]">ATTIVE</strong>
+          </div>
+          <div className="font-['DM_Sans'] font-bold text-4xl tracking-tight text-[#00122F] tabular-nums my-2">{time}</div>
+          <div className="flex items-center justify-center gap-[2px] h-6 mb-3 overflow-hidden"
+            style={{ maskImage: "linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent)" }}>
+            {waveHeights.map((h, i) => (
+              <div key={i} className="rounded-full bg-[#00122F]" style={{
+                width: 2, height: h,
+                opacity: Math.abs(i - waveHeights.length / 2) < 6 ? 0.9 : 0.35,
+                animation: `wave ${(0.85 + (i % 7) * 0.12).toFixed(2)}s ease-in-out infinite`,
+                animationDelay: `${(i * 0.04).toFixed(2)}s`,
+              }} />
+            ))}
+          </div>
+          <div className="flex justify-center gap-2">
+            <button className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-500">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+            </button>
+            <button className="flex items-center gap-1.5 px-4 h-8 rounded-full border border-slate-200 text-[11px] font-semibold text-[#00122F]">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="5" width="14" height="14" rx="2"/></svg>
+              Termina
+            </button>
+          </div>
+        </div>
+
+        {/* Chat card — abbreviated */}
+        <div className="bg-white rounded-2xl w-full max-w-xs overflow-hidden"
+          style={{ boxShadow: "0 0 0 1px rgba(0,18,47,.06), 0 8px 24px -8px rgba(0,18,47,.12)" }}>
+          <div className="flex items-center gap-2.5 px-3 py-2.5 border-b border-slate-100">
+            <div className="w-8 h-8 rounded-full shrink-0 flex items-center justify-center text-white text-[13px] font-bold"
+              style={{ background: "linear-gradient(135deg, #7ba7d4 0%, #3a6ea5 100%)" }}>G</div>
+            <div>
+              <div className="text-[12px] font-bold text-[#00122F]">Giovanni Rossi</div>
+              <div className="text-[9.5px] text-slate-400">Cartella clinica n#8629</div>
+            </div>
+            <span className="ml-auto text-[9px] font-bold bg-green-50 text-green-600 px-2 py-0.5 rounded-full">ATTIVO</span>
+          </div>
+          <div className="px-3 py-3 flex flex-col gap-2.5">
+            {CHAT_SEQUENCE.slice(0, Math.min(visibleMessages, 3)).map((msg, i) => (
+              <div key={i} className={`flex gap-1.5 items-end ${msg.role === "user" ? "flex-row-reverse" : ""}`}
+                style={{ animation: "fadeSlideIn 0.3s ease forwards" }}>
+                <div className={`w-5 h-5 rounded-full shrink-0 flex items-center justify-center text-[8px] font-bold text-white ${msg.role === "zen" ? "bg-gradient-to-br from-[#A7BCF5] to-[#00122F]" : "bg-gradient-to-br from-[#cfb697] to-[#8b6c44]"}`}>
+                  {msg.role === "zen" ? "Z" : "DR"}
+                </div>
+                <div className={`max-w-[220px] px-2.5 py-1.5 text-[10.5px] leading-relaxed ${
+                  msg.role === "zen"
+                    ? "bg-slate-100 text-slate-600 rounded-tl-sm rounded-tr-xl rounded-br-xl rounded-bl-xl"
+                    : "bg-[#00122F] text-white rounded-tl-xl rounded-tr-sm rounded-br-xl rounded-bl-xl"
+                }`}>{msg.text}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── DESKTOP layout (≥ md) ── */}
+      <div
+        className="relative hidden md:block w-full mx-auto"
+        style={{ height: 540, maxWidth: 900 }}
+      >
       {/* LEFT: Clinical notes card */}
       <div
         className="absolute z-10 bg-white rounded-2xl overflow-hidden"
@@ -423,6 +488,7 @@ export function HeroDashboard() {
           50% { transform: translateY(-3px); opacity: 1; }
         }
       `}</style>
+      </div>
     </div>
   );
 }

@@ -64,7 +64,7 @@ export function SEO({
     document.title = fullTitle;
 
     // Set lang attribute
-    document.documentElement.lang = 'en';
+    document.documentElement.lang = 'it';
 
     // Basic meta tags
     setMeta('name', 'description', description);
@@ -91,7 +91,7 @@ export function SEO({
     setMeta('property', 'og:description', description);
     setMeta('property', 'og:image', image);
     setMeta('property', 'og:image:alt', `${SITE_NAME} - ${title}`);
-    setMeta('property', 'og:locale', 'en_US');
+    setMeta('property', 'og:locale', 'it_IT');
     if (canonicalUrl) {
       setMeta('property', 'og:url', canonicalUrl);
     }

@@ -44,10 +44,10 @@ export const NavbarDefaults: Props = {
   },
   navLinks: [],
   button: {
-    title: "Entra in Waitlist",
+    title: "Prova gratis",
     size: "md",
     variant: "primary",
-    href: "#waitlist",
+    href: "https://app.zengest.it/sign-up/",
   },
 };
 
@@ -97,9 +97,16 @@ export const Navbar = (props: NavbarProps) => {
   };
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const isMobile = useMediaQuery("(max-width: 1023px)");
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -122,8 +129,8 @@ export const Navbar = (props: NavbarProps) => {
   }, []);
 
   return (
-    <section className="sticky top-0 z-[999] w-full border-b border-white/10 bg-transparent backdrop-blur-md">
-      <div className="flex min-h-[80px] w-full max-w-[1200px] mx-auto items-center justify-between px-6 md:px-10 relative">
+    <section className={`sticky top-0 z-[999] w-full transition-all duration-300 ${scrolled ? "bg-white/90 backdrop-blur-md shadow-sm border-b border-slate-200/60" : "bg-transparent"}`}>
+      <div className="flex min-h-[64px] md:min-h-[80px] w-full max-w-[1200px] mx-auto items-center justify-between px-4 md:px-10 relative">
         
         {/* Left Side: Logo */}
         <div className="flex-shrink-0 flex items-center">
@@ -149,12 +156,23 @@ export const Navbar = (props: NavbarProps) => {
           )}
         </div>
 
-        {/* Right Side: Button & Mobile Toggle */}
-        <div className="flex items-center gap-4">
-          <div className="hidden lg:block">
-            <Button {...button} />
+        {/* Right Side: Buttons & Mobile Toggle */}
+        <div className="flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-3">
+            <a
+              href="https://app.zengest.it/sign-in/"
+              className="font-['DM_Sans'] text-[15px] font-medium text-[#1e2a3a] hover:text-[#2d3f54] transition-colors px-2"
+            >
+              Login
+            </a>
+            <a
+              href="https://app.zengest.it/sign-up/"
+              className="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 font-['DM_Sans'] text-[15px] font-semibold text-white bg-[#00122F] hover:bg-[#00122F]/90 transition-all duration-200 shadow-sm"
+            >
+              Prova gratis
+            </a>
           </div>
-          
+
           <button
             ref={buttonRef}
             className="flex items-center justify-center lg:hidden p-2 text-[#1e2a3a]"
@@ -189,8 +207,13 @@ export const Navbar = (props: NavbarProps) => {
                   </SmartLink>
                 )
               )}
-              <div className="mt-4 pt-4 border-t border-[#e2e8f0]">
-                <Button {...button} className="w-full justify-center" />
+              <div className="mt-4 pt-4 border-t border-[#e2e8f0] flex flex-col gap-3">
+                <a href="https://app.zengest.it/sign-in/" className="font-['DM_Sans'] text-base font-medium text-[#1e2a3a] text-center py-2">
+                  Login
+                </a>
+                <a href="https://app.zengest.it/sign-up/" className="inline-flex items-center justify-center rounded-lg px-5 py-3 font-['DM_Sans'] text-base font-semibold text-white bg-[#00122F] hover:bg-[#00122F]/90 transition-all">
+                  Prova gratis
+                </a>
               </div>
             </div>
           </motion.div>

@@ -193,7 +193,14 @@ export default function RadialOrbitalTimeline({
           )}
           {title && (
             <h2 className="font-['Instrument_Serif'] text-4xl md:text-5xl lg:text-6xl font-normal leading-[1.05] text-[#00122F] mb-5 tracking-[-0.025em]">
-              {title}
+              {title.includes(". ") ? (
+                <>
+                  {title.split(". ")[0] + ". "}
+                  <span style={{ background: "linear-gradient(135deg, #3B6FD4 0%, #A7BCF5 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+                    {title.split(". ").slice(1).join(". ")}
+                  </span>
+                </>
+              ) : title}
             </h2>
           )}
           {description && (
