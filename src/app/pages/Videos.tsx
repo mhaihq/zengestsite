@@ -177,6 +177,94 @@ function useVideoThumbnail(video: Video): string | null {
    UI
    ────────────────────────────────────────────────────────────────────────── */
 
+// Greedy word-wrap into at most `maxLines` lines of ~`maxChars` characters.
+// The last line gets an ellipsis if the title doesn't fully fit.
+function wrapTitle(title: string, maxChars = 18, maxLines = 3): string[] {
+  const words = title.trim().split(/\s+/)
+  const lines: string[] = []
+  let current = ''
+
+  for (const word of words) {
+    const candidate = current ? `${current} ${word}` : word
+    if (candidate.length <= maxChars || !current) {
+      current = candidate
+    } else {
+      lines.push(current)
+      current = word
+      if (lines.length === maxLines - 1) break
+    }
+  }
+  if (lines.length < maxLines && current) lines.push(current)
+
+  // If words remain beyond maxLines, mark truncation on the last line.
+  const consumed = lines.join(' ').split(/\s+/).length
+  if (consumed < words.length) {
+    let last = lines[maxLines - 1] ?? ''
+    while (last.length > maxChars - 1 && last.includes(' ')) last = last.slice(0, last.lastIndexOf(' '))
+    lines[maxLines - 1] = `${last}…`
+  }
+  return lines
+}
+
+// Branded SVG placeholder shown when no real thumbnail is available.
+// Renders the video title inside the artwork, wrapped over up to three lines.
+function PlaceholderThumb({ title }: { title: string }) {
+  const lines = wrapTitle(title)
+  const lineHeight = 16 // in the 100×56.25 viewBox
+  const startY = 30 - ((lines.length - 1) * lineHeight) / 2 // vertically centred block
+
+  return (
+    <svg
+      viewBox="0 0 100 56.25"
+      className="absolute inset-0 h-full w-full"
+      preserveAspectRatio="xMidYMid slice"
+      role="img"
+      aria-label={title}
+    >
+      <defs>
+        <linearGradient id="zg-thumb" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#0b1f44" />
+          <stop offset="100%" stopColor="#3B6FD4" />
+        </linearGradient>
+      </defs>
+      <rect width="100" height="56.25" fill="url(#zg-thumb)" />
+      {/* subtle decorative arcs */}
+      <circle cx="92" cy="8" r="22" fill="#ffffff" opacity="0.05" />
+      <circle cx="10" cy="52" r="16" fill="#ffffff" opacity="0.04" />
+
+      {/* eyebrow */}
+      <text
+        x="8"
+        y="11"
+        fill="#ffffff"
+        opacity="0.55"
+        fontSize="3.4"
+        letterSpacing="0.6"
+        fontFamily="'DM Sans', sans-serif"
+        fontWeight="600"
+        style={{ textTransform: 'uppercase' } as React.CSSProperties}
+      >
+        ZenGest · Video
+      </text>
+
+      {/* title, up to 3 lines */}
+      <text
+        x="8"
+        y={startY}
+        fill="#ffffff"
+        fontSize="8.5"
+        fontFamily="'Instrument Serif', Georgia, serif"
+      >
+        {lines.map((line, i) => (
+          <tspan key={i} x="8" dy={i === 0 ? 0 : lineHeight}>
+            {line}
+          </tspan>
+        ))}
+      </text>
+    </svg>
+  )
+}
+
 function VideoThumb({ video, onPlay }: { video: Video; onPlay: () => void }) {
   const thumb = useVideoThumbnail(video)
 
@@ -194,9 +282,7 @@ function VideoThumb({ video, onPlay }: { video: Video; onPlay: () => void }) {
             className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
           />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#0b1f44] to-[#3B6FD4]">
-            <span className="font-['Instrument_Serif'] text-white/80 text-2xl">ZenGest</span>
-          </div>
+          <PlaceholderThumb title={video.title} />
         )}
 
         {/* dim + play overlay */}
