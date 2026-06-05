@@ -32,10 +32,10 @@ export default function App() {
         <AnnouncementBar />
         <Navbar navLinks={[
           { url: "/pricing", title: "Prezzi" },
-          { url: "/video", title: "Video" },
           { url: "/blog", title: "Blog" },
           { url: "/about", title: "Chi Siamo" },
           { url: "/sicurezza", title: "Sicurezza" },
+          { url: "/video", title: "Video" },
         ]} />
         <main>
           <Routes>
