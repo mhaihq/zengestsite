@@ -73,8 +73,8 @@ export function RadialOrbitalTimelineDemo() {
         path="/timeline"
         keywords="AI reasoning engine, healthcare intelligence layers, clinical AI architecture, voice AI technology, patient interaction AI"
         jsonLd={breadcrumbSchema([
-          { name: "Home", url: "https://hanavoice.ai/" },
-          { name: "Reasoning Engine", url: "https://hanavoice.ai/timeline" }
+          { name: "Home", url: "https://zengest.it/" },
+          { name: "Reasoning Engine", url: "https://zengest.it/timeline" }
         ])}
       />
       <RadialOrbitalTimeline 
