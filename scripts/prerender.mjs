@@ -1,0 +1,163 @@
+// Build-time prerender for the ZenGest SPA.
+//
+// Runs LOCALLY (not in Vercel CI): serves the built `dist/` with a tiny static
+// server (SPA fallback to index.html), then drives headless Chromium via
+// Puppeteer to load each route, wait until the SEO component's useEffect has
+// injected the <head> tags (the <link rel="canonical"> is the signal — for
+// blog posts it appears only AFTER the Sanity fetch resolves), and serialize
+// the resulting DOM to `dist/<route>/index.html`.
+//
+// Usage:  pnpm build && pnpm prerender   (or: pnpm build:prerender)
+//
+// Vercel just serves the committed static files — no Puppeteer in CI.
+//
+// NOTE: we drive Puppeteer directly rather than via @prerenderer/* because
+// that renderer's wait mechanism is incompatible with Puppeteer 25 ("Promise
+// was collected"). Direct control is simpler and more reliable here.
+
+import { fileURLToPath } from 'node:url'
+import { dirname, join, resolve, extname } from 'node:path'
+import { mkdir, writeFile, readFile, stat } from 'node:fs/promises'
+import { createServer } from 'node:http'
+import puppeteer from 'puppeteer'
+import { createClient } from '@sanity/client'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const ROOT = resolve(__dirname, '..')
+const DIST = join(ROOT, 'dist')
+const PORT = 5179
+
+// ── Static routes to prerender ──────────────────────────────────────────────
+// Indexable marketing/content pages. We also prerender the noindex Hana pages
+// so their `<meta robots="noindex">` ends up in the static HTML (otherwise a
+// crawler hitting them gets the default index,follow shell).
+const STATIC_ROUTES = [
+  '/', '/pricing', '/about', '/sicurezza', '/termini', '/dpa', '/terms',
+  '/blog', '/video',
+  '/vs/psicogest', '/vs/gesto', '/vs/appuntoo', '/vs/chatgpt',
+  // noindex (kept routed):
+  '/research', '/state-of-ai', '/contact',
+]
+
+const MIME = {
+  '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css',
+  '.json': 'application/json', '.png': 'image/png', '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg', '.svg': 'image/svg+xml', '.webp': 'image/webp',
+  '.ico': 'image/x-icon', '.woff': 'font/woff', '.woff2': 'font/woff2',
+  '.txt': 'text/plain', '.webmanifest': 'application/manifest+json',
+}
+
+// Static file server with SPA fallback to the ORIGINAL (un-prerendered) shell.
+async function startServer() {
+  const shell = await readFile(join(DIST, 'index.html'))
+  const server = createServer(async (req, res) => {
+    try {
+      const urlPath = decodeURIComponent((req.url || '/').split('?')[0])
+      let filePath = join(DIST, urlPath)
+      // If it's a real file, serve it; else SPA-fallback to the shell.
+      let isFile = false
+      try { isFile = (await stat(filePath)).isFile() } catch {}
+      if (isFile) {
+        const body = await readFile(filePath)
+        res.writeHead(200, { 'Content-Type': MIME[extname(filePath)] || 'application/octet-stream' })
+        res.end(body)
+      } else {
+        res.writeHead(200, { 'Content-Type': 'text/html' })
+        res.end(shell)
+      }
+    } catch (e) {
+      res.writeHead(500); res.end(String(e))
+    }
+  })
+  await new Promise((r) => server.listen(PORT, r))
+  return server
+}
+
+// ── Enumerate blog slugs from Sanity (public CDN read) ──────────────────────
+// NOTE: blog-post prerendering is opt-in via `--blog` because rendering many
+// posts back-to-back rate-limits the Sanity CDN (HTTP 429), leaving posts on
+// the loading shell. Blog posts already ship correct Article schema + titles
+// once JS runs (Phase 1). TODO follow-up: add throttle/backoff and enable by
+// default. For now `pnpm prerender` does the 16 static/marketing pages.
+const INCLUDE_BLOG = process.argv.includes('--blog')
+
+async function getBlogRoutes() {
+  if (!INCLUDE_BLOG) return []
+  const client = createClient({
+    projectId: 'nutut50l', dataset: 'production', apiVersion: '2026-05-30', useCdn: true,
+  })
+  try {
+    const slugs = await client.fetch(
+      `*[_type == "post" && defined(titolo) && defined(slug)].slug.current`,
+    )
+    const routes = (slugs || []).filter(Boolean).map((s) => `/blog/${s}`)
+    console.log(`  Sanity: found ${routes.length} blog post(s)`)
+    return routes
+  } catch (err) {
+    console.warn(`  ⚠ Sanity slug fetch failed (${err.message}); skipping blog posts`)
+    return []
+  }
+}
+
+// "/" -> dist/index.html ; "/vs/gesto" -> dist/vs/gesto/index.html
+function outputPathFor(route) {
+  if (route === '/') return join(DIST, 'index.html')
+  return join(DIST, route.replace(/^\//, ''), 'index.html')
+}
+
+async function main() {
+  const blogRoutes = await getBlogRoutes()
+  const routes = [...STATIC_ROUTES, ...blogRoutes]
+  console.log(`Prerendering ${routes.length} route(s)…`)
+
+  const server = await startServer()
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  })
+
+  let ok = 0, failed = 0
+  try {
+    for (const route of routes) {
+      const page = await browser.newPage()
+      try {
+        await page.goto(`http://localhost:${PORT}${route}`, {
+          waitUntil: 'domcontentloaded', timeout: 30000,
+        })
+        // Wait until the SEO effect has injected the canonical link FOR THIS
+        // route specifically. Matching the route (not just "any canonical")
+        // avoids snapshotting a transient/default state — critical for blog
+        // posts, whose canonical appears only after the async Sanity fetch.
+        const expectedCanonical = `https://zengest.it${route === '/' ? '/' : route}`
+        await page.waitForFunction(
+          (expected) => {
+            const el = document.querySelector('link[rel="canonical"]')
+            return !!el && el.getAttribute('href') === expected
+          },
+          { timeout: 30000 },
+          expectedCanonical,
+        )
+        const html = await page.content()
+        if (html.length < 200) throw new Error('empty/short HTML')
+        const out = outputPathFor(route)
+        await mkdir(dirname(out), { recursive: true })
+        await writeFile(out, html.trim() + '\n', 'utf8')
+        console.log(`  ✓ ${route}`)
+        ok++
+      } catch (err) {
+        console.warn(`  ✗ ${route} — ${err.message}`)
+        failed++
+      } finally {
+        await page.close()
+      }
+    }
+  } finally {
+    await browser.close()
+    server.close()
+  }
+
+  console.log(`\nDone: ${ok} route(s) written, ${failed} failed.`)
+  if (ok === 0) process.exit(1)
+}
+
+main().catch((err) => { console.error(err); process.exit(1) })
