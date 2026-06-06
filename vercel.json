@@ -1,4 +1,6 @@
 {
+  "buildCommand": "echo 'Serving committed, pre-built dist/ (run pnpm build:prerender locally before deploying)'",
+  "outputDirectory": "dist",
   "cleanUrls": true,
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
