@@ -59,7 +59,7 @@ const VIDEOS: Video[] = [
     title: 'Creare un paziente',
     description: 'Aggiungi un nuovo paziente e imposta la sua anagrafica in pochi passaggi.',
     category: 'inizia',
-    url: 'https://vimeo.com/1198870421',
+    url: 'https://vimeo.com/1198870421?fl=ip&fe=ec',
   },
   {
     id: 'caricare-file',
@@ -91,21 +91,6 @@ const VIDEOS: Video[] = [
     category: 'ai',
     url: 'https://vimeo.com/1198870440',
   },
-  {
-    id: 'contesto-clinico',
-    title: 'Contesto clinico',
-    description: "Fornisci il contesto clinico per risposte più precise dell'assistente.",
-    category: 'ai',
-    url: 'https://vimeo.com/1198870420',
-  },
-  // ── Senza URL (in attesa del link) ─────────────────────────────────────
-  // {
-  //   id: 'terapia-coppia',
-  //   title: 'Terapia di coppia',
-  //   description: 'Gestisci sedute e cartelle per la terapia di coppia.',
-  //   category: 'sessioni',
-  //   url: '', // ← manca il link Vimeo; aggiungilo qui per attivare il video
-  // },
 ]
 
 /* ──────────────────────────────────────────────────────────────────────────
@@ -114,7 +99,7 @@ const VIDEOS: Video[] = [
 
 type Embed =
   | { kind: 'youtube'; id: string }
-  | { kind: 'vimeo'; id: string }
+  | { kind: 'vimeo'; id: string; hash?: string; query?: string }
   | { kind: 'file'; src: string }
   | { kind: 'unknown'; src: string }
 
@@ -122,12 +107,23 @@ function parseVideoUrl(url: string): Embed {
   const yt = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/)
   if (yt) return { kind: 'youtube', id: yt[1] }
 
-  const vimeo = url.match(/vimeo\.com\/(?:video\/)?(\d+)/)
-  if (vimeo) return { kind: 'vimeo', id: vimeo[1] }
+  // Vimeo: id, optional privacy hash in the path (/123/abcdef), and any query
+  // params (e.g. ?fl=ip&fe=ec or ?h=hash) — all needed to authorise embedding.
+  const vimeo = url.match(/vimeo\.com\/(?:video\/)?(\d+)(?:\/([\w-]+))?(?:\?(.*))?$/)
+  if (vimeo) return { kind: 'vimeo', id: vimeo[1], hash: vimeo[2] || undefined, query: vimeo[3] || undefined }
 
   if (/\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(url)) return { kind: 'file', src: url }
 
   return { kind: 'unknown', src: url }
+}
+
+// Build the player.vimeo.com embed src, preserving privacy hash and any
+// original query params, and ensuring autoplay is on.
+function vimeoEmbedSrc(embed: { id: string; hash?: string; query?: string }): string {
+  const params = new URLSearchParams(embed.query)
+  if (embed.hash && !params.has('h')) params.set('h', embed.hash)
+  params.set('autoplay', '1')
+  return `https://player.vimeo.com/video/${embed.id}?${params.toString()}`
 }
 
 // Resolve a thumbnail synchronously when possible (static override or YouTube).
@@ -345,7 +341,7 @@ function PlayerModal({ video, onClose }: { video: Video | null; onClose: () => v
             {embed?.kind === 'vimeo' && (
               <iframe
                 className="absolute inset-0 h-full w-full"
-                src={`https://player.vimeo.com/video/${embed.id}?autoplay=1`}
+                src={vimeoEmbedSrc(embed)}
                 title={video?.title}
                 allow="autoplay; fullscreen; picture-in-picture"
                 allowFullScreen
