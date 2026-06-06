@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
-// NOTE: default social-share image. TODO: replace with a branded ZenGest OG card
-// (1200×630). For now this reuses the existing bundled asset so previews aren't broken.
-import ogImage from 'figma:asset/7dab76c8bd67019090a5609cf9a1a41e8c727fbb.png';
 
 const SITE_NAME = "ZenGest";
 const SITE_DOMAIN = "https://zengest.it";
+// Branded 1200×630 social-share card, served from /public.
+const ogImage = `${SITE_DOMAIN}/og-image.png`;
 const DEFAULT_KEYWORDS = "software psicologi, cartella clinica psicologo, note cliniche AI, trascrizione sedute, SOAP DAP BIRP, gestionale psicoterapia, GDPR sanità, software studio psicologico, assistente clinico AI, ZenGest";
 
 interface SEOProps {

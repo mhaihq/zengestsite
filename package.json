@@ -81,8 +81,6 @@
     "vaul": "1.1.2"
   },
   "devDependencies": {
-    "@prerenderer/prerenderer": "^1.2.5",
-    "@prerenderer/renderer-puppeteer": "^1.2.4",
     "@tailwindcss/vite": "4.1.12",
     "@vitejs/plugin-react": "4.7.0",
     "puppeteer": "^25.1.0",

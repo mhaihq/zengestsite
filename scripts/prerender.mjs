@@ -39,6 +39,19 @@ const STATIC_ROUTES = [
   '/research', '/state-of-ai', '/contact',
 ]
 
+// Routes excluded from the sitemap (noindex / low value).
+const SITEMAP_EXCLUDE = new Set(['/research', '/state-of-ai', '/contact', '/terms'])
+
+// Per-route sitemap priority/changefreq hints.
+const SITEMAP_HINTS = {
+  '/': { priority: '1.0', changefreq: 'weekly' },
+  '/pricing': { priority: '0.9', changefreq: 'monthly' },
+  '/video': { priority: '0.8', changefreq: 'monthly' },
+  '/blog': { priority: '0.8', changefreq: 'weekly' },
+  '/about': { priority: '0.7', changefreq: 'monthly' },
+  '/sicurezza': { priority: '0.7', changefreq: 'monthly' },
+}
+
 const MIME = {
   '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css',
   '.json': 'application/json', '.png': 'image/png', '.jpg': 'image/jpeg',
@@ -74,12 +87,10 @@ async function startServer() {
 }
 
 // ── Enumerate blog slugs from Sanity (public CDN read) ──────────────────────
-// NOTE: blog-post prerendering is opt-in via `--blog` because rendering many
-// posts back-to-back rate-limits the Sanity CDN (HTTP 429), leaving posts on
-// the loading shell. Blog posts already ship correct Article schema + titles
-// once JS runs (Phase 1). TODO follow-up: add throttle/backoff and enable by
-// default. For now `pnpm prerender` does the 16 static/marketing pages.
-const INCLUDE_BLOG = process.argv.includes('--blog')
+// Blog posts ARE prerendered (the in-page Sanity fetch is proxied through Node
+// during render to dodge CORS — see request interception below). Pass
+// `--no-blog` to skip them (e.g. if Sanity is unreachable).
+const INCLUDE_BLOG = !process.argv.includes('--no-blog')
 
 async function getBlogRoutes() {
   if (!INCLUDE_BLOG) return []
@@ -105,6 +116,25 @@ function outputPathFor(route) {
   return join(DIST, route.replace(/^\//, ''), 'index.html')
 }
 
+const SITE = 'https://zengest.it'
+
+// This script owns dist/sitemap.xml (the old static public/sitemap.xml was
+// removed). It is regenerated on every prerender run from the live routes.
+// Write dist/sitemap.xml from the indexable routes (excludes noindex pages).
+async function writeSitemap(routes) {
+  const today = new Date().toISOString().slice(0, 10)
+  const urls = routes
+    .filter((r) => !SITEMAP_EXCLUDE.has(r))
+    .map((r) => {
+      const h = SITEMAP_HINTS[r] || { priority: '0.6', changefreq: 'monthly' }
+      const loc = r === '/' ? `${SITE}/` : `${SITE}${r}`
+      return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${h.changefreq}</changefreq>\n    <priority>${h.priority}</priority>\n  </url>`
+    })
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`
+  await writeFile(join(DIST, 'sitemap.xml'), xml, 'utf8')
+  console.log(`  sitemap.xml: ${urls.length} URLs`)
+}
+
 async function main() {
   const blogRoutes = await getBlogRoutes()
   const routes = [...STATIC_ROUTES, ...blogRoutes]
@@ -121,6 +151,30 @@ async function main() {
     for (const route of routes) {
       const page = await browser.newPage()
       try {
+        // The blog pages fetch Sanity client-side, but the headless origin
+        // (localhost) isn't in the project's CORS allowlist, so the browser
+        // fetch fails (ERR_FAILED). Intercept Sanity API requests and proxy
+        // them through Node (no CORS) so the page's data load succeeds.
+        await page.setRequestInterception(true)
+        page.on('request', async (req) => {
+          const url = req.url()
+          if (/\.api(cdn)?\.sanity\.io\//.test(url)) {
+            try {
+              const r = await fetch(url, { headers: { Accept: 'application/json' } })
+              const body = await r.text()
+              await req.respond({
+                status: r.status,
+                headers: { 'content-type': 'application/json', 'access-control-allow-origin': '*' },
+                body,
+              })
+            } catch {
+              await req.abort()
+            }
+          } else {
+            await req.continue()
+          }
+        })
+
         await page.goto(`http://localhost:${PORT}${route}`, {
           waitUntil: 'domcontentloaded', timeout: 30000,
         })
@@ -155,6 +209,9 @@ async function main() {
     await browser.close()
     server.close()
   }
+
+  // Regenerate the sitemap from the routes we just rendered (indexable only).
+  await writeSitemap(routes)
 
   console.log(`\nDone: ${ok} route(s) written, ${failed} failed.`)
   if (ok === 0) process.exit(1)
