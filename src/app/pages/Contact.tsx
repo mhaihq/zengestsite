@@ -25,7 +25,8 @@ export function Contact() {
 
   return (
     <div className="pt-24 pb-16 min-h-screen">
-      <SEO 
+      <SEO
+        robots="noindex, follow"
         title="Contact Us"
         description="Get in touch with the Hana Voice AI team. Schedule a demo, ask about our clinical agents, or discuss partnership opportunities."
         path="/contact"

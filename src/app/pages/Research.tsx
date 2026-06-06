@@ -150,7 +150,8 @@ function PublicationRow({ pub, isLast, index }: { pub: any, isLast: boolean, ind
 export function Research() {
   return (
     <div className="bg-slate-50 min-h-screen">
-      <SEO 
+      <SEO
+        robots="noindex, follow"
         title="Research"
         description="Explore the clinical research and publications behind Hana Voice AI. Advancing conversational AI in healthcare with voice biomarkers, patient engagement studies, and adaptive engagement technology."
         path="/research"

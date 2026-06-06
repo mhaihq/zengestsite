@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Link } from 'react-router';
-import { SEO } from '../../components/SEO';
+import { SEO, faqSchema } from '../../components/SEO';
 import { Footer } from '../../components/Footer';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -108,7 +108,9 @@ export function ComparisonTemplate(props: ComparisonProps) {
         title={metaTitle}
         description={metaDescription}
         path={`/vs/${slug}`}
+        type="article"
         useExactTitle
+        jsonLd={faq.length ? faqSchema(faq.map(item => ({ question: item.q, answer: item.a }))) : undefined}
       />
 
       <div className="bg-white min-h-screen font-['DM_Sans']">

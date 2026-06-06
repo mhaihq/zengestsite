@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router'
 import { PortableText } from '@portabletext/react'
-import { SEO } from '../components/SEO'
+import { SEO, articleSchema } from '../components/SEO'
 import { Footer } from '../components/Footer'
 import { getPostBySlug, type Post } from '../../lib/sanityQueries'
 
@@ -110,6 +110,13 @@ export function BlogPost() {
         useExactTitle={true}
         description={post.descrizioneSeo ?? post.estratto ?? ''}
         path={`/blog/${post.slug.current}`}
+        type="article"
+        jsonLd={articleSchema({
+          title: post.titoloSeo ?? post.titolo,
+          description: post.descrizioneSeo ?? post.estratto,
+          path: `/blog/${post.slug.current}`,
+          datePublished: post.pubblicatoIl,
+        })}
       />
 
       {/* Header */}

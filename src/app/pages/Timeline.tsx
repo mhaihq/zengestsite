@@ -66,7 +66,8 @@ const timelineData = [
 export function RadialOrbitalTimelineDemo() {
   return (
     <>
-      <SEO 
+      <SEO
+        robots="noindex, follow"
         title="Reasoning Engine"
         description="See how Hana's Reasoning Engine works. Five layers of intelligence—Memory, Data, Protocols, Engagement, and Safety—power every patient interaction."
         path="/timeline"

@@ -1,8 +1,15 @@
 import { Footer } from "../components/Footer";
+import { SEO } from "../components/SEO";
 
 export function Terms() {
   return (
     <>
+      <SEO
+        title="Termini di Servizio · ZenGest"
+        useExactTitle={true}
+        description="Termini di Servizio e sicurezza di ZenGest, la piattaforma di AI clinica per psicologi italiani. Trattamento dei dati clinici e conformità GDPR."
+        path="/terms"
+      />
       <div className="bg-white min-h-screen">
         {/* Hero */}
         <section className="bg-[#00122F] text-white py-20 px-4">

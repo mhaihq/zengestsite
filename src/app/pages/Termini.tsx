@@ -5,10 +5,10 @@ export function Termini() {
   return (
     <div className="bg-white min-h-screen">
       <SEO
-        title="Sicurezza & Termini · ZenGest"
+        title="Termini di Servizio · ZenGest"
         useExactTitle={true}
         description="Condizioni Generali di Servizio di ZenGest. Trattamento dati clinici, GDPR Art. 9, responsabilità e sicurezza per professionisti della salute mentale."
-        path="/sicurezza"
+        path="/termini"
       />
 
       {/* Header */}

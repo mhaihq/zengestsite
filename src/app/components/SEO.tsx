@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
+// NOTE: default social-share image. TODO: replace with a branded ZenGest OG card
+// (1200×630). For now this reuses the existing bundled asset so previews aren't broken.
 import ogImage from 'figma:asset/7dab76c8bd67019090a5609cf9a1a41e8c727fbb.png';
 
-const SITE_NAME = "Hana Voice AI";
-const SITE_DOMAIN = "https://hanavoice.ai";
-const DEFAULT_KEYWORDS = "Voice AI, Patient Engagement, Clinical AI, Remote Patient Monitoring, AI Receptionist, Healthcare Automation, Intelligent Intake, Care Coordination, Healthcare Voice Technology, Medical AI Assistant";
+const SITE_NAME = "ZenGest";
+const SITE_DOMAIN = "https://zengest.it";
+const DEFAULT_KEYWORDS = "software psicologi, cartella clinica psicologo, note cliniche AI, trascrizione sedute, SOAP DAP BIRP, gestionale psicoterapia, GDPR sanità, software studio psicologico, assistente clinico AI, ZenGest";
 
 interface SEOProps {
   title?: string;
@@ -33,9 +35,9 @@ function setMeta(attr: string, key: string, content: string) {
   el.setAttribute('content', content);
 }
 
-export function SEO({ 
-  title = "Hana Voice AI | Intelligent Patient Engagement",
-  description = "Automate patient intake, monitoring, and care coordination with Hana's clinical Voice AI. Engage patients naturally, improve outcomes, and reduce administrative burden by 85%.",
+export function SEO({
+  title = "ZenGest · AI clinica per psicologi italiani",
+  description = "ZenGest trascrive le sedute, genera note cliniche strutturate (SOAP, DAP, BIRP) e gestisce la cartella paziente. Conforme al GDPR Art. 9, dati solo su server europei.",
   image = ogImage,
   url,
   useExactTitle = false,
@@ -69,7 +71,7 @@ export function SEO({
     // Basic meta tags
     setMeta('name', 'description', description);
     setMeta('name', 'keywords', allKeywords);
-    setMeta('name', 'author', 'Hana Health, Inc.');
+    setMeta('name', 'author', 'Unozen Srl');
     setMeta('name', 'robots', robots);
     setMeta('name', 'viewport', 'width=device-width, initial-scale=1, maximum-scale=5');
 
@@ -98,8 +100,6 @@ export function SEO({
 
     // Twitter meta tags
     setMeta('name', 'twitter:card', 'summary_large_image');
-    setMeta('name', 'twitter:site', '@hanahealth');
-    setMeta('name', 'twitter:creator', '@hanahealth');
     setMeta('name', 'twitter:title', fullTitle);
     setMeta('name', 'twitter:description', description);
     setMeta('name', 'twitter:image', image);
@@ -131,67 +131,81 @@ export function SEO({
 
 // ─── Pre-built Structured Data Helpers ────────────────────────────────────────
 
-/** Organization schema for Hana Health */
+/** Organization schema for ZenGest (operated by Unozen Srl) */
 export const organizationSchema: Record<string, unknown> = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "Hana Health",
-  "alternateName": "Hana Voice AI",
+  "name": "ZenGest",
+  "legalName": "Unozen Srl",
   "url": SITE_DOMAIN,
-  "logo": `${SITE_DOMAIN}/logo.png`,
-  "description": "Hana Health builds clinical Voice AI agents that automate patient engagement, intake, monitoring, and care coordination for healthcare organizations.",
-  "sameAs": [
-    "https://twitter.com/hanahealth",
-    "https://www.linkedin.com/company/hanahealth",
-    "https://github.com/hanahealth"
-  ],
+  "logo": `${SITE_DOMAIN}/og-image.png`,
+  "description": "ZenGest è una piattaforma di AI clinica per psicologi e psicoterapeuti italiani: trascrive le sedute, genera note cliniche strutturate e gestisce la cartella paziente, nel rispetto del GDPR Art. 9.",
   "contactPoint": {
     "@type": "ContactPoint",
-    "telephone": "+1-555-123-4567",
-    "contactType": "sales",
-    "email": "hello@hana.health",
-    "availableLanguage": ["English"]
+    "contactType": "customer support",
+    "email": "hello@zengest.it",
+    "availableLanguage": ["Italian"]
   },
+  "vatID": "13448760010",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "123 Innovation Drive",
-    "addressLocality": "San Francisco",
-    "addressRegion": "CA",
-    "postalCode": "94103",
-    "addressCountry": "US"
+    "streetAddress": "Via Cesare Battisti 15",
+    "addressLocality": "Torino",
+    "addressCountry": "IT"
   }
 };
 
-/** WebSite schema with search action */
+/** WebSite schema */
 export const websiteSchema: Record<string, unknown> = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": SITE_NAME,
   "url": SITE_DOMAIN,
-  "description": "Clinical Voice AI for intelligent patient engagement, remote monitoring, and care coordination.",
+  "inLanguage": "it-IT",
+  "description": "AI clinica per psicologi italiani: trascrizione sedute, note cliniche strutturate (SOAP, DAP, BIRP) e cartella paziente, conformi al GDPR.",
   "publisher": {
     "@type": "Organization",
-    "name": "Hana Health"
+    "name": "ZenGest",
+    "legalName": "Unozen Srl"
   }
 };
 
-/** SoftwareApplication schema for the product */
+/** SoftwareApplication schema for the ZenGest product */
 export const softwareApplicationSchema: Record<string, unknown> = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "Hana Voice AI",
-  "applicationCategory": "HealthApplication",
+  "name": "ZenGest",
+  "applicationCategory": "BusinessApplication",
+  "applicationSubCategory": "Software per psicologi",
   "operatingSystem": "Web",
-  "description": "AI-powered clinical voice agents for patient engagement, intake automation, remote monitoring, and care coordination.",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD",
-    "description": "Contact us for enterprise pricing"
-  },
+  "inLanguage": "it-IT",
+  "description": "Software di AI clinica per psicologi e psicoterapeuti: trascrive le sedute, genera note cliniche (SOAP, DAP, BIRP), aggiorna la cartella paziente e risponde a domande sui casi con Ask ZenGest. Conforme al GDPR Art. 9, dati su server europei.",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Free",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    {
+      "@type": "Offer",
+      "name": "Clinical",
+      "price": "39",
+      "priceCurrency": "EUR",
+      "description": "50 sedute/mese, cartella completa, Ask ZenGest, timeline, export documenti (IVA esclusa)"
+    },
+    {
+      "@type": "Offer",
+      "name": "Professional",
+      "price": "79",
+      "priceCurrency": "EUR",
+      "description": "Sedute illimitate, processing e supporto prioritari (IVA esclusa)"
+    }
+  ],
   "creator": {
     "@type": "Organization",
-    "name": "Hana Health"
+    "name": "ZenGest",
+    "legalName": "Unozen Srl"
   }
 };
 
@@ -222,5 +236,33 @@ export function faqSchema(questions: { question: string; answer: string }[]): Re
         "text": q.answer
       }
     }))
+  };
+}
+
+/** Helper to generate Article (blog post) schema */
+export function articleSchema(opts: {
+  title: string;
+  description?: string;
+  path: string;
+  datePublished?: string;
+  dateModified?: string;
+}): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": opts.title,
+    ...(opts.description ? { "description": opts.description } : {}),
+    "inLanguage": "it-IT",
+    "mainEntityOfPage": `${SITE_DOMAIN}${opts.path}`,
+    ...(opts.datePublished ? { "datePublished": opts.datePublished } : {}),
+    ...(opts.dateModified || opts.datePublished
+      ? { "dateModified": opts.dateModified ?? opts.datePublished }
+      : {}),
+    "author": { "@type": "Organization", "name": SITE_NAME },
+    "publisher": {
+      "@type": "Organization",
+      "name": SITE_NAME,
+      "logo": { "@type": "ImageObject", "url": `${SITE_DOMAIN}/og-image.png` }
+    }
   };
 }

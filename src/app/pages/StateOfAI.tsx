@@ -201,6 +201,7 @@ export function StateOfAI() {
   return (
     <div className="bg-slate-50 min-h-screen">
       <SEO
+        robots="noindex, follow"
         title="The State of Voice AI in Healthcare"
         description="247 companies mapped across three layers of voice AI infrastructure. The first comprehensive mapping of the healthcare voice AI ecosystem."
         path="/state-of-ai"
