@@ -59,7 +59,7 @@ const VIDEOS: Video[] = [
     title: 'Creare un paziente',
     description: 'Aggiungi un nuovo paziente e imposta la sua anagrafica in pochi passaggi.',
     category: 'inizia',
-    url: 'https://vimeo.com/1198870421?fl=ip&fe=ec',
+    url: 'https://vimeo.com/1198870477?share=copy&fl=sv&fe=ci',
   },
   {
     id: 'caricare-file',
@@ -82,6 +82,13 @@ const VIDEOS: Video[] = [
     description: 'Genera e gestisci il consenso informato per i tuoi pazienti.',
     category: 'sessioni',
     url: 'https://vimeo.com/1198870475',
+  },
+  {
+    id: 'terapia-coppia',
+    title: 'Terapia di coppia',
+    description: 'Gestisci sedute e cartelle per la terapia di coppia.',
+    category: 'sessioni',
+    url: 'https://vimeo.com/1198870421?fl=ip&fe=ec',
   },
   // ── Assistente AI ──────────────────────────────────────────────────────
   {
