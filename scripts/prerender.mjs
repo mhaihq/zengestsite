@@ -33,7 +33,7 @@ const PORT = 5179
 // crawler hitting them gets the default index,follow shell).
 const STATIC_ROUTES = [
   '/', '/pricing', '/about', '/sicurezza', '/termini', '/dpa', '/terms',
-  '/blog', '/video',
+  '/blog', '/video', '/guida-consenso',
   '/vs/psicogest', '/vs/gesto', '/vs/appuntoo', '/vs/chatgpt',
   // noindex (kept routed):
   '/research', '/state-of-ai', '/contact',
@@ -50,6 +50,7 @@ const SITEMAP_HINTS = {
   '/blog': { priority: '0.8', changefreq: 'weekly' },
   '/about': { priority: '0.7', changefreq: 'monthly' },
   '/sicurezza': { priority: '0.7', changefreq: 'monthly' },
+  '/guida-consenso': { priority: '0.8', changefreq: 'monthly' },
 }
 
 const MIME = {
