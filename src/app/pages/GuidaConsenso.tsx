@@ -747,25 +747,6 @@ export function GuidaConsenso() {
         <div className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, #F8FAFC)" }} />
       </section>
 
-      {/* ── Why it matters — Molly Quinn ──────────────────────────────── */}
-      <section className="py-20 px-6 bg-[#F8FAFC]">
-        <div className="max-w-2xl mx-auto">
-          <FadeIn>
-            <SectionPill>Perché questa conversazione conta</SectionPill>
-            <div className="bg-white rounded-[28px] border border-slate-100 shadow-sm p-6 sm:p-8 md:p-10">
-              <p className={`${SERIF} text-3xl md:text-4xl text-[#00122F] leading-tight mb-4`}>"La fiducia era sparita."</p>
-              <p className={`${SANS} text-sm text-slate-500 leading-relaxed mb-6`}>
-                Molly Quinn, paziente — dopo aver scoperto a metà seduta di essere registrata senza essere avvisata. La terapeuta l'ha persa. Non per la tecnologia in sé, ma per la mancanza di trasparenza.
-              </p>
-              <div className="h-px bg-slate-100 mb-6" />
-              <p className={`${SANS} text-[#00122F] leading-relaxed`}>
-                Il consenso non è una firma su un modulo. È una conversazione reale, in linguaggio semplice, con spazio genuino per il no.
-              </p>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
-
       {/* ── Principi ──────────────────────────────────────────────────── */}
       <section id="principi" className="py-20 px-6 bg-white">
         <div className="max-w-5xl mx-auto">
