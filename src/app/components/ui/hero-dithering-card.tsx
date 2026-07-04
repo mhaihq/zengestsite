@@ -46,10 +46,7 @@ const BADGES = [
 export function CTASection() {
   return (
     <section
-      className="relative min-h-screen flex flex-col items-center justify-start px-6 py-20 md:py-28 overflow-hidden"
-      style={{
-        background: "linear-gradient(160deg, #C8D9F0 0%, #D6E4F0 30%, #E8EEF5 55%, #EDE8DC 80%, #E8DFC8 100%)",
-      }}
+      className="relative min-h-screen flex flex-col items-center justify-start px-6 py-20 md:py-28 overflow-hidden bg-[#F8FAFC]"
     >
       {/* Top badge */}
       <div className="relative z-10 mb-8 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-sm border border-white/90 shadow-sm">
@@ -64,9 +61,22 @@ export function CTASection() {
       </h1>
 
       {/* Subheadline */}
-      <p className="relative z-10 font-['DM_Sans'] text-base md:text-lg text-center max-w-2xl text-slate-600 mb-8 leading-relaxed px-2">
+      <p className="relative z-10 font-['DM_Sans'] text-base md:text-lg text-center max-w-2xl text-slate-600 mb-6 leading-relaxed px-2">
         Trascrivi le sedute, aggiorna le cartelle e usa l'AI per note, piani di trattamento e analisi cliniche. Conforme al GDPR e al Codice Deontologico.
       </p>
+
+      {/* Trust badges — above the CTA */}
+      <div className="relative z-10 flex flex-wrap items-center justify-center gap-3 mb-8">
+        {BADGES.map(b => (
+          <div key={b.label} className="inline-flex items-center gap-2.5 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-xl px-4 py-3 shadow-md">
+            {b.icon}
+            <div>
+              <p className="font-['DM_Sans'] text-[12px] font-bold text-[#00122F] leading-none mb-0.5">{b.label}</p>
+              <p className="font-['DM_Sans'] text-[11px] text-slate-500 leading-none">{b.sub}</p>
+            </div>
+          </div>
+        ))}
+      </div>
 
       {/* CTA */}
       <div className="relative z-10 flex items-center gap-3 mb-12">
@@ -78,22 +88,28 @@ export function CTASection() {
         </a>
       </div>
 
-      {/* Product showcase — animated app-window tour */}
+      {/* Product showcase — animated app-window tour, framed in its own gradient card */}
       <div className="relative z-10 w-full max-w-6xl px-4">
-        <ZenGestShowcase />
-      </div>
-
-      {/* Trust badges — below dashboard */}
-      <div className="relative z-10 flex flex-wrap items-center justify-center gap-3 mt-10">
-        {BADGES.map(b => (
-          <div key={b.label} className="inline-flex items-center gap-2.5 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-xl px-4 py-3 shadow-md">
-            {b.icon}
-            <div>
-              <p className="font-['DM_Sans'] text-[12px] font-bold text-[#00122F] leading-none mb-0.5">{b.label}</p>
-              <p className="font-['DM_Sans'] text-[11px] text-slate-500 leading-none">{b.sub}</p>
-            </div>
-          </div>
-        ))}
+        <div
+          className="relative rounded-[32px] md:rounded-[40px] p-6 sm:p-8 md:p-14 overflow-hidden"
+          style={{
+            background: [
+              "radial-gradient(70% 65% at 8% -6%, rgba(122,155,232,0.9) 0%, transparent 62%)",
+              "radial-gradient(65% 60% at 95% 5%, rgba(167,188,245,0.85) 0%, transparent 62%)",
+              "radial-gradient(75% 70% at 100% 68%, rgba(247,214,140,0.85) 0%, transparent 64%)",
+              "radial-gradient(70% 62% at 0% 78%, rgba(59,111,212,0.45) 0%, transparent 62%)",
+              "radial-gradient(120% 62% at 50% 112%, rgba(240,225,190,0.9) 0%, transparent 58%)",
+              "linear-gradient(160deg, #eaf1fb 0%, #f2f2f8 45%, #faf3e6 100%)",
+            ].join(", "),
+            boxShadow: "0 30px 80px -24px rgba(0,18,47,0.22)",
+          }}
+        >
+          <div
+            className="absolute inset-x-12 bottom-4 h-16 pointer-events-none"
+            style={{ background: "radial-gradient(60% 100% at 50% 50%, rgba(0,18,47,0.15) 0%, transparent 75%)" }}
+          />
+          <ZenGestShowcase />
+        </div>
       </div>
 
       {/* Blend into next section */}

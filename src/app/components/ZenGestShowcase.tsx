@@ -53,7 +53,7 @@ function Glyph({ d, className = "w-5 h-5", sw = 2, style }: { d: string; classNa
 // Ogni tab della vetrina è una schermata reale; path = ciò che appare nella
 // barra dell'indirizzo del browser.
 const TABS = [
-  { label: "Inizia sessione", path: "home" },
+  { label: "Trascrizioni sedute", path: "home" },
   { label: "Assistente Zen", path: "assistente" },
   { label: "Cartella clinica", path: "clienti/giulia-rinaldi" },
   { label: "Fatture", path: "clienti/giulia-rinaldi/fatture" },
