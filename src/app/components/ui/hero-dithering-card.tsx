@@ -1,4 +1,4 @@
-import { HeroDashboard } from "../HeroDashboard";
+import { ZenGestShowcase } from "../ZenGestShowcase";
 
 const BADGES = [
   {
@@ -78,44 +78,10 @@ export function CTASection() {
         </a>
       </div>
 
-      {/* Dashboard preview — desktop scaled layout */}
-      <div className="relative z-10 w-full max-w-5xl px-4 dash-wrap hidden md:block">
-        <div className="dash-inner">
-          <HeroDashboard />
-        </div>
+      {/* Product showcase — animated app-window tour */}
+      <div className="relative z-10 w-full max-w-6xl px-4">
+        <ZenGestShowcase />
       </div>
-      {/* Dashboard preview — mobile native layout */}
-      <div className="relative z-10 w-full md:hidden">
-        <HeroDashboard />
-      </div>
-      <style>{`
-        .dash-wrap { overflow: hidden; height: ${Math.round(540 * 0.42)}px; }
-        .dash-inner { transform-origin: top center; transform: scale(0.42); }
-        @media (min-width: 400px) {
-          .dash-wrap { height: ${Math.round(540 * 0.52)}px; }
-          .dash-inner { transform: scale(0.52); }
-        }
-        @media (min-width: 500px) {
-          .dash-wrap { height: ${Math.round(540 * 0.64)}px; }
-          .dash-inner { transform: scale(0.64); }
-        }
-        @media (min-width: 640px) {
-          .dash-wrap { height: ${Math.round(540 * 0.78)}px; }
-          .dash-inner { transform: scale(0.78); }
-        }
-        @media (min-width: 768px) {
-          .dash-wrap { height: ${Math.round(540 * 0.88)}px; }
-          .dash-inner { transform: scale(0.88); }
-        }
-        @media (min-width: 900px) {
-          .dash-wrap { height: ${Math.round(540 * 0.94)}px; }
-          .dash-inner { transform: scale(0.94); }
-        }
-        @media (min-width: 1024px) {
-          .dash-wrap { height: 540px; }
-          .dash-inner { transform: scale(1); }
-        }
-      `}</style>
 
       {/* Trust badges — below dashboard */}
       <div className="relative z-10 flex flex-wrap items-center justify-center gap-3 mt-10">
