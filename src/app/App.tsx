@@ -22,6 +22,7 @@ import { VsGesto } from "./pages/comparisons/VsGesto";
 import { VsAppuntoo } from "./pages/comparisons/VsAppuntoo";
 import { VsChatgpt } from "./pages/comparisons/VsChatgpt";
 import { GuidaConsenso } from "./pages/GuidaConsenso";
+import { GuidaZenGest } from "./pages/GuidaZenGest";
 
 export default function App() {
   return (
@@ -58,6 +59,7 @@ export default function App() {
             <Route path="/vs/appuntoo" element={<VsAppuntoo />} />
             <Route path="/vs/chatgpt" element={<VsChatgpt />} />
             <Route path="/guida-consenso" element={<GuidaConsenso />} />
+            <Route path="/guida" element={<GuidaZenGest />} />
           </Routes>
         </main>
       </div>
