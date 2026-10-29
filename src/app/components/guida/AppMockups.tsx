@@ -4,7 +4,7 @@ import {
   ChevronUp, Pencil, Download, MoreVertical, Paperclip, Copy, Sparkles, Pin, Mic, X,
   RefreshCw, UserCheck, User, Minimize2, Undo2, Globe, Plus, Monitor, Check, Pause,
   Loader2, AlertTriangle, FileAudio, Image as ImageIcon, ChevronLeft, ShieldCheck,
-  IdCard, ClipboardList, NotebookPen, Files, Puzzle, Search,
+  IdCard, ClipboardList, NotebookPen, Files, Puzzle, Search, Receipt,
 } from "lucide-react";
 
 /*
@@ -20,7 +20,7 @@ import {
 export const MOCK_W = 1392;
 export const MOCK_H = 787;
 
-const TEAL = "#3E9C9A"; // client avatar colour in the app
+export const TEAL = "#3E9C9A"; // client avatar colour in the app
 const REC_BLUE = "#3b82f6";
 const FONT = '-apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif';
 const DISABLED_GRAD = "linear-gradient(90deg, #9ca3af 0%, #b4b8bf 50%, #8b8f96 100%)";
@@ -60,18 +60,25 @@ const NAV = [
   { key: "clienti", label: "Clienti", Icon: Users },
 ] as const;
 
-function ZenIcon({ size = 18 }: { size?: number }) {
+export function ZenIcon({ size = 18 }: { size?: number }) {
   return <img src="/guida/app/zen-ai.svg" alt="" width={size} height={size} />;
 }
 
-function Avatar({ initials, size = 28, text = 13 }: { initials: string; size?: number; text?: number }) {
+export function Avatar({ initials, size = 28, text = 13 }: { initials: string; size?: number; text?: number }) {
   return (
     <span className="inline-flex items-center justify-center rounded-full font-semibold text-white shrink-0"
       style={{ width: size, height: size, background: TEAL, fontSize: text }}>{initials}</span>
   );
 }
 
-function TopNav({ active }: { active: "home" | "sessioni" | "modelli" | "clienti" | "assistente" }) {
+export type NavKey = "home" | "sessioni" | "modelli" | "clienti" | "fatturazione" | "assistente";
+
+// `billing` adds the Fatturazione item, shown only to accounts with invoicing enabled
+export function TopNav({ active, billing = false, user = { name: "Matteo", initials: "MG" } }: {
+  active: NavKey | null;
+  billing?: boolean;
+  user?: { name: string; initials: string };
+}) {
   return (
     <div className="h-16 border-b border-[#e5e7eb] flex items-center px-5 bg-white">
       <img src="/guida/app/zengest-logo.webp" alt="" className="h-[38px] w-auto mr-9" />
@@ -81,23 +88,28 @@ function TopNav({ active }: { active: "home" | "sessioni" | "modelli" | "clienti
             <Icon className="w-4 h-4" strokeWidth={1.8} /> {label}
           </span>
         ))}
+        {billing && (
+          <span className={`flex items-center gap-2 px-3 py-2 rounded-full ${active === "fatturazione" ? "bg-[#f3f4f6]" : ""}`}>
+            <Receipt className="w-4 h-4" strokeWidth={1.8} /> Fatturazione
+          </span>
+        )}
         <span className={`flex items-center gap-2 px-3 py-2 rounded-full ${active === "assistente" ? "bg-[#f3f4f6]" : ""}`}>
           <ZenIcon size={16} /> Assistente
         </span>
       </div>
       <div className="ml-auto flex items-center gap-7 text-[14px]">
         <span className="flex items-center gap-2"><HelpCircle className="w-4 h-4" strokeWidth={1.8} /> Supporto</span>
-        <span className="flex items-center gap-2.5 text-[15px]">Ciao Matteo! <Avatar initials="MG" size={32} /></span>
+        <span className="flex items-center gap-2.5 text-[15px]">Ciao {user.name}! <Avatar initials={user.initials} size={32} /></span>
       </div>
     </div>
   );
 }
 
-function Pill({ children, className = "" }: { children: ReactNode; className?: string }) {
+export function Pill({ children, className = "" }: { children: ReactNode; className?: string }) {
   return <span className={`inline-flex items-center gap-2 rounded-full border border-[#e5e7eb] bg-white ${className}`}>{children}</span>;
 }
 
-function Overlay() {
+export function Overlay() {
   return <div className="absolute inset-0 bg-black/50" />;
 }
 

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useMemo, type CSSProperties } from "react";
+import { useState, useRef, useEffect, useMemo, useCallback, type CSSProperties } from "react";
 import { Footer } from "../components/Footer";
 import { SEO } from "../components/SEO";
 import { breadcrumbSchema } from "../components/SEO";
@@ -6,11 +6,15 @@ import {
   BookOpen, Search, ChevronLeft, ChevronRight, Check, CheckCircle2,
   Lightbulb, PlayCircle, Compass, UserPlus, Mic, FileText, PenLine,
   FolderOpen, LayoutTemplate, Sparkles, Settings, ImageIcon, X, ArrowRight,
-  ChevronDown, ChevronUp, MessageCircle, Play, Pause, Maximize2, CornerDownLeft,
+  ChevronDown, ChevronUp, MessageCircle, Play, Pause, Maximize2, CornerDownLeft, Receipt, ClipboardCheck, Trophy, ExternalLink,
 } from "lucide-react";
 import {
   MockStage, MOCK_W, MOCK_H, MockHomeCliente, MockPickerModelli, MockRegistrazione, MockCaricamento, MockUpload, MockSessioneNota, MockModificaMagica, MockRigenera, MockSessioneEsporta, MockSessioneTrascrizione, MockClientePrep,
 } from "../components/guida/AppMockups";
+import {
+  MockProfiloFiscale, MockSistemaTS, MockPrestazioni, MockClienteFiscale, MockNuovaFattura,
+  MockNuovaFatturaImporti, MockFattureLista, MockFatturaDettaglio, MockFatturaAccettata,
+} from "../components/guida/AppMockupsFatturazione";
 
 // Brand tokens — same as GuidaConsenso
 const NAVY = "#00122F";
@@ -66,6 +70,15 @@ const SHOTS = {
   "agenti":              { label: "Gestisci agenti",                       url: "app.zengest.it/agents", src: "/guida/agenti.webp" },
   "gestione-dati":       { label: "Impostazioni → Gestione dati",          url: "app.zengest.it/settings/data-management", src: "/guida/gestione-dati.webp" },
   "sicurezza":           { label: "Impostazioni → Sicurezza",              url: "app.zengest.it/settings/security", src: "/guida/sicurezza.webp" },
+  "fatt-profilo":        { label: "Profilo Fiscale — Dati fiscali",        url: "app.zengest.it/settings/invoicing", mock: MockProfiloFiscale },
+  "fatt-ts":             { label: "Profilo Fiscale — Sistema TS",          url: "app.zengest.it/settings/invoicing", mock: MockSistemaTS },
+  "fatt-prestazioni":    { label: "Prestazioni",                           url: "app.zengest.it/settings/services", mock: MockPrestazioni },
+  "fatt-cliente":        { label: "Scheda cliente — Dati fiscali",         url: "app.zengest.it/clients/…", mock: MockClienteFiscale },
+  "fatt-nuova":          { label: "Nuova fattura",                         url: "app.zengest.it/invoices/new", mock: MockNuovaFattura },
+  "fatt-importi":        { label: "Nuova fattura — Importi e pagamento",   url: "app.zengest.it/invoices/new", mock: MockNuovaFatturaImporti },
+  "fatt-lista":          { label: "Elenco fatture",                        url: "app.zengest.it/invoices", mock: MockFattureLista },
+  "fatt-dettaglio":      { label: "Dettaglio fattura",                     url: "app.zengest.it/invoices/…", mock: MockFatturaDettaglio },
+  "fatt-accettata":      { label: "Fattura accettata dal Sistema TS",      url: "app.zengest.it/invoices/…", mock: MockFatturaAccettata },
 } satisfies Record<string, Shot>;
 
 type ShotKey = keyof typeof SHOTS;
@@ -479,6 +492,111 @@ const CHAPTERS: Chapter[] = [
     ],
   },
   {
+    id: "fatturazione",
+    title: "Fatturazione",
+    summary: "Configura i dati fiscali, crea le fatture dei pazienti e inviale al Sistema TS.",
+    icon: Receipt,
+    minutes: 7,
+    steps: [
+      {
+        title: "Dove trovi la fatturazione",
+        body: "La fatturazione si attiva sul tuo account su richiesta: scrivici dal Supporto. Quando è attiva trovi Fatturazione nella barra in alto e, nelle Impostazioni, una sezione Fatturazione con Profilo Fiscale, Credits, Prestazioni e Fatture pazienti.",
+        tip: "Usa la fatturazione da computer: da telefono non è nella barra in basso.",
+        shot: "fatt-profilo",
+        spot: [9.2, 57],
+      },
+      {
+        title: "Compila il Profilo Fiscale",
+        body: "In Profilo Fiscale, scheda Dati fiscali, inserisci nome e cognome, partita IVA, codice fiscale, indirizzo e PEC. Scegli il regime (forfettario o ordinario), chi paga la marca da bollo e se applicare l'ENPAP di default. Più in basso, in Pagamenti, aggiungi l'IBAN per i bonifici. Poi clicca Salva.",
+        tip: "Finché il profilo non è completo non puoi creare fatture: ZenGest ti riporta a questa pagina.",
+        shot: "fatt-profilo",
+        spot: [57.1, 46],
+      },
+      {
+        title: "Collega il Sistema TS",
+        body: "Nella scheda Sistema TS scegli Libero professionista e inserisci username, password e PinCode del portale Sistema Tessera Sanitaria, più il tuo codice fiscale (campo cf_proprietario). Con Invio automatico a TS attivo, le fatture pagate vengono trasmesse da sole; altrimenti le invii tu.",
+        tip: "Non hai ancora le credenziali? Le richiedi su sistemats1.sanita.finanze.it.",
+        shot: "fatt-ts",
+        spot: [78.7, 73.6],
+      },
+      {
+        title: "Crea il listino delle prestazioni",
+        body: "In Prestazioni aggiungi le tue prestazioni con nome, prezzo, durata e categoria. Lascia attivo Prestazione sanitaria per le sedute cliniche: sono esenti IVA e vanno al Sistema TS. Contributo ENPAP applica il 2%. La prestazione Predefinita viene proposta in ogni nuova fattura.",
+        shot: "fatt-prestazioni",
+        spot: [25.7, 28.9],
+      },
+      {
+        title: "Completa i dati fiscali del paziente",
+        body: "Nella scheda del cliente, Anagrafica e fatturazione, scegli Persona fisica o Organizzazione e inserisci codice fiscale, tariffa della seduta e metodo di pagamento predefinito. Se il paziente si oppone all'invio delle spese al Sistema TS, spunta la casella apposita.",
+        tip: "Se mancano codice fiscale, tariffa o metodo di pagamento, accanto al nome del paziente compare l'avviso Dati di fatturazione incompleti.",
+        shot: "fatt-cliente",
+        spot: [56.7, 56.3],
+      },
+      {
+        title: "Crea una nuova fattura",
+        body: "Clicca Fatturazione nella barra in alto e poi Nuova Fattura, oppure apri la scheda Fatture del paziente. Scegli Paziente o Azienda / Ente, il tipo di documento (Fattura o Proforma), la data e il paziente.",
+        shot: "fatt-nuova",
+        spot: [50, 54.1],
+      },
+      {
+        title: "Il canale di invio è automatico",
+        body: "ZenGest sceglie da solo dove trasmettere la fattura: al Sistema TS per i pazienti, allo SdI (fattura elettronica) per aziende ed enti. Per un'azienda servono ragione sociale, partita IVA e codice SDI oppure PEC.",
+        shot: "fatt-nuova",
+        spot: [45.7, 66],
+      },
+      {
+        title: "Prestazione e descrizione",
+        body: "Se hai più prestazioni, scegli quella giusta dal listino, poi controlla la descrizione: è il testo che il paziente legge in fattura. L'importo viene proposto dalla tariffa del paziente o dal prezzo della prestazione.",
+        shot: "fatt-nuova",
+        spot: [50, 75.9],
+      },
+      {
+        title: "Fattura dalle sedute",
+        body: "Se il paziente ha sedute non ancora fatturate compare Da sedute (N): seleziona le sedute da includere e clicca Emetti fattura. Con Fattura manuale inserisci tu l'importo.",
+        shot: "fatt-importi",
+        spot: [34.1, 13],
+      },
+      {
+        title: "Importo, ENPAP e marca da bollo",
+        body: "In Importo scrivi il totale che paga il paziente, ENPAP incluso: ZenGest scorpora da solo il contributo del 2%. Nel Riepilogo calcolo vedi compenso, ENPAP, marca da bollo (€2 sopra €77,47, se a carico del cliente) e totale.",
+        tip: "In regime forfettario la fattura riporta in automatico il testo di legge richiesto.",
+        shot: "fatt-importi",
+        spot: [64.8, 33.8],
+      },
+      {
+        title: "Pagamento ed emissione",
+        body: "Se il paziente ha già pagato, spunta Il cliente ha già pagato e indica metodo e data. Poi clicca Crea fattura, oppure Salva bozza per completarla più tardi.",
+        tip: "Per creare o segnare come pagata una fattura da inviare al Sistema TS o allo SdI servono crediti: li trovi in Impostazioni → Credits.",
+        shot: "fatt-importi",
+        spot: [76.5, 91.9],
+      },
+      {
+        title: "L'elenco delle fatture",
+        body: "In Fatturazione trovi tutte le fatture, con totali, incassato e la soglia annuale del forfettario (€85.000). Cerca per paziente o numero, usa i Filtri e controlla in Trasmissione lo stato di ogni invio. Selezionando più fatture puoi confermare le bozze, segnarle pagate o inviarle al Sistema TS insieme.",
+        shot: "fatt-lista",
+        spot: [76.8, 59.1],
+      },
+      {
+        title: "Esporta per il commercialista",
+        body: "Esporta CSV scarica le fatture dell'anno in un file per il commercialista. Esporta XML genera il file delle spese sanitarie per il Sistema TS.",
+        shot: "fatt-lista",
+        spot: [58.8, 18.4],
+      },
+      {
+        title: "Invia al Sistema TS e crea il PDF",
+        body: "Apri una fattura pagata e clicca Invia a TS per trasmetterla al Sistema Tessera Sanitaria. Lo stato compare in Storico TS: se c'è un errore, correggi i dati e clicca Riprova. Con Genera PDF crei la fattura da scaricare o stampare.",
+        shot: "fatt-dettaglio",
+        spot: [23.8, 23.1],
+      },
+      {
+        title: "Nota di credito e annullamento",
+        body: "Quando il Sistema TS accetta la fattura, in Storico TS trovi data d'invio e protocollo. Per stornarla usa Crea nota di credito. Una fattura non ancora accettata si annulla invece con Annulla fattura.",
+        shot: "fatt-accettata",
+        spot: [47.9, 23.1],
+      },
+    ],
+  },
+  {
     id: "impostazioni",
     title: "Impostazioni, privacy e abbonamento",
     summary: "Gestisci piano, conservazione dei dati e sicurezza dell'account.",
@@ -516,6 +634,96 @@ const CHAPTERS: Chapter[] = [
 
 const ALL_STEP_COUNT = CHAPTERS.reduce((n, c) => n + c.steps.length, 0);
 
+// Chapters grouped into modules, like the sections of a course
+const MODULES = [
+  { title: "Per iniziare", chapters: ["primi-passi", "cliente", "registra"] },
+  { title: "Lavoro clinico", chapters: ["senza-registrare", "nota", "cartella", "modelli", "assistente"] },
+  { title: "Amministrazione", chapters: ["fatturazione", "impostazioni"] },
+];
+
+function moduleOf(chapterId: string) {
+  const i = MODULES.findIndex((m) => m.chapters.includes(chapterId));
+  return { index: i, ...MODULES[i] };
+}
+
+// End of each chapter: a quick check (with the step to revisit when wrong)
+// and the place in the app where to try it for real
+interface Question { q: string; options: string[]; answer: number; why: string; step: number }
+interface ChapterEnd { practice: { label: string; url: string }; quiz: Question[] }
+
+const CHAPTER_END: Record<string, ChapterEnd> = {
+  "primi-passi": {
+    practice: { label: "Completa il tuo profilo", url: "https://app.zengest.it/settings/profile" },
+    quiz: [
+      { q: "Dove scarichi il modulo di consenso da dare ai pazienti?", options: ["Dal menu del profilo, in alto a destra", "Dalla pagina Sessioni", "Dall'Assistente Zen"], answer: 0, why: "Clicca la tua immagine in alto a destra: nel menu trovi Modulo di consenso cliente.", step: 1 },
+      { q: "Dove imposti titolo e nome che compaiono nei PDF?", options: ["Nella scheda del cliente", "In Impostazioni → Account", "In Modelli"], answer: 1, why: "In Impostazioni → Account scegli titolo, nome, cognome e specialità.", step: 2 },
+    ],
+  },
+  cliente: {
+    practice: { label: "Aggiungi il tuo primo cliente", url: "https://app.zengest.it/clients" },
+    quiz: [
+      { q: "Cosa serve, come minimo, per creare un paziente?", options: ["Codice fiscale e indirizzo", "Email e telefono", "Nome, cognome, lingua e data della prima seduta"], answer: 2, why: "Bastano nome, cognome, lingua della seduta e data della prima seduta: il resto puoi completarlo dopo.", step: 1 },
+      { q: "Il paziente è con te in studio. Come raccogli il consenso?", options: ["Con Firma ora (di persona), sul tuo schermo", "Devi per forza stampare il modulo", "Non serve un consenso per registrare"], answer: 0, why: "Firma ora (di persona) fa firmare il paziente direttamente sul tuo schermo.", step: 2 },
+    ],
+  },
+  registra: {
+    practice: { label: "Registra una seduta di prova", url: "https://app.zengest.it/" },
+    quiz: [
+      { q: "Seduta online con le cuffie: cosa fai per registrare anche il paziente?", options: ["Alzo il volume del computer", "Clicco Aggiungi audio tab e condivido la scheda della videochiamata", "Niente, il microfono lo sente comunque"], answer: 1, why: "Con le cuffie la voce del paziente non arriva al microfono: va aggiunto l'audio della scheda.", step: 4 },
+      { q: "Quanto deve durare almeno una registrazione per generare la nota?", options: ["2 minuti", "10 minuti", "Non c'è un minimo"], answer: 0, why: "Le registrazioni sotto i 2 minuti non vengono elaborate.", step: 6 },
+    ],
+  },
+  "senza-registrare": {
+    practice: { label: "Crea una sessione senza registrare", url: "https://app.zengest.it/" },
+    quiz: [
+      { q: "Hai registrato la seduta con il telefono. Come la porti in ZenGest?", options: ["La invio via email al supporto", "Non è possibile", "Crea sessione senza registrare → Carica audio sessione"], answer: 2, why: "Carica audio sessione importa il file e lo elabora come una registrazione in diretta.", step: 3 },
+      { q: "Puoi inserire una seduta di una settimana fa?", options: ["Sì, scegliendo data e ora con Seleziona data sessione", "No, solo sedute di oggi"], answer: 0, why: "Con Seleziona data sessione scegli giorno e ora: è utile per le sedute passate.", step: 1 },
+    ],
+  },
+  nota: {
+    practice: { label: "Apri le tue sessioni", url: "https://app.zengest.it/sessions" },
+    quiz: [
+      { q: "Vuoi trasformare una sezione in elenco puntato senza riscriverla. Cosa usi?", options: ["Rigenera nota", "Modifica magica", "Copia sezione"], answer: 1, why: "Con Modifica magica dai un'istruzione a parole e ZenGest riscrive la sezione.", step: 2 },
+      { q: "Come provi un altro modello sulla stessa seduta?", options: ["Nome del modello in cima alla nota → Rigenera nota", "Devo registrare di nuovo", "Dalla scheda Trascrizione"], answer: 0, why: "Rigenera nota crea una nuova nota con il modello scelto, senza perdere quelle precedenti.", step: 4 },
+    ],
+  },
+  cartella: {
+    practice: { label: "Apri la cartella di un paziente", url: "https://app.zengest.it/clients" },
+    quiz: [
+      { q: "Prima di ricevere il paziente, dove trovi follow-up e riepilogo dell'ultima seduta?", options: ["In Documenti", "In Anagrafica", "In Prep Sessione"], answer: 2, why: "Prep Sessione raccoglie compiti, prossima seduta e riepilogo dell'ultima.", step: 2 },
+      { q: "Dove inserisci anamnesi e storia del paziente perché l'AI ne tenga conto?", options: ["In Contesto, con Crea Contesto", "Nelle Note di andamento", "Nella descrizione della seduta"], answer: 0, why: "Il Contesto viene usato da Prep Sessione e dall'Assistente.", step: 6 },
+    ],
+  },
+  modelli: {
+    practice: { label: "Sfoglia i Modelli Zen", url: "https://app.zengest.it/templates" },
+    quiz: [
+      { q: "Hai una tua nota che ti piace. Come ne fai un modello?", options: ["Costruisci da Zero", "Nuovo modello di nota → Crea da Nota", "Rigenera nota"], answer: 1, why: "Crea da Nota analizza la tua nota e ne ricava sezioni e struttura.", step: 3 },
+      { q: "Per ogni sezione di un modello puoi scegliere…", options: ["Stile e lunghezza", "Il paziente a cui si applica", "La lingua dell'app"], answer: 0, why: "Ogni sezione ha stile (punti elenco o paragrafo) e lunghezza (dettagliato, standard, conciso).", step: 4 },
+    ],
+  },
+  assistente: {
+    practice: { label: "Fai una domanda all'Assistente", url: "https://app.zengest.it/assistant" },
+    quiz: [
+      { q: "Le conversazioni con l'Assistente vengono salvate?", options: ["Sì, nella scheda del paziente", "Sì, per 30 giorni", "No: copia o esporta quello che ti serve prima di uscire"], answer: 2, why: "Le chat non vengono salvate: apri i contenuti come documento ed esportali in PDF o Word.", step: 3 },
+      { q: "Come orienti le risposte su un approccio, per esempio CBT?", options: ["Con + → Agenti", "Scrivendolo nel profilo", "Cambiando modello di nota"], answer: 0, why: "Dal pulsante + scegli un agente: orienta le risposte su quell'approccio.", step: 2 },
+    ],
+  },
+  fatturazione: {
+    practice: { label: "Configura il Profilo Fiscale", url: "https://app.zengest.it/settings/invoicing" },
+    quiz: [
+      { q: "Il paziente paga €80, ENPAP incluso, e la marca da bollo è a carico del cliente. Qual è il totale?", options: ["€80,00", "€82,00", "€81,60"], answer: 1, why: "€78,43 di compenso + €1,57 di ENPAP superano €77,47, quindi si aggiungono €2 di bollo: €82,00.", step: 9 },
+      { q: "Dove viene trasmessa la fattura di un paziente persona fisica?", options: ["Al Sistema TS", "Allo SdI", "Non viene trasmessa"], answer: 0, why: "Per i pazienti il canale è il Sistema TS; lo SdI è per aziende ed enti.", step: 6 },
+    ],
+  },
+  impostazioni: {
+    practice: { label: "Apri le impostazioni", url: "https://app.zengest.it/settings/data-management" },
+    quiz: [
+      { q: "Vuoi che le sessioni si cancellino da sole dopo 30 giorni. Dove lo imposti?", options: ["In Sicurezza", "In Abbonamento", "In Gestione dati"], answer: 2, why: "In Gestione dati attivi l'eliminazione automatica e scegli dopo quanti giorni (da 1 a 90).", step: 1 },
+      { q: "Dove sono conservati i dati di ZenGest?", options: ["Nell'Unione Europea, a Francoforte", "Negli Stati Uniti", "Sul tuo computer"], answer: 0, why: "I dati sono in data center nell'Unione Europea (Francoforte), cifrati a riposo e in transito.", step: 2 },
+    ],
+  },
+};
+
 // What people look for most, shown as shortcuts under the search
 const POPULAR = [
   { label: "Registrare in videochiamata", chapter: "registra", step: 4 },
@@ -524,6 +732,7 @@ const POPULAR = [
   { label: "Caricare l'audio dal telefono", chapter: "senza-registrare", step: 3 },
   { label: "Cambiare modello di nota", chapter: "nota", step: 4 },
   { label: "Prepararsi alla seduta", chapter: "cartella", step: 2 },
+  { label: "Creare una fattura", chapter: "fatturazione", step: 5 },
 ];
 
 const FAQS = [
@@ -539,31 +748,50 @@ const AUTOPLAY_MS = 6500;
 
 // ── Progress (per-viewer, localStorage) ──────────────────────────────────────
 
-type Progress = Record<string, number[]>;
+type Progress = Record<string, number[]>; // steps seen, per chapter
+type QuizDone = Record<string, boolean>;  // chapter check passed
 
-function loadProgress(): Progress {
+const QUIZ_KEY = "zg-guida-quiz-v1";
+const LAST_KEY = "zg-guida-last-v1";
+
+function loadJSON<T>(key: string, fallback: T): T {
   try {
-    const raw = localStorage.getItem(PROGRESS_KEY);
-    return raw ? JSON.parse(raw) : {};
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
   } catch {
-    return {};
+    return fallback;
   }
 }
 
-function saveProgress(p: Progress) {
-  try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(p)); } catch { /* storage unavailable */ }
+function saveJSON(key: string, value: unknown) {
+  try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* storage unavailable */ }
 }
 
+type Status = "todo" | "doing" | "done";
+
+function chapterStatus(c: Chapter, progress: Progress, quiz: QuizDone): Status {
+  const seen = progress[c.id]?.length ?? 0;
+  if (seen >= c.steps.length && quiz[c.id]) return "done";
+  return seen > 0 || quiz[c.id] ? "doing" : "todo";
+}
+
+const STATUS_LABEL: Record<Status, string> = { todo: "Da iniziare", doing: "In corso", done: "Completato" };
+
 // ── Position in the guide (chapter + step), mirrored in the URL hash ─────────
+// s === steps.length is the chapter's closing check
 
 interface Pos { c: number; s: number }
+
+function isCheck({ c, s }: Pos) {
+  return s === CHAPTERS[c].steps.length;
+}
 
 function posFromHash(hash: string): Pos | null {
   const m = hash.match(/^#([\w-]+?)(?:-(\d+))?$/);
   if (!m) return null;
   const c = CHAPTERS.findIndex((ch) => ch.id === m[1]);
   if (c < 0) return null;
-  const s = Math.min(Math.max(Number(m[2] ?? 1) - 1, 0), CHAPTERS[c].steps.length - 1);
+  const s = Math.min(Math.max(Number(m[2] ?? 1) - 1, 0), CHAPTERS[c].steps.length);
   return { c, s };
 }
 
@@ -572,13 +800,18 @@ function posOf(chapterId: string, step: number): Pos {
 }
 
 function nextPos({ c, s }: Pos): Pos | null {
-  if (s < CHAPTERS[c].steps.length - 1) return { c, s: s + 1 };
+  if (s < CHAPTERS[c].steps.length) return { c, s: s + 1 };
   return c < CHAPTERS.length - 1 ? { c: c + 1, s: 0 } : null;
 }
 
 function prevPos({ c, s }: Pos): Pos | null {
   if (s > 0) return { c, s: s - 1 };
-  return c > 0 ? { c: c - 1, s: CHAPTERS[c - 1].steps.length - 1 } : null;
+  return c > 0 ? { c: c - 1, s: CHAPTERS[c - 1].steps.length } : null;
+}
+
+function posLabel(p: Pos) {
+  const c = CHAPTERS[p.c];
+  return isCheck(p) ? `${c.title} · verifica` : `${c.title} · passo ${p.s + 1}`;
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -625,6 +858,22 @@ function useWidth<T extends HTMLElement>() {
     return () => obs.disconnect();
   }, []);
   return [ref, width] as const;
+}
+
+// Chapter status as a small progress ring (check mark once completed)
+function StatusRing({ value, done, size = 22 }: { value: number; done: boolean; size?: number }) {
+  if (done) return <CheckCircle2 className="text-emerald-600 shrink-0" style={{ width: size, height: size }} aria-label="Completato" />;
+  const r = size / 2 - 2.5;
+  const len = 2 * Math.PI * r;
+  return (
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="shrink-0 -rotate-90" aria-hidden="true">
+      <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#E2E8F0" strokeWidth="2.5" />
+      {value > 0 && (
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke={BLUE} strokeWidth="2.5" strokeLinecap="round"
+          strokeDasharray={`${len * Math.min(value, 1)} ${len}`} />
+      )}
+    </svg>
+  );
 }
 
 // ── Screen frame ─────────────────────────────────────────────────────────────
@@ -758,6 +1007,12 @@ const KEYWORDS: Record<string, string> = {
   "Avvia la registrazione": "registrare microfono seduta in presenza",
   "Modifica magica": "riscrivere accorciare elenco puntato ai",
   "Crea i tuoi agenti": "agente personalizzato istruzioni",
+  "Crea una nuova fattura": "fattura fatturare emettere ricevuta",
+  "Invia al Sistema TS e crea il PDF": "tessera sanitaria ts spese sanitarie 730 pdf",
+  "Importo, ENPAP e marca da bollo": "bollo enpap iva calcolo",
+  "Esporta per il commercialista": "commercialista csv xml export",
+  "Collega il Sistema TS": "tessera sanitaria credenziali pincode",
+  "Compila il Profilo Fiscale": "partita iva dati fiscali regime forfettario iban",
 };
 
 function searchSteps(query: string) {
@@ -833,12 +1088,153 @@ function StepSearch({ onJump, size = "lg", inputRef }: {
   );
 }
 
+// ── End of chapter: quick check + try it in the app ──────────────────────────
+
+function ChapterCheck({ chapter, passed, missing, allDone, next, onPass, onReview, onNext }: {
+  chapter: Chapter;
+  passed: boolean;
+  missing: number[]; // steps not seen yet
+  allDone: boolean;
+  next: Pos | null;
+  onPass: () => void;
+  onReview: (step: number) => void;
+  onNext: () => void;
+}) {
+  const end = CHAPTER_END[chapter.id];
+  // A check already passed reopens with its answers in place
+  const [picked, setPicked] = useState<(number | null)[]>(() => end.quiz.map((q) => (passed ? q.answer : null)));
+  const [current, setCurrent] = useState(0); // one question at a time
+  const correct = end.quiz.filter((q, i) => picked[i] === q.answer).length;
+  const quizOk = passed || correct === end.quiz.length;
+  const complete = quizOk && missing.length === 0;
+
+  useEffect(() => { if (correct === end.quiz.length && !passed) onPass(); }, [correct, end.quiz.length, passed, onPass]);
+
+  return (
+    <div className="xl:flex xl:items-stretch xl:gap-5" style={{ animation: "guidaFade .35s ease-out" }}>
+      {/* Questions */}
+      <div className="xl:flex-1 min-w-0 rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
+        <div className={`flex items-center gap-2 text-[11px] font-semibold uppercase tracking-widest text-[#3B6FD4] ${SANS}`}>
+          <ClipboardCheck className="w-4 h-4" /> Verifica rapida
+        </div>
+        <h3 className={`${HEAD} text-xl text-[#00122F] mt-1`}>Fissa quello che hai visto</h3>
+        <p className={`${SANS} text-sm text-slate-500 mt-1`}>Due domande, nessun voto. Se sbagli, ti diciamo quale passo rivedere.</p>
+        <div className={`flex items-center gap-2 mt-4 ${SANS}`} role="tablist" aria-label="Domande">
+          {end.quiz.map((q, qi) => (
+            <button key={qi} type="button" role="tab" aria-selected={qi === current} onClick={() => setCurrent(qi)}
+              className={`h-7 px-3 rounded-full text-xs font-medium border transition-colors ${qi === current ? "bg-[#00122F] text-white border-[#00122F]" : picked[qi] === q.answer ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-white text-slate-500 border-slate-200"}`}>
+              Domanda {qi + 1} di {end.quiz.length}{picked[qi] === q.answer && qi !== current ? " ✓" : ""}
+            </button>
+          ))}
+        </div>
+        <div className="mt-4">
+          {end.quiz.map((q, qi) => qi !== current ? null : (() => {
+            const pick = picked[qi];
+            const answered = pick !== null;
+            const right = pick === q.answer;
+            return (
+              <fieldset key={qi} className={SANS}>
+                <legend className="text-[15px] font-semibold text-[#00122F] mb-2.5">{qi + 1}. {q.q}</legend>
+                <div className="grid gap-2">
+                  {q.options.map((o, oi) => {
+                    const chosen = pick === oi;
+                    const tone = !chosen ? "border-slate-200 hover:border-[#3B6FD4] bg-white"
+                      : right ? "border-emerald-500 bg-emerald-50" : "border-rose-400 bg-rose-50";
+                    return (
+                      <button key={oi} type="button" aria-pressed={chosen}
+                        onClick={() => setPicked((p) => p.map((v, i) => (i === qi ? oi : v)))}
+                        className={`text-left flex items-center gap-3 rounded-xl border px-4 py-2.5 text-[14px] text-[#00122F] transition-colors ${tone}`}>
+                        <span className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 ${chosen ? (right ? "bg-emerald-500 border-emerald-500 text-white" : "bg-rose-500 border-rose-500 text-white") : "border-slate-300"}`}>
+                          {chosen && (right ? <Check className="w-3 h-3" /> : <X className="w-3 h-3" />)}
+                        </span>
+                        {o}
+                      </button>
+                    );
+                  })}
+                </div>
+                {answered && (
+                  <div role="status" className={`mt-2.5 rounded-xl px-4 py-2.5 text-[13px] leading-relaxed ${right ? "bg-emerald-50 text-emerald-800" : "bg-rose-50 text-rose-800"}`}>
+                    <span className="font-semibold">{right ? "Esatto. " : "Non proprio. "}</span>{q.why}
+                    {!right && (
+                      <button type="button" onClick={() => onReview(q.step)} className="block mt-1.5 font-semibold underline underline-offset-2">
+                        Rivedi il passo {q.step + 1}: {chapter.steps[q.step].title}
+                      </button>
+                    )}
+                  </div>
+                )}
+                {right && qi < end.quiz.length - 1 && (
+                  <button type="button" onClick={() => setCurrent(qi + 1)}
+                    className="mt-3 inline-flex items-center gap-1 h-10 px-4 rounded-xl text-sm font-medium text-white bg-[#3B6FD4] hover:bg-[#3B6FD4]/90">
+                    Domanda successiva <ChevronRight className="w-4 h-4" />
+                  </button>
+                )}
+              </fieldset>
+            );
+          })())}
+        </div>
+      </div>
+
+      {/* Outcome + practice */}
+      <div className={`mt-4 xl:mt-0 xl:w-[300px] xl:shrink-0 flex flex-col rounded-2xl border p-5 ${SANS} ${complete ? "border-emerald-200 bg-emerald-50/60" : "border-slate-200 bg-[#F8FAFC]"}`}>
+        {complete ? (
+          <>
+            <span className="w-11 h-11 rounded-full bg-emerald-500 text-white flex items-center justify-center" style={{ animation: "guidaPop .5s cubic-bezier(.22,1.6,.36,1)" }}>
+              {allDone ? <Trophy className="w-5 h-5" /> : <Check className="w-5 h-5" />}
+            </span>
+            <p className={`${HEAD} text-lg text-[#00122F] mt-3`}>{allDone ? "Hai completato la guida!" : "Capitolo completato"}</p>
+            <p className="text-sm text-slate-600 mt-1">
+              {allDone ? "Conosci tutte le funzioni di ZenGest. Ora mettile in pratica." : `Hai visto tutti i passi di «${chapter.title}». Ora provalo sul serio.`}
+            </p>
+          </>
+        ) : quizOk ? (
+          <>
+            <span className="w-11 h-11 rounded-full bg-white border border-emerald-200 text-emerald-600 flex items-center justify-center"><ClipboardCheck className="w-5 h-5" /></span>
+            <p className={`${HEAD} text-lg text-[#00122F] mt-3`}>Verifica superata</p>
+            <p className="text-sm text-slate-600 mt-1">
+              Ti {missing.length === 1 ? "manca 1 passo" : `mancano ${missing.length} passi`} per completare il capitolo.
+            </p>
+            <button type="button" onClick={() => onReview(missing[0])} className="mt-2 text-left text-sm font-semibold text-[#3B6FD4] underline underline-offset-2">
+              Vai al passo {missing[0] + 1}: {chapter.steps[missing[0]].title}
+            </button>
+          </>
+        ) : (
+          <>
+            <span className="w-11 h-11 rounded-full bg-white border border-slate-200 text-[#3B6FD4] flex items-center justify-center"><ClipboardCheck className="w-5 h-5" /></span>
+            <p className={`${HEAD} text-lg text-[#00122F] mt-3`}>Quasi fatto</p>
+            <p className="text-sm text-slate-600 mt-1">Rispondi alle domande per completare il capitolo.</p>
+            <p className="text-xs text-slate-500 mt-2">{correct} di {end.quiz.length} risposte corrette</p>
+          </>
+        )}
+        <a href={end.practice.url} target="_blank" rel="noopener noreferrer"
+          className="mt-5 inline-flex items-center justify-between gap-2 rounded-xl bg-white border border-slate-200 px-4 py-3 text-sm font-semibold text-[#00122F] hover:border-[#3B6FD4] transition-colors">
+          <span><span className="block text-[11px] font-semibold uppercase tracking-widest text-slate-400">Prova ora in ZenGest</span>{end.practice.label}</span>
+          <ExternalLink className="w-4 h-4 text-[#3B6FD4] shrink-0" />
+        </a>
+        <div className="mt-auto pt-5">
+          {next ? (
+            <button type="button" onClick={onNext}
+              className={`w-full inline-flex items-center justify-center gap-1.5 h-11 rounded-xl text-sm font-medium transition-colors ${complete ? "text-white bg-[#00122F] hover:bg-[#00122F]/90" : "text-[#00122F] bg-white border border-slate-200 hover:border-[#3B6FD4]"}`}>
+              {complete ? "Capitolo successivo" : "Salta e vai avanti"} <ChevronRight className="w-4 h-4" />
+            </button>
+          ) : (
+            <a href="https://app.zengest.it" className="w-full inline-flex items-center justify-center gap-1.5 h-11 rounded-xl text-sm font-medium text-white bg-[#00122F] hover:bg-[#00122F]/90">
+              Vai a ZenGest <ArrowRight className="w-4 h-4" />
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── Player ───────────────────────────────────────────────────────────────────
 
-function GuidePlayer({ pos, go, progress, playing, setPlaying, onReset, onZoom, onSearchJump }: {
+function GuidePlayer({ pos, go, progress, quiz, onQuizPass, playing, setPlaying, onReset, onZoom, onSearchJump }: {
   pos: Pos;
   go: (p: Pos) => void;
   progress: Progress;
+  quiz: QuizDone;
+  onQuizPass: (chapterId: string) => void;
   playing: boolean;
   setPlaying: (v: boolean) => void;
   onReset: () => void;
@@ -846,14 +1242,20 @@ function GuidePlayer({ pos, go, progress, playing, setPlaying, onReset, onZoom, 
   onSearchJump: (chapterId: string, step: number) => void;
 }) {
   const chapter = CHAPTERS[pos.c];
-  const step = chapter.steps[pos.s];
+  const checking = isCheck(pos);
+  const step = checking ? null : chapter.steps[pos.s];
   const next = nextPos(pos);
   const prev = prevPos(pos);
-  const seenTotal = CHAPTERS.reduce((n, c) => n + (progress[c.id]?.length ?? 0), 0);
-  const pct = Math.round((seenTotal / ALL_STEP_COUNT) * 100);
+  const mod = moduleOf(chapter.id);
+  const statuses = CHAPTERS.map((c) => chapterStatus(c, progress, quiz));
+  const doneCount = statuses.filter((s) => s === "done").length;
+  const seenTotal = CHAPTERS.reduce((n, c) => n + Math.min(progress[c.id]?.length ?? 0, c.steps.length), 0);
+  const quizTotal = CHAPTERS.filter((c) => quiz[c.id]).length;
+  const pct = Math.round(((seenTotal + quizTotal) / (ALL_STEP_COUNT + CHAPTERS.length)) * 100);
   const touchX = useRef<number | null>(null);
   const railActive = useRef<HTMLButtonElement>(null);
   const chips = useRef<HTMLDivElement>(null);
+  const passCurrent = useCallback(() => onQuizPass(chapter.id), [onQuizPass, chapter.id]);
 
   // Keep the active chapter visible in the sidebar, scrolling only the sidebar
   // (scrollIntoView would also move the page and cancel a smooth jump)
@@ -876,7 +1278,11 @@ function GuidePlayer({ pos, go, progress, playing, setPlaying, onReset, onZoom, 
 
   return (
     <div className="max-w-7xl mx-auto rounded-3xl border border-slate-200 bg-white shadow-[0_30px_80px_-40px_rgba(0,18,47,0.35)] overflow-hidden lg:grid lg:grid-cols-[288px_minmax(0,1fr)]">
-      {/* ── Sidebar ── */}
+      <p className="sr-only" aria-live="polite">
+        {checking ? `Verifica del capitolo ${chapter.title}` : `Capitolo ${pos.c + 1}, passo ${pos.s + 1} di ${chapter.steps.length}: ${step!.title}`}
+      </p>
+
+      {/* ── Sidebar: the course outline ── */}
       <aside className="hidden lg:block relative border-r border-slate-200 bg-[#F8FAFC]">
         <div className="absolute inset-0 flex flex-col">
           <div className="p-4 border-b border-slate-200 space-y-3">
@@ -884,53 +1290,73 @@ function GuidePlayer({ pos, go, progress, playing, setPlaying, onReset, onZoom, 
             <div>
               <div className={`flex items-center justify-between text-xs mb-1.5 ${SANS}`}>
                 <span className="font-semibold text-[#00122F]">Il tuo avanzamento</span>
-                <span className="text-slate-500">{pct}%{pct > 0 && (
-                  <button onClick={onReset} className="ml-2 underline underline-offset-2 hover:text-[#00122F]">azzera</button>
-                )}</span>
+                <span className="text-slate-500">{pct}%</span>
               </div>
               <div className="h-1.5 rounded-full bg-slate-200 overflow-hidden">
                 <div className="h-full rounded-full transition-all duration-500" style={{ width: `${pct}%`, background: BLUE }} />
               </div>
+              <div className={`flex items-center justify-between text-[11px] text-slate-500 mt-1.5 ${SANS}`}>
+                <span>{doneCount} di {CHAPTERS.length} capitoli completati</span>
+                {pct > 0 && <button onClick={onReset} className="underline underline-offset-2 hover:text-[#00122F]">Azzera</button>}
+              </div>
             </div>
           </div>
           <nav className="flex-1 overflow-y-auto p-2" aria-label="Capitoli della guida">
-            {CHAPTERS.map((c, ci) => {
-              const Icon = c.icon;
-              const on = ci === pos.c;
-              const seen = progress[c.id] ?? [];
-              const done = seen.length === c.steps.length;
+            {MODULES.map((m, mi) => {
+              const mDone = m.chapters.filter((id) => statuses[CHAPTERS.findIndex((c) => c.id === id)] === "done").length;
               return (
-                <div key={c.id} className="mb-0.5">
-                  <button ref={on ? railActive : undefined} onClick={() => go({ c: ci, s: 0 })}
-                    className={`w-full text-left flex items-center gap-2.5 rounded-xl px-2.5 py-2 transition-colors ${SANS} ${on ? "bg-white shadow-sm border border-slate-200" : "border border-transparent hover:bg-white/70"}`}>
-                    <span className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${on ? "bg-[#3B6FD4] text-white" : "bg-[#EEF3FC] text-[#3B6FD4]"}`}>
-                      <Icon className="w-3.5 h-3.5" />
-                    </span>
-                    <span className="flex-1 min-w-0">
-                      <span className={`block text-[13px] leading-tight truncate ${on ? "font-semibold text-[#00122F]" : "text-slate-700"}`}>{c.title}</span>
-                      <span className="block text-[11px] text-slate-400 mt-0.5">{seen.length}/{c.steps.length} passi · {c.minutes} min</span>
-                    </span>
-                    {done && <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />}
-                  </button>
-                  {on && (
-                    <ol className="ml-[22px] pl-3 border-l border-slate-200 my-1.5 space-y-0.5">
-                      {c.steps.map((s, si) => {
-                        const active = si === pos.s;
-                        const was = seen.includes(si);
-                        return (
-                          <li key={si}>
-                            <button onClick={() => go({ c: ci, s: si })}
-                              className={`w-full text-left flex items-center gap-2 rounded-lg px-2 py-1 text-[13px] ${SANS} ${active ? "text-[#3B6FD4] font-semibold bg-[#EEF3FC]" : "text-slate-600 hover:text-[#00122F]"}`}>
-                              <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] shrink-0 ${active ? "bg-[#3B6FD4] text-white" : was ? "bg-emerald-100 text-emerald-700" : "bg-slate-200 text-slate-500"}`}>
-                                {was && !active ? <Check className="w-2.5 h-2.5" /> : si + 1}
-                              </span>
-                              <span className="truncate">{s.title}</span>
-                            </button>
-                          </li>
-                        );
-                      })}
-                    </ol>
-                  )}
+                <div key={m.title} className="mb-2">
+                  <div className={`flex items-center justify-between px-2.5 pt-2 pb-1 text-[11px] font-semibold uppercase tracking-widest text-slate-400 ${SANS}`}>
+                    <span>Modulo {mi + 1} · {m.title}</span>
+                    <span className="normal-case tracking-normal font-medium">{mDone}/{m.chapters.length}</span>
+                  </div>
+                  {m.chapters.map((id) => {
+                    const ci = CHAPTERS.findIndex((c) => c.id === id);
+                    const c = CHAPTERS[ci];
+                    const on = ci === pos.c;
+                    const seen = progress[c.id] ?? [];
+                    const status = statuses[ci];
+                    return (
+                      <div key={c.id} className="mb-0.5">
+                        <button ref={on ? railActive : undefined} onClick={() => go({ c: ci, s: 0 })} aria-current={on ? "true" : undefined}
+                          className={`w-full text-left flex items-center gap-2.5 rounded-xl px-2.5 py-2 transition-colors ${SANS} ${on ? "bg-white shadow-sm border border-slate-200" : "border border-transparent hover:bg-white/70"}`}>
+                          <StatusRing value={seen.length / c.steps.length} done={status === "done"} />
+                          <span className="flex-1 min-w-0">
+                            <span className={`block text-[13px] leading-tight truncate ${on ? "font-semibold text-[#00122F]" : "text-slate-700"}`}>{c.title}</span>
+                            <span className="block text-[11px] text-slate-400 mt-0.5">{STATUS_LABEL[status]} · {c.minutes} min</span>
+                          </span>
+                        </button>
+                        {on && (
+                          <ol className="ml-[20px] pl-3 border-l border-slate-200 my-1.5 space-y-0.5">
+                            {c.steps.map((s, si) => {
+                              const active = si === pos.s;
+                              const was = seen.includes(si);
+                              return (
+                                <li key={si}>
+                                  <button onClick={() => go({ c: ci, s: si })} aria-current={active ? "step" : undefined}
+                                    className={`w-full text-left flex items-center gap-2 rounded-lg px-2 py-1 text-[13px] ${SANS} ${active ? "text-[#3B6FD4] font-semibold bg-[#EEF3FC]" : "text-slate-600 hover:text-[#00122F]"}`}>
+                                    <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] shrink-0 ${active ? "bg-[#3B6FD4] text-white" : was ? "bg-emerald-100 text-emerald-700" : "bg-slate-200 text-slate-500"}`}>
+                                      {was && !active ? <Check className="w-2.5 h-2.5" /> : si + 1}
+                                    </span>
+                                    <span className="truncate">{s.title}</span>
+                                  </button>
+                                </li>
+                              );
+                            })}
+                            <li>
+                              <button onClick={() => go({ c: ci, s: c.steps.length })} aria-current={checking ? "step" : undefined}
+                                className={`w-full text-left flex items-center gap-2 rounded-lg px-2 py-1 text-[13px] ${SANS} ${checking ? "text-[#3B6FD4] font-semibold bg-[#EEF3FC]" : "text-slate-600 hover:text-[#00122F]"}`}>
+                                <span className={`w-4 h-4 rounded-full flex items-center justify-center shrink-0 ${checking ? "bg-[#3B6FD4] text-white" : quiz[c.id] ? "bg-emerald-100 text-emerald-700" : "bg-slate-200 text-slate-500"}`}>
+                                  {quiz[c.id] && !checking ? <Check className="w-2.5 h-2.5" /> : <ClipboardCheck className="w-2.5 h-2.5" />}
+                                </span>
+                                <span className="truncate">Verifica rapida</span>
+                              </button>
+                            </li>
+                          </ol>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               );
             })}
@@ -944,101 +1370,110 @@ function GuidePlayer({ pos, go, progress, playing, setPlaying, onReset, onZoom, 
         <div ref={chips} className="lg:hidden -mx-4 sm:-mx-6 px-4 sm:px-6 pb-4 flex gap-2 overflow-x-auto [scrollbar-width:none]">
           {CHAPTERS.map((c, ci) => (
             <button key={c.id} onClick={() => go({ c: ci, s: 0 })}
-              className={`shrink-0 h-8 px-3 rounded-full text-[13px] border ${SANS} ${ci === pos.c ? "bg-[#00122F] text-white border-[#00122F]" : "bg-white text-slate-600 border-slate-200"}`}>
+              className={`shrink-0 h-8 px-3 rounded-full text-[13px] border inline-flex items-center gap-1.5 ${SANS} ${ci === pos.c ? "bg-[#00122F] text-white border-[#00122F]" : "bg-white text-slate-600 border-slate-200"}`}>
+              {statuses[ci] === "done" && <Check className="w-3.5 h-3.5 text-emerald-500" />}
               {ci + 1}. {c.title}
             </button>
           ))}
         </div>
 
-        <div>
-          {/* Chapter header */}
-          <div className="flex items-start justify-between gap-4 mb-4">
-            <div className="min-w-0">
-              <div className={`text-[11px] font-semibold uppercase tracking-widest text-slate-500 ${SANS}`}>Capitolo {pos.c + 1} di {CHAPTERS.length}</div>
-              <h2 className={`${HEAD} text-xl sm:text-2xl text-[#00122F] mt-0.5 truncate`}>{chapter.title}</h2>
+        {/* Chapter header: where you are and what this chapter is for */}
+        <div className="flex items-start justify-between gap-4 mb-4">
+          <div className="min-w-0">
+            <div className={`text-[11px] font-semibold uppercase tracking-widest text-slate-500 ${SANS}`}>
+              <span className="hidden sm:inline">Modulo {mod.index + 1} · {mod.title} <span className="text-slate-300 mx-1">/</span> </span>Capitolo {pos.c + 1} di {CHAPTERS.length}
             </div>
-            <div className="flex items-center gap-2 shrink-0">
+            <h2 className={`${HEAD} text-xl sm:text-2xl text-[#00122F] mt-0.5 truncate`}>{chapter.title}</h2>
+            <p className={`${SANS} text-sm text-slate-500 truncate`}>{chapter.summary}</p>
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
+            {!checking && (
               <button onClick={() => setPlaying(!playing)} aria-pressed={playing}
                 className={`inline-flex items-center gap-1.5 h-9 px-3.5 rounded-full border text-sm font-medium transition-colors ${SANS} ${playing ? "bg-[#00122F] text-white border-[#00122F]" : "bg-white text-[#00122F] border-slate-200 hover:border-[#3B6FD4]"}`}>
                 {playing ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
                 <span className="hidden sm:inline">{playing ? "Pausa" : "Tour automatico"}</span>
               </button>
-              {chapter.video && (
-                <a href={chapter.video} target="_blank" rel="noopener noreferrer"
-                  className={`inline-flex items-center gap-1.5 h-9 px-3.5 rounded-full border border-slate-200 bg-white text-sm font-medium text-[#00122F] hover:border-[#3B6FD4] transition-colors ${SANS}`}>
-                  <PlayCircle className="w-4 h-4 text-[#3B6FD4]" /> <span className="hidden sm:inline">Video</span>
-                </a>
-              )}
-            </div>
-          </div>
-
-          <div className="xl:flex xl:items-stretch xl:gap-5">
-          {/* Screen */}
-          <div className="min-w-0 xl:flex-1 max-xl:mx-auto max-xl:max-w-[max(480px,calc((100vh_-_410px)*1.77))]"
-            onTouchStart={(e) => { touchX.current = e.touches[0].clientX; }}
-            onTouchEnd={(e) => {
-              if (touchX.current === null) return;
-              const dx = e.changedTouches[0].clientX - touchX.current;
-              touchX.current = null;
-              if (dx < -50 && next) go(next);
-              if (dx > 50 && prev) go(prev);
-            }}>
-            <ScreenFrame shotKey={step.shot} steps={chapter.steps} activeIndex={pos.s}
-              onPick={(s) => go({ c: pos.c, s })} onZoom={() => onZoom(step.shot)} />
-          </div>
-
-          {/* Step card */}
-          <div className="relative mt-4 xl:mt-0 xl:w-[300px] xl:shrink-0 xl:flex xl:flex-col rounded-2xl border border-slate-200 bg-[#F8FAFC] p-4 sm:p-5 overflow-hidden max-xl:mx-auto max-xl:max-w-[max(480px,calc((100vh_-_410px)*1.77))]">
-            {playing && (
-              <div key={`${pos.c}-${pos.s}`} className="absolute top-0 left-0 h-0.5 bg-[#3B6FD4]"
-                style={{ animation: `guidaBar ${AUTOPLAY_MS}ms linear forwards` }} />
             )}
-            <div className="flex flex-col sm:flex-row sm:items-start xl:flex-col xl:items-stretch xl:flex-1 gap-4">
-              <div key={`${pos.c}-${pos.s}`} className="flex-1 min-w-0 sm:min-h-[96px]" style={{ animation: "guidaFade .3s ease-out" }}>
-                <div className={`text-[11px] font-semibold uppercase tracking-widest text-[#3B6FD4] mb-1 ${SANS}`}>
-                  Passo {pos.s + 1} di {chapter.steps.length}
-                </div>
-                <h3 className={`${HEAD} text-lg text-[#00122F] mb-1`}>{step.title}</h3>
-                <p className={`${SANS} text-[15px] text-slate-700 leading-relaxed`}>{step.body}</p>
-                {step.tip && (
-                  <div className={`mt-3 flex gap-2 rounded-xl bg-white border border-[#DCE6FA] px-3 py-2 text-[13px] text-[#00122F] ${SANS}`}>
-                    <Lightbulb className="w-4 h-4 mt-0.5 shrink-0 text-[#3B6FD4]" />
-                    <span>{step.tip}{chapter.id === "cliente" && pos.s === 3 && (
-                      <> <a href="/guida-consenso" className="font-semibold underline underline-offset-2">Apri la guida al consenso</a></>
-                    )}</span>
+            {chapter.video && (
+              <a href={chapter.video} target="_blank" rel="noopener noreferrer"
+                className={`inline-flex items-center gap-1.5 h-9 px-3.5 rounded-full border border-slate-200 bg-white text-sm font-medium text-[#00122F] hover:border-[#3B6FD4] transition-colors ${SANS}`}>
+                <PlayCircle className="w-4 h-4 text-[#3B6FD4]" /> <span className="hidden sm:inline">Video</span>
+              </a>
+            )}
+          </div>
+        </div>
+
+        {checking ? (
+          <ChapterCheck key={chapter.id} chapter={chapter} passed={!!quiz[chapter.id]}
+            missing={chapter.steps.map((_, i) => i).filter((i) => !(progress[chapter.id] ?? []).includes(i))}
+            allDone={statuses.every((s) => s === "done")}
+            next={next} onPass={passCurrent}
+            onReview={(s) => go({ c: pos.c, s })} onNext={() => next && go(next)} />
+        ) : (
+          <div className="xl:flex xl:items-stretch xl:gap-5">
+            {/* Screen */}
+            <div className="min-w-0 xl:flex-1 max-xl:mx-auto max-xl:max-w-[max(480px,calc((100vh_-_430px)*1.77))]"
+              onTouchStart={(e) => { touchX.current = e.touches[0].clientX; }}
+              onTouchEnd={(e) => {
+                if (touchX.current === null) return;
+                const dx = e.changedTouches[0].clientX - touchX.current;
+                touchX.current = null;
+                if (dx < -50 && next) go(next);
+                if (dx > 50 && prev) go(prev);
+              }}>
+              <ScreenFrame shotKey={step!.shot} steps={chapter.steps} activeIndex={pos.s}
+                onPick={(s) => go({ c: pos.c, s })} onZoom={() => onZoom(step!.shot)} />
+            </div>
+
+            {/* Step card */}
+            <div className="relative mt-4 xl:mt-0 xl:w-[300px] xl:shrink-0 xl:flex xl:flex-col rounded-2xl border border-slate-200 bg-[#F8FAFC] p-4 sm:p-5 overflow-hidden max-xl:mx-auto max-xl:max-w-[max(480px,calc((100vh_-_430px)*1.77))]">
+              {playing && (
+                <div key={`${pos.c}-${pos.s}`} className="absolute top-0 left-0 h-0.5 bg-[#3B6FD4]"
+                  style={{ animation: `guidaBar ${AUTOPLAY_MS}ms linear forwards` }} />
+              )}
+              <div className="flex flex-col sm:flex-row sm:items-start xl:flex-col xl:items-stretch xl:flex-1 gap-4">
+                <div key={`${pos.c}-${pos.s}`} className="flex-1 min-w-0 sm:min-h-[96px]" style={{ animation: "guidaFade .3s ease-out" }}>
+                  <div className={`text-[11px] font-semibold uppercase tracking-widest text-[#3B6FD4] mb-1 ${SANS}`}>
+                    Passo {pos.s + 1} di {chapter.steps.length}
                   </div>
-                )}
-              </div>
-              <div className="flex sm:flex-col items-center sm:items-end justify-between gap-2 shrink-0 xl:flex-row-reverse xl:items-center xl:mt-auto">
-                <div className="flex items-center gap-2">
-                  <button onClick={() => prev && go(prev)} disabled={!prev} aria-label="Passo precedente"
-                    className="w-10 h-10 rounded-xl border border-slate-200 bg-white flex items-center justify-center text-[#00122F] disabled:opacity-40 hover:border-[#3B6FD4] transition-colors">
-                    <ChevronLeft className="w-4 h-4" />
-                  </button>
-                  {next ? (
-                    <button onClick={() => go(next)}
-                      className={`inline-flex items-center gap-1 h-10 px-4 rounded-xl text-sm font-medium text-white transition-colors ${SANS} ${next.c !== pos.c ? "bg-[#00122F] hover:bg-[#00122F]/90" : "bg-[#3B6FD4] hover:bg-[#3B6FD4]/90"}`}>
-                      {next.c !== pos.c ? "Capitolo successivo" : "Avanti"} <ChevronRight className="w-4 h-4" />
-                    </button>
-                  ) : (
-                    <span className={`inline-flex items-center gap-1.5 h-10 px-3 text-sm font-semibold text-emerald-700 ${SANS}`}>
-                      <CheckCircle2 className="w-4 h-4" /> Guida completata
-                    </span>
+                  <h3 className={`${HEAD} text-lg text-[#00122F] mb-1`}>{step!.title}</h3>
+                  <p className={`${SANS} text-[15px] text-slate-700 leading-relaxed`}>{step!.body}</p>
+                  {step!.tip && (
+                    <div className={`mt-3 flex gap-2 rounded-xl bg-white border border-[#DCE6FA] px-3 py-2 text-[13px] text-[#00122F] ${SANS}`}>
+                      <Lightbulb className="w-4 h-4 mt-0.5 shrink-0 text-[#3B6FD4]" />
+                      <span>{step!.tip}{chapter.id === "cliente" && pos.s === 3 && (
+                        <> <a href="/guida-consenso" className="font-semibold underline underline-offset-2">Apri la guida al consenso</a></>
+                      )}</span>
+                    </div>
                   )}
                 </div>
-                <div className="flex gap-1" aria-hidden="true">
-                  {chapter.steps.map((_, si) => (
-                    <span key={si} className={`h-1.5 rounded-full transition-all duration-300 ${si === pos.s ? "w-5 bg-[#3B6FD4]" : si < pos.s ? "w-1.5 bg-[#3B6FD4]/40" : "w-1.5 bg-slate-300"}`} />
-                  ))}
+                <div className="flex sm:flex-col items-center sm:items-end justify-between gap-2 shrink-0 xl:flex-row-reverse xl:items-center xl:mt-auto">
+                  <div className="flex items-center gap-2">
+                    <button onClick={() => prev && go(prev)} disabled={!prev} aria-label="Passo precedente"
+                      className="w-10 h-10 rounded-xl border border-slate-200 bg-white flex items-center justify-center text-[#00122F] disabled:opacity-40 hover:border-[#3B6FD4] transition-colors">
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    {next && (
+                      <button onClick={() => go(next)}
+                        className={`inline-flex items-center gap-1 h-10 px-4 rounded-xl text-sm font-medium text-white transition-colors ${SANS} ${next.s === chapter.steps.length && next.c === pos.c ? "bg-[#00122F] hover:bg-[#00122F]/90" : "bg-[#3B6FD4] hover:bg-[#3B6FD4]/90"}`}>
+                        {next.c === pos.c && next.s === chapter.steps.length ? "Verifica" : "Avanti"} <ChevronRight className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-1" aria-hidden="true">
+                    {chapter.steps.map((_, si) => (
+                      <span key={si} className={`h-1.5 rounded-full transition-all duration-300 ${si === pos.s ? "w-5 bg-[#3B6FD4]" : si < pos.s ? "w-1.5 bg-[#3B6FD4]/40" : "w-1.5 bg-slate-300"}`} />
+                    ))}
+                    <ClipboardCheck className={`w-3 h-3 ml-0.5 ${quiz[chapter.id] ? "text-emerald-600" : "text-slate-300"}`} />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          </div>
-          <p className={`hidden lg:block mt-3 text-center text-xs text-slate-400 ${SANS}`}>
-            Usa le frecce <kbd className="px-1.5 py-0.5 rounded border border-slate-200 bg-white">←</kbd> <kbd className="px-1.5 py-0.5 rounded border border-slate-200 bg-white">→</kbd> per spostarti · <kbd className="px-1.5 py-0.5 rounded border border-slate-200 bg-white">/</kbd> per cercare · clicca la schermata per ingrandirla
-          </p>
-        </div>
+        )}
+        <p className={`hidden lg:block mt-3 text-center text-xs text-slate-400 ${SANS}`}>
+          Usa le frecce <kbd className="px-1.5 py-0.5 rounded border border-slate-200 bg-white">←</kbd> <kbd className="px-1.5 py-0.5 rounded border border-slate-200 bg-white">→</kbd> per spostarti · <kbd className="px-1.5 py-0.5 rounded border border-slate-200 bg-white">/</kbd> per cercare · clicca la schermata per ingrandirla
+        </p>
       </div>
     </div>
   );
@@ -1050,7 +1485,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
     <div className="rounded-2xl border border-slate-200 bg-white">
-      <button onClick={() => setOpen(!open)} className={`w-full flex items-center justify-between gap-4 px-5 py-4 text-left ${SANS}`}>
+      <button onClick={() => setOpen(!open)} aria-expanded={open} className={`w-full flex items-center justify-between gap-4 px-5 py-4 text-left ${SANS}`}>
         <span className="font-semibold text-[#00122F]">{q}</span>
         {open ? <ChevronUp className="w-4 h-4 text-slate-400 shrink-0" /> : <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />}
       </button>
@@ -1063,39 +1498,57 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 
 export function GuidaZenGest() {
   const [progress, setProgress] = useState<Progress>({});
+  const [quiz, setQuiz] = useState<QuizDone>({});
   const [pos, setPos] = useState<Pos>({ c: 0, s: 0 });
+  const [resume, setResume] = useState<Pos | null>(null);
   const [playing, setPlaying] = useState(false);
   const [zoomed, setZoomed] = useState<ShotKey | null>(null);
   const searchRef = useRef<HTMLInputElement>(null);
-  const hashReady = useRef(false);
+  const ready = useRef(false);
 
-  // Loaded after mount so the prerendered HTML matches the first client render
+  // Loaded after mount so the prerendered HTML matches the first client render.
+  // A shared link (#capitolo-passo) wins; otherwise pick up where the viewer left off.
   useEffect(() => {
-    setProgress(loadProgress());
+    setProgress(loadJSON<Progress>(PROGRESS_KEY, {}));
+    const savedQuiz = loadJSON<QuizDone>(QUIZ_KEY, {});
+    setQuiz(savedQuiz);
     const fromHash = posFromHash(window.location.hash);
+    const last = loadJSON<Pos | null>(LAST_KEY, null);
+    let lastValid = last && CHAPTERS[last.c] && last.s <= CHAPTERS[last.c].steps.length ? last : null;
+    // Finished a chapter's check last time: resume from the next chapter
+    if (lastValid && isCheck(lastValid) && savedQuiz[CHAPTERS[lastValid.c].id]) lastValid = nextPos(lastValid) ?? lastValid;
     if (fromHash) {
       setPos(fromHash);
       setTimeout(scrollToPlayer, 100);
+    } else if (lastValid) {
+      setPos(lastValid);
+      if (lastValid.c !== 0 || lastValid.s !== 0) setResume(lastValid);
     }
-    hashReady.current = true;
+    ready.current = true;
   }, []);
 
-  // Mark the current step as seen and mirror it in the URL, so a step can be shared
+  // Mark the current step as seen, remember it, and mirror it in the URL so it can be shared
   useEffect(() => {
     const id = CHAPTERS[pos.c].id;
-    setProgress((p) => {
-      const seen = p[id] ?? [];
-      if (seen.includes(pos.s)) return p;
-      const next = { ...p, [id]: [...seen, pos.s] };
-      saveProgress(next);
-      return next;
-    });
-    if (hashReady.current) history.replaceState(null, "", `#${id}-${pos.s + 1}`);
+    if (!isCheck(pos)) {
+      setProgress((p) => {
+        const seen = p[id] ?? [];
+        if (seen.includes(pos.s)) return p;
+        const next = { ...p, [id]: [...seen, pos.s] };
+        saveJSON(PROGRESS_KEY, next);
+        return next;
+      });
+    }
+    if (ready.current) {
+      saveJSON(LAST_KEY, pos);
+      history.replaceState(null, "", `#${id}-${pos.s + 1}`);
+    }
   }, [pos]);
 
-  // Tour automatico
+  // Tour automatico: stops at the chapter check
   useEffect(() => {
     if (!playing) return;
+    if (isCheck(pos)) { setPlaying(false); return; }
     const t = setTimeout(() => {
       const n = nextPos(pos);
       if (n) setPos(n); else setPlaying(false);
@@ -1103,8 +1556,17 @@ export function GuidaZenGest() {
     return () => clearTimeout(t);
   }, [playing, pos]);
 
+  const passQuiz = useCallback((chapterId: string) => {
+    setQuiz((q) => {
+      if (q[chapterId]) return q;
+      const next = { ...q, [chapterId]: true };
+      saveJSON(QUIZ_KEY, next);
+      return next;
+    });
+  }, []);
+
   // Manual navigation stops the tour
-  const go = (p: Pos) => { setPlaying(false); setPos(p); };
+  const go = (p: Pos) => { setPlaying(false); setResume(null); setPos(p); };
   const jump = (chapterId: string, step: number) => { go(posOf(chapterId, step)); scrollToPlayer(); };
 
   // ← → to move, / to search
@@ -1123,10 +1585,18 @@ export function GuidaZenGest() {
   }, [pos, zoomed]);
 
   const resetAll = () => {
-    const fresh = { [CHAPTERS[pos.c].id]: [pos.s] };
-    saveProgress(fresh);
+    const fresh = { [CHAPTERS[0].id]: [0] };
+    saveJSON(PROGRESS_KEY, fresh);
+    saveJSON(QUIZ_KEY, {});
     setProgress(fresh);
+    setQuiz({});
+    go({ c: 0, s: 0 });
   };
+
+  const statuses = CHAPTERS.map((c) => chapterStatus(c, progress, quiz));
+  // The first step is marked on arrival, so "started" means more than that
+  const started = CHAPTERS.reduce((n, c) => n + (progress[c.id]?.length ?? 0), 0) > 1 || Object.keys(quiz).length > 0;
+  const allDone = statuses.every((s) => s === "done");
 
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
@@ -1134,125 +1604,170 @@ export function GuidaZenGest() {
         @keyframes guidaFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes guidaPulse { 0% { box-shadow: 0 0 0 0 rgba(59,111,212,.45); } 70% { box-shadow: 0 0 0 14px rgba(59,111,212,0); } 100% { box-shadow: 0 0 0 0 rgba(59,111,212,0); } }
         @keyframes guidaBar { from { width: 0; } to { width: 100%; } }
+        @keyframes guidaPop { from { transform: scale(.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         @property --sx { syntax: '<percentage>'; inherits: false; initial-value: 50%; }
         @property --sy { syntax: '<percentage>'; inherits: false; initial-value: 50%; }
         .guida-spot { transition: --sx .5s cubic-bezier(.22,1,.36,1), --sy .5s cubic-bezier(.22,1,.36,1), opacity .3s; }
+        .guida-page :is(button, a, summary, input):focus-visible { outline: 2px solid #3B6FD4; outline-offset: 2px; }
+        @media (prefers-reduced-motion: reduce) {
+          .guida-page *, .guida-page *::before, .guida-page *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+        }
       `}</style>
       <SEO
         title="Come usare ZenGest — Guida interattiva per psicologi"
         useExactTitle={false}
-        description="Guida passo passo a ZenGest: crea un paziente, raccogli il consenso, registra una seduta, rivedi la nota clinica, usa i modelli e l'Assistente Zen. Con schermate interattive."
+        description="Guida passo passo a ZenGest: crea un paziente, raccogli il consenso, registra una seduta, rivedi la nota clinica, usa i modelli, l'Assistente Zen e la fatturazione con invio al Sistema TS. Con schermate interattive e verifiche rapide."
         path="/guida"
-        keywords="guida ZenGest, come usare ZenGest, tutorial note cliniche AI, registrare seduta psicologo, Assistente Zen"
+        keywords="guida ZenGest, come usare ZenGest, tutorial note cliniche AI, registrare seduta psicologo, Assistente Zen, fatturazione psicologi Sistema TS"
         jsonLd={breadcrumbSchema([
           { name: "Home", url: "https://zengest.it/" },
           { name: "Guida", url: "https://zengest.it/guida" },
         ])}
       />
 
-      {/* ── Hero: search first ───────────────────────────────────────── */}
-      <section className="relative px-6 pt-24 pb-10 md:pt-28 md:pb-12" style={{ background: HERO_GRAD }}>
-        <div className="max-w-3xl mx-auto text-center relative z-20">
-          <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-sm border border-white/90 shadow-sm mb-5 ${SANS}`}>
-            <BookOpen className="w-4 h-4 text-[#00122F]" />
-            <span className="text-xs font-medium text-[#00122F]">Guida interattiva · {CHAPTERS.length} capitoli · {ALL_STEP_COUNT} passi</span>
-          </div>
-          <h1 className={`${SERIF} text-4xl sm:text-5xl md:text-6xl text-[#00122F] leading-[1.05] tracking-[-0.025em] mb-4`}>
-            Come usare ZenGest
-          </h1>
-          <p className={`${SANS} text-base md:text-lg text-slate-600 max-w-xl mx-auto leading-relaxed mb-7`}>
-            Cerca quello che ti serve, o segui la guida passo dopo passo sulle schermate dell'app.
-          </p>
-          <div className="max-w-xl mx-auto">
-            <StepSearch onJump={jump} inputRef={searchRef} />
-          </div>
-          <div className={`flex flex-wrap justify-center gap-2 mt-5 ${SANS}`}>
-            {POPULAR.map((p) => (
-              <button key={p.label} onClick={() => jump(p.chapter, p.step)}
-                className="h-8 px-3.5 rounded-full bg-white/70 border border-white text-[13px] text-[#00122F] hover:bg-white hover:shadow-sm transition-all">
-                {p.label}
-              </button>
-            ))}
-          </div>
-        </div>
-        <div className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, #F8FAFC)" }} />
-      </section>
-
-      {/* ── Player ───────────────────────────────────────────────────── */}
-      <section id="guida-player" className="px-3 sm:px-6 pb-16 scroll-mt-20">
-        <GuidePlayer pos={pos} go={go} progress={progress} playing={playing} setPlaying={setPlaying}
-          onReset={resetAll} onZoom={setZoomed} onSearchJump={jump} />
-      </section>
-
-      {/* ── Every step as text (for readers and search engines) ─────── */}
-      <section className="px-4 sm:px-6 pb-16">
-        <div className="max-w-7xl mx-auto">
-          <FadeIn>
-            <h2 className={`${HEAD} text-2xl text-[#00122F]`}>Tutti i passi, in breve</h2>
-            <p className={`${SANS} text-slate-600 mt-1 mb-6`}>Preferisci leggere? Apri un capitolo, o clicca un passo per vederlo sulla schermata.</p>
-          </FadeIn>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3 items-start">
-            {CHAPTERS.map((c, ci) => {
-              const Icon = c.icon;
-              return (
-                <details key={c.id} id={`indice-${c.id}`} className="group rounded-2xl border border-slate-200 bg-white">
-                  <summary className={`flex items-center gap-3 px-4 py-3.5 cursor-pointer list-none [&::-webkit-details-marker]:hidden ${SANS}`}>
-                    <span className="w-8 h-8 rounded-lg bg-[#EEF3FC] text-[#3B6FD4] flex items-center justify-center shrink-0"><Icon className="w-4 h-4" /></span>
-                    <span className="flex-1 min-w-0">
-                      <span className="block text-xs text-slate-500">Capitolo {ci + 1} · {c.steps.length} passi</span>
-                      <span className="block font-semibold text-[#00122F] leading-snug">{c.title}</span>
-                    </span>
-                    <ChevronDown className="w-4 h-4 text-slate-400 transition-transform group-open:rotate-180" />
-                  </summary>
-                  <ol className="px-4 pb-4 space-y-3">
-                    {c.steps.map((s, si) => (
-                      <li key={si} className={SANS}>
-                        <button onClick={() => jump(c.id, si)} className="text-left text-[15px] font-semibold text-[#00122F] hover:text-[#3B6FD4] inline-flex items-center gap-1.5">
-                          <span className="text-xs text-slate-400 font-normal">{si + 1}.</span> {s.title} <ArrowRight className="w-3.5 h-3.5" />
-                        </button>
-                        <p className="text-sm text-slate-600 leading-relaxed mt-0.5">{s.body}</p>
-                      </li>
-                    ))}
-                  </ol>
-                </details>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ── FAQ ───────────────────────────────────────────────────────── */}
-      <section id="faq" className="py-16 px-4 sm:px-6 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <FadeIn>
-            <h2 className={`${SERIF} text-4xl md:text-5xl text-[#00122F] leading-[1.05] tracking-[-0.025em] text-center mb-10`}>Dubbi comuni</h2>
-          </FadeIn>
-          <div className="grid md:grid-cols-2 gap-3 items-start">
-            {FAQS.map((f) => <FaqItem key={f.q} q={f.q} a={f.a} />)}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Closing ───────────────────────────────────────────────────── */}
-      <section className="py-16 px-6" style={{ background: HERO_GRAD }}>
-        <div className="max-w-2xl mx-auto text-center">
-          <FadeIn>
-            <p className={`${SERIF} text-3xl md:text-4xl text-[#00122F] leading-[1.15] tracking-[-0.02em] mb-8`}>
-              Non trovi quello che cerchi? Scrivici: siamo qui per supportarti nel tuo lavoro.
-            </p>
-            <div className="flex flex-wrap justify-center gap-3">
-              <a href="https://supporto.zengest.it" target="_blank" rel="noopener noreferrer"
-                className={`inline-flex items-center gap-2 h-12 px-8 rounded-xl font-medium text-white bg-[#00122F] hover:bg-[#00122F]/90 hover:scale-105 active:scale-95 transition-all duration-200 shadow-md ${SANS}`}>
-                <MessageCircle className="w-4 h-4 text-[#A7BCF5]" /> Centro assistenza
-              </a>
-              <a href="/video"
-                className={`inline-flex items-center gap-2 h-12 px-8 rounded-xl font-medium text-[#00122F] bg-white hover:scale-105 active:scale-95 transition-all duration-200 shadow-md ${SANS}`}>
-                <PlayCircle className="w-4 h-4 text-[#3B6FD4]" /> Video tutorial
-              </a>
+      <div className="guida-page">
+        {/* ── Hero: search first, then start / resume ───────────────────── */}
+        <section className="relative px-6 pt-24 pb-10 md:pt-28 md:pb-12" style={{ background: HERO_GRAD }}>
+          <div className="max-w-3xl mx-auto text-center relative z-20">
+            <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-sm border border-white/90 shadow-sm mb-5 ${SANS}`}>
+              <BookOpen className="w-4 h-4 text-[#00122F]" />
+              <span className="text-xs font-medium text-[#00122F]">Guida interattiva · {MODULES.length} moduli · {CHAPTERS.length} capitoli · circa {CHAPTERS.reduce((n, c) => n + c.minutes, 0)} min</span>
             </div>
-          </FadeIn>
-        </div>
-      </section>
+            <h1 className={`${SERIF} text-4xl sm:text-5xl md:text-6xl text-[#00122F] leading-[1.05] tracking-[-0.025em] mb-4`}>
+              Come usare ZenGest
+            </h1>
+            <p className={`${SANS} text-base md:text-lg text-slate-600 max-w-xl mx-auto leading-relaxed mb-7`}>
+              Cerca quello che ti serve, o segui il percorso passo dopo passo sulle schermate dell'app.
+            </p>
+            <div className="max-w-xl mx-auto">
+              <StepSearch onJump={jump} inputRef={searchRef} />
+            </div>
+            <div className={`flex flex-wrap justify-center gap-2 mt-5 ${SANS}`}>
+              {POPULAR.map((p) => (
+                <button key={p.label} onClick={() => jump(p.chapter, p.step)}
+                  className="h-8 px-3.5 rounded-full bg-white/70 border border-white text-[13px] text-[#00122F] hover:bg-white hover:shadow-sm transition-all">
+                  {p.label}
+                </button>
+              ))}
+            </div>
+            <div className={`mt-7 flex flex-wrap items-center justify-center gap-3 ${SANS}`}>
+              {allDone ? (
+                <span className="inline-flex items-center gap-2 h-11 px-5 rounded-xl bg-emerald-600 text-white text-sm font-medium shadow-md">
+                  <Trophy className="w-4 h-4" /> Hai completato la guida
+                </span>
+              ) : resume ? (
+                <button onClick={scrollToPlayer}
+                  className="inline-flex items-center gap-2 h-11 px-5 rounded-xl bg-[#00122F] text-white text-sm font-medium shadow-md hover:bg-[#00122F]/90 transition-colors">
+                  <Play className="w-4 h-4" /> Riprendi: {posLabel(resume)}
+                </button>
+              ) : (
+                <button onClick={scrollToPlayer}
+                  className="inline-flex items-center gap-2 h-11 px-5 rounded-xl bg-[#00122F] text-white text-sm font-medium shadow-md hover:bg-[#00122F]/90 transition-colors">
+                  <Play className="w-4 h-4" /> {started ? "Continua la guida" : "Inizia la guida"}
+                </button>
+              )}
+            </div>
+          </div>
+          <div className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, #F8FAFC)" }} />
+        </section>
+
+        {/* ── Player ───────────────────────────────────────────────────── */}
+        <section id="guida-player" className="px-3 sm:px-6 pb-16 scroll-mt-20">
+          <GuidePlayer pos={pos} go={go} progress={progress} quiz={quiz} onQuizPass={passQuiz}
+            playing={playing} setPlaying={setPlaying} onReset={resetAll} onZoom={setZoomed} onSearchJump={jump} />
+        </section>
+
+        {/* ── Course outline as text (for readers and search engines) ─── */}
+        <section className="px-4 sm:px-6 pb-16">
+          <div className="max-w-7xl mx-auto">
+            <FadeIn>
+              <h2 className={`${HEAD} text-2xl text-[#00122F]`}>Il percorso completo</h2>
+              <p className={`${SANS} text-slate-600 mt-1 mb-6`}>Preferisci leggere? Apri un capitolo, o clicca un passo per vederlo sulla schermata.</p>
+            </FadeIn>
+            <div className="space-y-8">
+              {MODULES.map((m, mi) => (
+                <div key={m.title}>
+                  <p className={`text-xs font-semibold uppercase tracking-widest text-slate-500 mb-3 ${SANS}`}>Modulo {mi + 1} · {m.title}</p>
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3 items-start">
+                    {m.chapters.map((id) => {
+                      const ci = CHAPTERS.findIndex((c) => c.id === id);
+                      const c = CHAPTERS[ci];
+                      const Icon = c.icon;
+                      const status = statuses[ci];
+                      return (
+                        <details key={c.id} id={`indice-${c.id}`} className="group rounded-2xl border border-slate-200 bg-white">
+                          <summary className={`flex items-center gap-3 px-4 py-3.5 cursor-pointer list-none [&::-webkit-details-marker]:hidden ${SANS}`}>
+                            <span className="w-8 h-8 rounded-lg bg-[#EEF3FC] text-[#3B6FD4] flex items-center justify-center shrink-0"><Icon className="w-4 h-4" /></span>
+                            <span className="flex-1 min-w-0">
+                              <span className="block text-xs text-slate-500">Capitolo {ci + 1} · {c.steps.length} passi · {c.minutes} min</span>
+                              <span className="block font-semibold text-[#00122F] leading-snug">{c.title}</span>
+                            </span>
+                            <span className={`text-[11px] font-semibold rounded-full px-2 py-0.5 shrink-0 ${status === "done" ? "bg-emerald-100 text-emerald-700" : status === "doing" ? "bg-[#EEF3FC] text-[#3B6FD4]" : "bg-slate-100 text-slate-500"}`}>
+                              {STATUS_LABEL[status]}
+                            </span>
+                            <ChevronDown className="w-4 h-4 text-slate-400 transition-transform group-open:rotate-180" />
+                          </summary>
+                          <div className="px-4 pb-4">
+                            <p className={`${SANS} text-sm text-slate-500 mb-3`}>{c.summary}</p>
+                            <ol className="space-y-3">
+                              {c.steps.map((s, si) => (
+                                <li key={si} className={SANS}>
+                                  <button onClick={() => jump(c.id, si)} className="text-left text-[15px] font-semibold text-[#00122F] hover:text-[#3B6FD4] inline-flex items-center gap-1.5">
+                                    <span className="text-xs text-slate-400 font-normal">{si + 1}.</span> {s.title} <ArrowRight className="w-3.5 h-3.5" />
+                                  </button>
+                                  <p className="text-sm text-slate-600 leading-relaxed mt-0.5">{s.body}</p>
+                                </li>
+                              ))}
+                              <li className={SANS}>
+                                <button onClick={() => jump(c.id, c.steps.length)} className="text-left text-[15px] font-semibold text-[#3B6FD4] inline-flex items-center gap-1.5">
+                                  <ClipboardCheck className="w-4 h-4" /> Verifica rapida <ArrowRight className="w-3.5 h-3.5" />
+                                </button>
+                              </li>
+                            </ol>
+                          </div>
+                        </details>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── FAQ ───────────────────────────────────────────────────────── */}
+        <section id="faq" className="py-16 px-4 sm:px-6 bg-white">
+          <div className="max-w-5xl mx-auto">
+            <FadeIn>
+              <h2 className={`${SERIF} text-4xl md:text-5xl text-[#00122F] leading-[1.05] tracking-[-0.025em] text-center mb-10`}>Dubbi comuni</h2>
+            </FadeIn>
+            <div className="grid md:grid-cols-2 gap-3 items-start">
+              {FAQS.map((f) => <FaqItem key={f.q} q={f.q} a={f.a} />)}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Closing ───────────────────────────────────────────────────── */}
+        <section className="py-16 px-6" style={{ background: HERO_GRAD }}>
+          <div className="max-w-2xl mx-auto text-center">
+            <FadeIn>
+              <p className={`${SERIF} text-3xl md:text-4xl text-[#00122F] leading-[1.15] tracking-[-0.02em] mb-8`}>
+                Non trovi quello che cerchi? Scrivici: siamo qui per supportarti nel tuo lavoro.
+              </p>
+              <div className="flex flex-wrap justify-center gap-3">
+                <a href="https://supporto.zengest.it" target="_blank" rel="noopener noreferrer"
+                  className={`inline-flex items-center gap-2 h-12 px-8 rounded-xl font-medium text-white bg-[#00122F] hover:bg-[#00122F]/90 hover:scale-105 active:scale-95 transition-all duration-200 shadow-md ${SANS}`}>
+                  <MessageCircle className="w-4 h-4 text-[#A7BCF5]" /> Centro assistenza
+                </a>
+                <a href="/video"
+                  className={`inline-flex items-center gap-2 h-12 px-8 rounded-xl font-medium text-[#00122F] bg-white hover:scale-105 active:scale-95 transition-all duration-200 shadow-md ${SANS}`}>
+                  <PlayCircle className="w-4 h-4 text-[#3B6FD4]" /> Video tutorial
+                </a>
+              </div>
+            </FadeIn>
+          </div>
+        </section>
+      </div>
 
       <Lightbox shotKey={zoomed} onClose={() => setZoomed(null)} />
       <Footer />
