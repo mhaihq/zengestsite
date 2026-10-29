@@ -1527,7 +1527,7 @@ export function GuidaZenGest() {
     ready.current = true;
   }, []);
 
-  // Mark the current step as seen, remember it, and mirror it in the URL so it can be shared
+  // Mark the current step as seen and remember it for next time
   useEffect(() => {
     const id = CHAPTERS[pos.c].id;
     if (!isCheck(pos)) {
@@ -1539,10 +1539,7 @@ export function GuidaZenGest() {
         return next;
       });
     }
-    if (ready.current) {
-      saveJSON(LAST_KEY, pos);
-      history.replaceState(null, "", `#${id}-${pos.s + 1}`);
-    }
+    if (ready.current) saveJSON(LAST_KEY, pos);
   }, [pos]);
 
   // Tour automatico: stops at the chapter check
@@ -1565,8 +1562,14 @@ export function GuidaZenGest() {
     });
   }, []);
 
-  // Manual navigation stops the tour
-  const go = (p: Pos) => { setPlaying(false); setResume(null); setPos(p); };
+  // Manual navigation stops the tour and puts the step in the URL, so it can be
+  // shared; just opening /guida leaves the address clean
+  const go = (p: Pos) => {
+    setPlaying(false);
+    setResume(null);
+    setPos(p);
+    history.replaceState(null, "", `#${CHAPTERS[p.c].id}-${p.s + 1}`);
+  };
   const jump = (chapterId: string, step: number) => { go(posOf(chapterId, step)); scrollToPlayer(); };
 
   // ← → to move, / to search
