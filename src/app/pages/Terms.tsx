@@ -305,12 +305,12 @@ export function Terms() {
             </p>
             <ul className="list-disc pl-6 space-y-2 mb-4">
               <li>Accordo per il Trattamento dei Dati (DPA) firmato, con Clausole Contrattuali Standard GDPR ove richiesto</li>
-              <li>Server e infrastruttura di elaborazione localizzati nell'Unione Europea</li>
+              <li>Trattamento nell'Unione Europea oppure, per i trasferimenti extra-UE, garanzie ai sensi del Capo V GDPR (Clausole Contrattuali Standard e/o EU-US Data Privacy Framework)</li>
               <li>Nessun utilizzo dei dati dei pazienti per l'addestramento di modelli AI</li>
               <li>Valutazione della sicurezza annuale da parte del team tecnico di Unozen Srl</li>
             </ul>
             <p>
-              L'elenco aggiornato dei sub-responsabili attivi e disponibile su richiesta scrivendo a hello@zengest.it. I Clienti saranno informati con 30 giorni di anticipo di qualsiasi nuovo sub-responsabile e potranno opporsi.
+              L'elenco aggiornato dei sub-responsabili attivi e pubblicato nel DPA (zengest.it/dpa). I Clienti saranno informati con 30 giorni di anticipo di qualsiasi nuovo sub-responsabile e potranno opporsi.
             </p>
           </Section>
 

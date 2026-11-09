@@ -89,7 +89,7 @@ const SCRIPTS: Script[] = [
 
 const FAQS: FAQ[] = [
   { q: "Chi vede la registrazione?", a: "Solo io. I dati sono cifrati e accessibili esclusivamente a me. ZenGest tratta i dati per mio conto, ma non ha accesso ai contenuti delle sessioni." },
-  { q: "L'audio viene conservato per sempre?", a: "No. Viene eliminato dopo che ho generato e salvato le note. Non rimane nulla sui server una volta che ho completato la documentazione." },
+  { q: "L'audio viene conservato per sempre?", a: "No. Viene eliminato dopo la trascrizione. Restano solo la trascrizione e le note, nella mia cartella clinica, come succede con gli appunti che scrivo a mano." },
   { q: "L'AI capisce quello che dico? E se sbaglia?", a: "Lo strumento trascrive e organizza — non interpreta clinicamente. Se genera qualcosa di impreciso, lo correggo io prima che diventi nota ufficiale. Non copio mai alla cieca." },
   { q: "I miei dati vengono usati per addestrare l'AI?", a: "No. ZenGest non usa le sessioni per addestrare modelli. I tuoi dati sono tuoi." },
   { q: "Posso chiedere di cancellare tutto?", a: "Sì. Hai il diritto alla cancellazione dei dati in qualsiasi momento. Gestisco io la richiesta." },
@@ -110,7 +110,7 @@ const ROLEPLAY_DATA: RolePlayScript[] = [
     scriptId: 1,
     patientResponses: [
       { id: "1-ok", label: "Va bene, non ho problemi.", tone: "positive", coaching: { doSay: "Ottimo. Se dovesse cambiarti idea in qualsiasi momento, dimmelo — posso spegnerlo subito.", doNot: "Non aggiungere ulteriori spiegazioni. Il sì è arrivato: lascia che respiri.", note: "Accettazione immediata. Documentala e vai avanti." } },
-      { id: "1-who-sees", label: "Chi vede la registrazione?", tone: "curious", coaching: { doSay: "Solo io. I dati sono cifrati e nessun altro vi ha accesso — nemmeno ZenGest può vedere il contenuto. L'audio viene poi cancellato.", doNot: "Non dire «non preoccuparti» — minimizza la legittimità della domanda." } },
+      { id: "1-who-sees", label: "Chi vede la registrazione?", tone: "curious", coaching: { doSay: "Solo io, dal mio account. I dati sono cifrati, la registrazione viene trascritta automaticamente e poi l'audio viene cancellato.", doNot: "Non dire «non preoccuparti» — minimizza la legittimità della domanda." } },
       { id: "1-prefer-no", label: "Preferisco di no.", tone: "resistant", coaching: { doSay: "Assolutamente. Nessun problema — continueremo come sempre.", doNot: "Non chiedere perché, non insistere, non mostrarti deluso. Il no è completo.", note: "Torna al lavoro. Documenta nel fascicolo che hai informato e che il paziente ha declinato." } },
       { id: "1-change-mind", label: "Posso cambiare idea dopo?", tone: "curious", coaching: { doSay: "Sempre. Puoi dirmi di smettere anche durante una seduta — basta dirmelo.", doNot: "Non dire «speriamo di no» o qualcosa che implichi che il tuo lavoro dipenda dal suo sì." } },
     ],
@@ -782,7 +782,7 @@ export function GuidaConsenso() {
                   </div>
                 </div>
                 <ul className={`space-y-2.5 text-sm text-slate-600 ${SANS}`}>
-                  {["Non prende decisioni cliniche", "Non condivide i dati con terze parti commerciali", "Non usa le sessioni per addestrare modelli AI", "Non accede alle note senza il tuo consenso"].map(i => (
+                  {["Non prende decisioni cliniche", "Non vende i dati né li usa per pubblicità", "Non usa le sessioni per addestrare modelli AI", "Non accede alle note senza il tuo consenso"].map(i => (
                     <li key={i} className="flex items-center gap-2.5"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />{i}</li>
                   ))}
                 </ul>

@@ -2,6 +2,7 @@ import { Shield, Lock, GlobeLock, Server, FileCheck, ShieldCheck, EyeOff, Key, S
 import { Footer } from "../components/Footer";
 import { SEO } from "../components/SEO";
 import { Link } from "react-router";
+import { CLINICAL_SUBPROCESSORS, EU_MIGRATION } from "../data/subprocessors";
 
 const G = { background: "linear-gradient(135deg, #3B6FD4 0%, #A7BCF5 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" };
 
@@ -9,22 +10,22 @@ const FEARS = [
   {
     icon: EyeOff,
     fear: "I dati dei miei pazienti vengono usati per addestrare l'AI?",
-    answer: "No. Nessun dato clinico — trascrizioni, note, diagnosi o qualsiasi contenuto inserito nel Servizio — viene utilizzato per addestrare modelli AI, né nostri né di terze parti. Questa garanzia è esplicita nel DPA e nei contratti con tutti i nostri sub-responsabili. È vincolante per contratto, non solo una promessa.",
+    answer: "No. Nessun dato clinico — trascrizioni, note, diagnosi o qualsiasi contenuto inserito nel Servizio — viene utilizzato per addestrare modelli AI, né nostri né di terze parti. Questa garanzia è esplicita nel DPA, e con ogni fornitore AI l'uso dei dati per l'addestramento è escluso per contratto o disattivato nelle impostazioni dell'account.",
   },
   {
     icon: GlobeLock,
     fear: "I dati restano in Europa?",
-    answer: "Sì. Tutta l'infrastruttura di produzione si trova nell'Unione Europea. Non avviene alcun trasferimento di dati clinici al di fuori dei confini UE. Ogni sub-responsabile del trattamento — inclusi i provider AI — opera con sede contrattuale europea e vincoli SCCs (Standard Contractual Clauses) dove applicabili.",
+    answer: "La cartella del paziente resta in Europa: database, file e backup sono su Amazon Web Services a Francoforte. Due passaggi oggi avvengono negli Stati Uniti: la trascrizione dell'audio (AssemblyAI) e la generazione della nota (OpenAI, con Anthropic come alternativa), che riceve solo la trascrizione già pseudonimizzata. Questi trasferimenti sono coperti da Clausole Contrattuali Standard e/o dall'EU-US Data Privacy Framework. Stiamo portando anche questi passaggi in Europa: trovi i dettagli più sotto.",
   },
   {
     icon: Lock,
     fear: "Chi può vedere i dati dei miei pazienti?",
-    answer: "Solo tu, in qualità di Titolare del Trattamento. ZenGest agisce esclusivamente come Responsabile del Trattamento ai sensi dell'Art. 28 GDPR: elabora i dati solo su tua istruzione, per le sole finalità del Servizio, e non ha accesso ai contenuti clinici al di fuori di questo perimetro. Ogni accesso è tracciato in log di audit conservati.",
+    answer: "Solo tu, in qualità di Titolare del Trattamento. ZenGest agisce esclusivamente come Responsabile del Trattamento ai sensi dell'Art. 28 GDPR: elabora i dati solo su tua istruzione, per le sole finalità del Servizio, e non ha accesso ai contenuti clinici al di fuori di questo perimetro. Gli accessi alla piattaforma sono registrati nei log di sistema.",
   },
   {
     icon: EyeOff,
     fear: "Il paziente è riconoscibile quando l'AI elabora le note?",
-    answer: "No. Prima che qualsiasi testo venga elaborato dal modello AI, i riferimenti identificativi del paziente — nome, data di nascita, codice fiscale, e altri dati diretti — vengono sostituiti con token pseudonimi. Il modello AI non riceve mai l'identità reale della persona. Questo è il meccanismo della pseudonimizzazione obbligatoria prevista dal GDPR per i dati sanitari.",
+    answer: "Il modello che scrive la nota riceve la trascrizione pseudonimizzata: nomi, luoghi e altri identificativi sono sostituiti con etichette neutre durante la trascrizione. Il servizio di trascrizione, invece, elabora l'audio originale. Il riconoscimento automatico degli identificativi è molto accurato ma non infallibile, e i dati pseudonimizzati restano dati personali ai sensi del GDPR: per questo li trattiamo con le stesse tutele.",
   },
   {
     icon: Scale,
@@ -44,15 +45,15 @@ const FEARS = [
   {
     icon: FileCheck,
     fear: "ZenGest è conforme al GDPR per i dati sanitari?",
-    answer: "ZenGest è costruito per soddisfare i requisiti del GDPR Art. 9 per il trattamento di dati sanitari (categoria speciale). Pseudonimizzazione automatica, minimizzazione dei dati, infrastruttura UE, DPA incluso in tutti i piani, e garanzia contrattuale di zero addestramento su dati clinici. Il DPA è disponibile in formato firmabile per l'Art. 28 GDPR.",
+    answer: "ZenGest è costruito per soddisfare i requisiti del GDPR Art. 9 per il trattamento di dati sanitari (categoria speciale). Pseudonimizzazione automatica, minimizzazione dei dati, archiviazione in UE, DPA incluso in tutti i piani, e garanzia contrattuale di zero addestramento su dati clinici. Il DPA è disponibile in formato firmabile per l'Art. 28 GDPR.",
   },
 ];
 
 const ACT_ITEMS = [
   {
     label: "EU AI Act — Reg. 2024/1689",
-    body: "Gli strumenti AI nel settore sanitario rientrano tra i sistemi ad alto rischio ai sensi dell'Allegato III del Regolamento UE sull'Intelligenza Artificiale. ZenGest rispetta i requisiti degli Artt. 8-15: sistema di gestione del rischio, documentazione tecnica, trasparenza verso il professionista, supervisione umana obbligatoria (human-in-the-loop), robustezza e sicurezza informatica.",
-    badge: "Annex III · Alta priorità",
+    body: "Il Regolamento UE sull'Intelligenza Artificiale prevede obblighi specifici per i sistemi AI ad alto rischio, anche in ambito sanitario. ZenGest è uno strumento di supporto alla documentazione, senza finalità diagnostiche o terapeutiche: produce solo bozze che il professionista rivede e valida. È progettato secondo i principi del Regolamento: supervisione umana, trasparenza verso il professionista, tracciabilità e sicurezza informatica.",
+    badge: "Supervisione umana",
   },
   {
     label: "GDPR Art. 9 — Dati sanitari",
@@ -72,9 +73,9 @@ const ACT_ITEMS = [
 ];
 
 const FLOW = [
-  { step: "1", label: "Registrazione seduta", desc: "L'audio viene acquisito e trasmesso cifrato (TLS 1.3). Non viene mai salvato in chiaro." },
-  { step: "2", label: "Pseudonimizzazione automatica", desc: "Nome, codice fiscale e dati identificativi vengono sostituiti con token pseudonimi prima di qualsiasi elaborazione AI." },
-  { step: "3", label: "Elaborazione AI", desc: "Il modello riceve solo testo pseudonimizzato. Non vede l'identità del paziente. Genera una bozza di nota clinica." },
+  { step: "1", label: "Registrazione seduta", desc: "L'audio viene trasmesso cifrato (TLS) e salvato cifrato su AWS a Francoforte." },
+  { step: "2", label: "Trascrizione e pseudonimizzazione", desc: "L'audio viene trascritto da AssemblyAI (USA), che sostituisce nomi, luoghi e altri identificativi con etichette neutre. Dopo la trascrizione l'audio viene eliminato dai nostri server." },
+  { step: "3", label: "Elaborazione AI", desc: "Il modello AI (OpenAI, con Anthropic come alternativa) riceve solo la trascrizione pseudonimizzata e genera una bozza di nota clinica." },
   { step: "4", label: "Revisione del professionista", desc: "Tu rivedi, correggi e validi ogni contenuto. Nessuna nota viene finalizzata senza il tuo intervento (human-in-the-loop)." },
   { step: "5", label: "Archiviazione cifrata", desc: "Il documento validato viene salvato cifrato (AES-256) nella cartella del paziente. Solo tu hai accesso." },
 ];
@@ -85,7 +86,7 @@ export function Sicurezza() {
       <SEO
         title="Sicurezza & Conformità · ZenGest"
         useExactTitle={true}
-        description="Come ZenGest protegge i dati clinici dei tuoi pazienti. GDPR Art. 9, EU AI Act, pseudonimizzazione, zero addestramento su dati clinici, server UE. Risponde alle domande degli psicologi italiani."
+        description="Come ZenGest protegge i dati clinici dei tuoi pazienti. GDPR Art. 9, EU AI Act, pseudonimizzazione, zero addestramento su dati clinici, dati archiviati in UE. Risponde alle domande degli psicologi italiani."
         path="/sicurezza"
       />
 
@@ -110,7 +111,7 @@ export function Sicurezza() {
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
-              { label: "Server UE", sub: "Nessun trasferimento extra-UE" },
+              { label: "Dati a Francoforte", sub: "Database, file e backup in UE" },
               { label: "GDPR Art. 9", sub: "Dati sanitari by design" },
               { label: "Zero training", sub: "Mai usati per addestrare AI" },
               { label: "DPA incluso", sub: "In tutti i piani, Art. 28" },
@@ -168,7 +169,7 @@ export function Sicurezza() {
                 </div>
                 <p className="font-['DM_Sans'] text-sm font-semibold text-[#00122F]">Pseudonimizzazione</p>
               </div>
-              <p className="font-['DM_Sans'] text-sm text-slate-500 leading-relaxed">I dati identificativi vengono sostituiti con token. L'AI lavora solo sul token — non sul nome reale. Solo tu, con la chiave separata, puoi ricondurre i dati al paziente. Il GDPR si applica in pieno: i diritti del paziente sono garantiti.</p>
+              <p className="font-['DM_Sans'] text-sm text-slate-500 leading-relaxed">I dati identificativi nel testo vengono sostituiti con etichette neutre. Il modello AI lavora sulle etichette, non sui nomi reali, mentre la cartella resta collegata al paziente nel tuo account. Il GDPR si applica in pieno: i diritti del paziente sono garantiti.</p>
             </div>
             <div className="bg-slate-50 rounded-2xl border border-slate-100 p-6">
               <div className="flex items-center gap-2 mb-3">
@@ -182,7 +183,7 @@ export function Sicurezza() {
           </div>
           <div className="bg-[#F0F5FF] border border-[#3B6FD4]/20 rounded-2xl p-5">
             <p className="font-['DM_Sans'] text-sm text-slate-600 leading-relaxed">
-              <span className="font-semibold text-[#00122F]">Perché è importante.</span> Il GDPR Art. 32 riconosce la pseudonimizzazione come misura tecnica adeguata per il trattamento di dati sanitari. ZenGest la applica in modo automatico e sistematico prima di ogni elaborazione AI — non come opzione, ma come comportamento predefinito del sistema.
+              <span className="font-semibold text-[#00122F]">Perché è importante.</span> Il GDPR Art. 32 riconosce la pseudonimizzazione come misura tecnica adeguata per il trattamento di dati sanitari. ZenGest la applica in modo automatico prima che la trascrizione arrivi al modello AI che genera la nota: non come opzione, ma come comportamento predefinito del sistema.
             </p>
           </div>
         </div>
@@ -241,9 +242,9 @@ export function Sicurezza() {
             Chi tratta i dati, e come.
           </h2>
           <p className="font-['DM_Sans'] text-sm text-slate-500 text-center mb-8 leading-relaxed max-w-xl mx-auto">
-            ZenGest si avvale di fornitori terzi per specifiche funzioni tecniche. Tutti operano come sub-responsabili del trattamento ai sensi dell'Art. 28 GDPR, con contratti che vietano esplicitamente l'uso dei dati per addestramento AI.
+            ZenGest si avvale di fornitori terzi per specifiche funzioni tecniche. Tutti operano come sub-responsabili del trattamento ai sensi dell'Art. 28 GDPR, e nessuno usa i dati per addestrare modelli AI.
           </p>
-          <div className="rounded-2xl border border-slate-200 overflow-hidden bg-white">
+          <div className="rounded-2xl border border-slate-200 overflow-x-auto bg-white">
             <table className="w-full font-['DM_Sans'] text-sm">
               <thead>
                 <tr className="bg-slate-50 border-b border-slate-200">
@@ -253,22 +254,27 @@ export function Sicurezza() {
                 </tr>
               </thead>
               <tbody>
-                {[
-                  ["HANA Health Inc.", "Infrastruttura AI vocale e trascrizione", "UE (contrattuale)"],
-                  ["Amazon Web Services", "Hosting e archiviazione dati", "UE (eu-west)"],
-                  ["Anthropic", "Elaborazione linguistica AI", "UE (contrattuale + SCCs)"],
-                ].map(([name, fn, location], i) => (
-                  <tr key={name} className={i < 2 ? "border-b border-slate-100" : ""}>
-                    <td className="px-5 py-4 font-medium text-[#00122F]">{name}</td>
-                    <td className="px-5 py-4 text-slate-500">{fn}</td>
-                    <td className="px-5 py-4 text-slate-500">{location}</td>
+                {CLINICAL_SUBPROCESSORS.map((row, i) => (
+                  <tr key={row.name} className={i < CLINICAL_SUBPROCESSORS.length - 1 ? "border-b border-slate-100" : ""}>
+                    <td className="px-5 py-4 font-medium text-[#00122F] align-top">{row.name}</td>
+                    <td className="px-5 py-4 text-slate-500 align-top">{row.function}</td>
+                    <td className="px-5 py-4 text-slate-500 align-top">{row.location}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
+          <div className="mt-6 bg-white border border-slate-200 rounded-2xl p-6">
+            <p className="font-['DM_Sans'] text-sm font-semibold text-[#00122F] mb-3">In corso: elaborazione interamente in Europa</p>
+            <div className="space-y-2">
+              {EU_MIGRATION.map(item => (
+                <p key={item} className="font-['DM_Sans'] text-sm text-slate-500 leading-relaxed">{item}</p>
+              ))}
+            </div>
+            <p className="font-['DM_Sans'] text-xs text-slate-400 mt-4">Aggiorneremo questa pagina e il DPA a migrazione completata, con 30 giorni di preavviso a chi usa ZenGest.</p>
+          </div>
           <p className="font-['DM_Sans'] text-xs text-slate-400 mt-4 text-center">
-            L'elenco completo con le garanzie contrattuali è nel{" "}
+            L'elenco completo, con i fornitori per account e pagamenti e le garanzie per i trasferimenti, è nel{" "}
             <Link to="/dpa" className="text-[#3B6FD4] hover:underline">DPA (Art. 28 GDPR)</Link>.
           </p>
         </div>

@@ -36,7 +36,7 @@ function setMeta(attr: string, key: string, content: string) {
 
 export function SEO({
   title = "ZenGest · AI clinica per psicologi italiani",
-  description = "ZenGest trascrive le sedute, genera note cliniche strutturate (SOAP, DAP, BIRP) e gestisce la cartella paziente. Conforme al GDPR Art. 9, dati solo su server europei.",
+  description = "ZenGest trascrive le sedute, genera note cliniche strutturate (SOAP, DAP, BIRP) e gestisce la cartella paziente. Conforme al GDPR Art. 9, dati archiviati in Europa.",
   image = ogImage,
   url,
   useExactTitle = false,
@@ -178,7 +178,7 @@ export const softwareApplicationSchema: Record<string, unknown> = {
   "applicationSubCategory": "Software per psicologi",
   "operatingSystem": "Web",
   "inLanguage": "it-IT",
-  "description": "Software di AI clinica per psicologi e psicoterapeuti: trascrive le sedute, genera note cliniche (SOAP, DAP, BIRP), aggiorna la cartella paziente e risponde a domande sui casi con Ask ZenGest. Conforme al GDPR Art. 9, dati su server europei.",
+  "description": "Software di AI clinica per psicologi e psicoterapeuti: trascrive le sedute, genera note cliniche (SOAP, DAP, BIRP), aggiorna la cartella paziente e risponde a domande sui casi con Ask ZenGest. Conforme al GDPR Art. 9, dati archiviati in Europa.",
   "offers": [
     {
       "@type": "Offer",

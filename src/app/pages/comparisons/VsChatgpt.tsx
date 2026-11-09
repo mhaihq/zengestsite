@@ -49,8 +49,8 @@ function renderCellValue(value: string, isZengest: boolean) {
 const features = [
   { label: "Registrazione seduta", zengest: "✓", competitor: "—" },
   { label: "Trascrizione automatica", zengest: "✓", competitor: "—" },
-  { label: "Anonimizzazione pre-AI", zengest: "✓", competitor: "—" },
-  { label: "Server in Europa (GDPR)", zengest: "✓", competitor: "— (US)" },
+  { label: "Pseudonimizzazione pre-AI", zengest: "✓", competitor: "—" },
+  { label: "Cartella archiviata in Europa (GDPR)", zengest: "✓", competitor: "— (US)" },
   { label: "DPA per liberi professionisti", zengest: "✓", competitor: "Non per piani base/Plus" },
   { label: "Conforme codice deontologico CNOP", zengest: "✓", competitor: "Non verificabile" },
   { label: "Memoria sedute precedenti", zengest: "✓", competitor: "—" },
@@ -68,11 +68,11 @@ const faq = [
   },
   {
     q: "OpenAI non dice che i dati vengono usati per addestrare i modelli se disabilito l'opzione?",
-    a: "OpenAI permette di disabilitare l'uso dei dati per l'addestramento, ma questo non risolve il problema del trasferimento dei dati negli Stati Uniti né la mancanza di un DPA adeguato per il trattamento di dati sanitari sensibili.",
+    a: "OpenAI permette di disabilitare l'uso dei dati per l'addestramento, ma con un account personale resta la mancanza di un DPA adeguato per il trattamento di dati sanitari, e il testo che incolli contiene ancora i dati identificativi del paziente.",
   },
   {
     q: "ZenGest usa ChatGPT o altri modelli OpenAI nel backend?",
-    a: "No. ZenGest usa modelli AI con server esclusivamente in Europa, selezionati specificamente per garantire la conformità GDPR nel trattamento di dati sanitari.",
+    a: "Non usa ChatGPT, ma usa modelli OpenAI tramite API aziendale, con un accordo sul trattamento dei dati e senza uso dei dati per l'addestramento. Il modello riceve solo la trascrizione pseudonimizzata, mai il nome del paziente, e la cartella resta su server a Francoforte. Stiamo portando anche l'elaborazione AI in Europa, con residenza dei dati UE e conservazione zero.",
   },
   {
     q: "Se uso ChatGPT solo per riformulare appunti generici — senza nomi — è ok?",
@@ -239,12 +239,12 @@ export function VsChatgpt() {
                 text: "Con il consenso del paziente, ZenGest registra da computer o telefono. Nessun appunto da prendere durante la sessione. Nessuna ricostruzione a memoria.",
               },
               {
-                bold: "I dati non escono mai in chiaro.",
-                text: "Prima di qualsiasi elaborazione AI, nomi, luoghi e riferimenti identificativi vengono anonimizzati automaticamente. L'audio originale viene eliminato definitivamente dopo la trascrizione.",
+                bold: "Il modello AI non vede i nomi.",
+                text: "Prima della generazione della nota, nomi, luoghi e riferimenti identificativi vengono pseudonimizzati automaticamente. L'audio originale viene eliminato dai nostri server dopo la trascrizione.",
               },
               {
-                bold: "I server sono in Europa.",
-                text: "Nessun trasferimento di dati sanitari negli Stati Uniti. ZenGest è conforme al GDPR e alle normative italiane. Puoi firmare un DPA in regola.",
+                bold: "La cartella resta in Europa.",
+                text: "Database, file e backup sono a Francoforte. Trascrizione e generazione della nota passano oggi da fornitori statunitensi con Clausole Contrattuali Standard, e le stiamo portando in Europa. Puoi firmare un DPA in regola.",
               },
               {
                 bold: "Ricorda il contesto nel tempo.",

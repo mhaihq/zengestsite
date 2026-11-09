@@ -33,7 +33,7 @@ const data = {
     { label: "Fatturazione integrata con STS", zengest: "In arrivo", competitor: "✓" },
     { label: "Multi-professione (fisio, nutri, osteo…)", zengest: "—", competitor: "✓" },
     { label: "Scheda paziente", zengest: "✓", competitor: "✓" },
-    { label: "Server in Europa, GDPR", zengest: "✓", competitor: "✓" },
+    { label: "Cartella archiviata in Europa, GDPR", zengest: "✓", competitor: "✓" },
   ],
 
   pricingZengest:

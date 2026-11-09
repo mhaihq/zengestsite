@@ -1,5 +1,6 @@
 import { Footer } from "../components/Footer";
 import { SEO } from "../components/SEO";
+import { CLINICAL_SUBPROCESSORS, ACCOUNT_SUBPROCESSORS, DPA_LAST_UPDATED, EU_MIGRATION, type SubProcessor } from "../data/subprocessors";
 
 export function DPA() {
   return (
@@ -24,8 +25,8 @@ export function DPA() {
             ai sensi dell'Art. 28 del Regolamento (UE) 2016/679 (GDPR)
           </p>
           <p className="font-['DM_Sans'] text-xs text-slate-400">
-            Ultimo aggiornamento: [DATA] · Parte integrante delle{" "}
-            <a href="/sicurezza" className="text-[#3B6FD4] hover:underline">Condizioni Generali di Servizio</a>
+            Ultimo aggiornamento: {DPA_LAST_UPDATED} · Parte integrante delle{" "}
+            <a href="/termini" className="text-[#3B6FD4] hover:underline">Condizioni Generali di Servizio</a>
           </p>
         </div>
       </section>
@@ -73,7 +74,7 @@ export function DPA() {
               <li>trattare i dati personali esclusivamente sulla base delle istruzioni documentate del Titolare, salvo obblighi di legge;</li>
               <li>garantire che le persone autorizzate al trattamento dei dati si siano impegnate alla riservatezza o siano soggette a un obbligo legale di riservatezza;</li>
               <li>adottare tutte le misure di sicurezza tecniche e organizzative richieste dall'Art. 32 GDPR;</li>
-              <li>non ricorrere a un altro responsabile del trattamento (sub-responsabile) senza previa autorizzazione generale scritta del Titolare. Il Titolare autorizza sin d'ora il ricorso a HANA Health Inc. come sub-responsabile principale per l'infrastruttura tecnologica del Servizio;</li>
+              <li>non ricorrere a un altro responsabile del trattamento (sub-responsabile) senza previa autorizzazione generale scritta del Titolare. Il Titolare autorizza sin d'ora il ricorso ai sub-responsabili elencati all'Art. 7;</li>
               <li>assistere il Titolare nel dare seguito alle richieste di esercizio dei diritti degli interessati (Artt. 15–22 GDPR);</li>
               <li>assistere il Titolare nel garantire il rispetto degli obblighi di cui agli Artt. 32–36 GDPR;</li>
               <li>cancellare o restituire tutti i dati personali al termine del Servizio, su scelta del Titolare;</li>
@@ -82,13 +83,12 @@ export function DPA() {
           </Article>
 
           <Article title="Art. 6 — Misure di sicurezza">
-            <p>6.1. Il Responsabile, anche tramite il sub-responsabile HANA Health Inc., adotta le seguenti misure tecniche e organizzative:</p>
+            <p>6.1. Il Responsabile, anche tramite i propri sub-responsabili, adotta le seguenti misure tecniche e organizzative:</p>
             <ul>
               <li>crittografia dei dati in transito (TLS 1.2+) e a riposo (AES-256);</li>
-              <li>pseudonimizzazione dei dati clinici prima dell'invio ai servizi di elaborazione AI;</li>
-              <li>hosting su infrastruttura AWS nell'Unione Europea (regione eu-west-1), gestita tramite HANA Health;</li>
-              <li>trascrizione audio su server HANA Health nell'UE tramite modelli open-source;</li>
-              <li>eliminazione automatica e definitiva dei file audio al completamento della trascrizione;</li>
+              <li>hosting dell'applicazione, del database, dei file e dei backup su Amazon Web Services nella regione di Francoforte, Germania (eu-central-1);</li>
+              <li>pseudonimizzazione automatica della trascrizione (nomi, luoghi e altri identificativi sostituiti con etichette neutre) prima dell'invio al modello AI che genera la nota;</li>
+              <li>eliminazione automatica e definitiva dei file audio dai server del Servizio al completamento della trascrizione;</li>
               <li>controllo degli accessi basato su ruoli e autenticazione sicura;</li>
               <li>backup crittografati con retention definita;</li>
               <li>monitoraggio continuo e logging degli accessi ai dati.</li>
@@ -96,18 +96,29 @@ export function DPA() {
           </Article>
 
           <Article title="Art. 7 — Sub-responsabili del trattamento">
-            <p>7.1. Il Titolare autorizza in via generale il ricorso ai seguenti sub-responsabili:</p>
-            <SubProcessorTable />
-            <p>7.2. HANA Health Inc. agisce come sub-responsabile principale del trattamento. I servizi di infrastruttura (AWS), elaborazione AI (Anthropic) e trascrizione sono erogati tramite HANA Health, che ha sottoscritto DPA con ciascun sub-responsabile ulteriore.</p>
+            <p>7.1. Il Titolare autorizza in via generale il ricorso ai seguenti sub-responsabili, che trattano i dati clinici dei Pazienti:</p>
+            <SubProcessorTable rows={CLINICAL_SUBPROCESSORS} />
+            <p>7.2. Per la gestione degli account, dei pagamenti e del funzionamento tecnico del Servizio il Responsabile si avvale inoltre dei seguenti fornitori, che non ricevono il contenuto clinico delle sedute:</p>
+            <SubProcessorTable rows={ACCOUNT_SUBPROCESSORS} />
             <p>7.3. Il Responsabile informerà il Titolare di qualsiasi modifica relativa all'aggiunta o sostituzione di sub-responsabili con un preavviso di 30 giorni, dando al Titolare la possibilità di opporsi.</p>
             <p>7.4. Il Responsabile garantisce che i sub-responsabili siano vincolati da obblighi di protezione dei dati equivalenti a quelli stabiliti nel presente Accordo.</p>
           </Article>
 
           <Article title="Art. 8 — Trasferimenti internazionali">
-            <p>8.1. I dati clinici dei Pazienti sono trattati su infrastruttura situata nell'Unione Europea (AWS eu-west-1), gestita tramite HANA Health Inc.</p>
-            <p>8.2. HANA Health Inc. è una società incorporata nel Delaware (USA). Il trasferimento di dati verso HANA Health avviene sulla base delle Clausole Contrattuali Standard della Commissione Europea (SCCs) e/o dell'EU-US Data Privacy Framework, ove applicabile. L'infrastruttura di elaborazione dei dati clinici resta nell'UE.</p>
-            <p>8.3. L'utilizzo dell'API di Anthropic avviene tramite HANA Health con garanzie contrattuali che assicurano il non utilizzo dei dati per l'addestramento dei modelli AI (zero-training policy).</p>
-            <p>8.4. Qualora si rendesse necessario un ulteriore trasferimento di dati verso paesi terzi, il Responsabile applicherà le garanzie previste dal Capo V del GDPR.</p>
+            <p>8.1. Il database, l'archivio dei file e i backup del Servizio si trovano nell'Unione Europea, su Amazon Web Services a Francoforte (Germania).</p>
+            <p>8.2. Alcune fasi dell'elaborazione comportano un trasferimento di dati verso gli Stati Uniti:</p>
+            <ul>
+              <li>l'audio della seduta è trascritto da AssemblyAI, che ne pseudonimizza anche la trascrizione;</li>
+              <li>la trascrizione già pseudonimizzata è inviata a OpenAI (o, se il modello principale non è disponibile, ad Anthropic) per generare la nota clinica;</li>
+              <li>se il Titolare attiva l'assistente AI sul paziente, le trascrizioni e le note delle sedute di quel paziente sono indicizzate presso OpenAI per consentire le risposte;</li>
+              <li>il personale tecnico di HANA Health Inc. può accedere all'infrastruttura per finalità di gestione e manutenzione.</li>
+            </ul>
+            <p>8.3. Tali trasferimenti avvengono sulla base delle Clausole Contrattuali Standard della Commissione Europea e/o dell'EU-US Data Privacy Framework, ove applicabile, ai sensi del Capo V del GDPR.</p>
+            <p>8.4. Il Responsabile sta trasferendo nell'Unione Europea le fasi di elaborazione oggi svolte negli Stati Uniti:</p>
+            <ul>
+              {EU_MIGRATION.map((item) => <li key={item}>{item}</li>)}
+            </ul>
+            <p>8.5. Ogni modifica all'elenco dei sub-responsabili sarà comunicata al Titolare secondo l'Art. 7.3.</p>
           </Article>
 
           <Article title="Art. 9 — Notifica di violazione dei dati">
@@ -135,7 +146,7 @@ export function DPA() {
           <Article title="Art. 12 — Garanzia di non utilizzo per addestramento">
             <ZeroTrainingCallout />
             <p>12.1. Il Responsabile garantisce che i dati personali trattati nell'ambito del Servizio non vengono in alcun caso utilizzati per l'addestramento, il fine-tuning o il miglioramento di modelli di intelligenza artificiale.</p>
-            <p>12.2. Tale garanzia si estende ai sub-responsabili del trattamento. In particolare, l'utilizzo dell'API di Anthropic (Claude) avviene con garanzia contrattuale di non utilizzo dei dati per il training.</p>
+            <p>12.2. Tale garanzia si estende ai sub-responsabili del trattamento. I servizi AI di OpenAI, Anthropic e AssemblyAI sono utilizzati tramite API commerciali, con l'uso dei dati per l'addestramento dei modelli escluso dai termini contrattuali o disattivato nelle impostazioni dell'account.</p>
           </Article>
 
         </div>
@@ -161,8 +172,7 @@ function ChainDiagram() {
   const nodes = [
     { label: "Professionista", role: "Titolare" },
     { label: "ZenGest / Unozen", role: "Responsabile" },
-    { label: "HANA Health Inc.", role: "Sub-responsabile" },
-    { label: "AWS · Anthropic", role: "Sub-sub-responsabili" },
+    { label: "AWS · HANA Health · AssemblyAI · OpenAI · Anthropic · A-Cube", role: "Sub-responsabili (Art. 7)" },
   ];
   return (
     <div className="mt-5 flex flex-wrap items-center gap-2">
@@ -183,13 +193,7 @@ function ChainDiagram() {
   );
 }
 
-function SubProcessorTable() {
-  const rows = [
-    { name: "HANA Health Inc.", function: "Infrastruttura voice AI, elaborazione dati, orchestrazione servizi", location: "UE / US con garanzie contrattuali", dpa: "Sì" },
-    { name: "Amazon Web Services", function: "Hosting, storage, database (tramite HANA Health)", location: "UE (eu-west-1)", dpa: "Sì (HANA ↔ AWS)" },
-    { name: "Anthropic (API Claude)", function: "Elaborazione AI (tramite HANA Health)", location: "API con garanzie zero-training", dpa: "Sì (HANA ↔ Anthropic)" },
-    { name: "Trascrizione (self-hosted)", function: "Speech-to-text (tramite HANA Health, modello open-source)", location: "UE — infrastruttura HANA", dpa: "N/A (server HANA)" },
-  ];
+function SubProcessorTable({ rows }: { rows: SubProcessor[] }) {
   return (
     <div className="my-4 overflow-x-auto rounded-xl border border-slate-100">
       <table className="w-full text-xs">
@@ -198,16 +202,19 @@ function SubProcessorTable() {
             <th className="text-left px-4 py-3 font-semibold text-slate-500">Fornitore</th>
             <th className="text-left px-4 py-3 font-semibold text-slate-500">Funzione</th>
             <th className="text-left px-4 py-3 font-semibold text-slate-500">Località dati</th>
-            <th className="text-left px-4 py-3 font-semibold text-slate-500">DPA</th>
+            <th className="text-left px-4 py-3 font-semibold text-slate-500">Garanzie per il trasferimento</th>
           </tr>
         </thead>
         <tbody>
           {rows.map((row, i) => (
             <tr key={row.name} className={i % 2 === 0 ? "bg-white" : "bg-slate-50/50"}>
-              <td className="px-4 py-3 font-medium text-[#00122F]">{row.name}</td>
-              <td className="px-4 py-3 text-slate-500">{row.function}</td>
-              <td className="px-4 py-3 text-slate-500">{row.location}</td>
-              <td className="px-4 py-3 text-slate-500">{row.dpa}</td>
+              <td className="px-4 py-3 align-top">
+                <p className="font-medium text-[#00122F]">{row.name}</p>
+                <p className="text-slate-400 mt-0.5">{row.entity}</p>
+              </td>
+              <td className="px-4 py-3 align-top text-slate-500">{row.function}</td>
+              <td className="px-4 py-3 align-top text-slate-500">{row.location}</td>
+              <td className="px-4 py-3 align-top text-slate-500">{row.transfer}</td>
             </tr>
           ))}
         </tbody>

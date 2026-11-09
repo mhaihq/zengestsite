@@ -2,7 +2,7 @@
 
 > ZenGest è una piattaforma AI per psicologi italiani. Trascrive le sedute, genera note cliniche strutturate (SOAP, DAP, BIRP), aggiorna automaticamente la cartella paziente e risponde a domande sui casi tramite Ask ZenGest — un assistente clinico contestualizzato sullo storico reale del paziente.
 
-ZenGest è sviluppato da Unozen Srl (Torino, Italia) ed è costruito specificamente per il contesto clinico italiano: conforme al GDPR Art. 9, dati elaborati esclusivamente su server europei, nessun dato clinico usato per addestrare modelli AI di terzi. Include un DPA (Data Processing Agreement) in tutti i piani.
+ZenGest è sviluppato da Unozen Srl (Torino, Italia) ed è costruito specificamente per il contesto clinico italiano: conforme al GDPR Art. 9, cartella clinica archiviata su server europei (AWS Francoforte), nessun dato clinico usato per addestrare modelli AI di terzi. Include un DPA (Data Processing Agreement) in tutti i piani.
 
 ## Cosa fa ZenGest
 
@@ -24,9 +24,9 @@ Psicologi e psicoterapeuti italiani in libera professione o in studio. Non è de
 
 ## Conformità e sicurezza
 
-- GDPR Art. 9 (dati sanitari): pseudonimizzazione automatica prima di qualsiasi elaborazione AI
+- GDPR Art. 9 (dati sanitari): pseudonimizzazione automatica della trascrizione prima della generazione delle note
 - EU AI Act: classificazione del rischio completata, misure di trasparenza attive
-- Server esclusivamente nell'Unione Europea
+- Database, file e backup nell'Unione Europea (AWS Francoforte); trascrizione (AssemblyAI) e generazione delle note (OpenAI, Anthropic come alternativa) tramite fornitori statunitensi con Clausole Contrattuali Standard, in corso di migrazione in UE. Elenco completo: https://zengest.it/dpa
 - DPA incluso in tutti i piani — garanzia contrattuale che nessun dato clinico viene usato per addestrare modelli
 - Nessuna condivisione di dati tra account
 

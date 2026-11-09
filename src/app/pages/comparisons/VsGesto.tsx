@@ -24,7 +24,7 @@ const data = {
     { label: "Fatture illimitate", zengest: "✓", competitor: "✓" },
     { label: "Consenso informato digitale", zengest: "In arrivo", competitor: "✓" },
     { label: "Scheda paziente", zengest: "✓", competitor: "✓" },
-    { label: "Server in Europa, GDPR", zengest: "✓", competitor: "✓" },
+    { label: "Cartella archiviata in Europa, GDPR", zengest: "✓", competitor: "✓" },
     { label: "Anonimizzazione dati pre-AI", zengest: "✓", competitor: "—" },
   ],
   pricingZengest: "Da 19€/mese (Piano Base). Piano Pro 39€/mese, Piano Studio 69€/mese. Prova gratuita, nessuna carta di credito.",

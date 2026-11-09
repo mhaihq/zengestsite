@@ -76,7 +76,7 @@ const PLANS = [
 const FAQS = [
   {
     q: "I dati dei miei pazienti sono al sicuro?",
-    a: "Sì. Tutti i dati restano nell'Unione Europea. ZenGest è costruito su Art. 9 GDPR per dati sanitari: pseudonimizzazione automatica prima di qualsiasi elaborazione AI, contratto DPA incluso, nessun utilizzo per addestrare modelli di terzi.",
+    a: "Sì. La cartella dei pazienti è archiviata nell'Unione Europea, a Francoforte. ZenGest è costruito su Art. 9 GDPR per dati sanitari: pseudonimizzazione automatica prima della generazione delle note, contratto DPA incluso, nessun utilizzo per addestrare modelli di terzi. Trascrizione e generazione delle note passano oggi da fornitori statunitensi con garanzie contrattuali: i dettagli sono nella pagina Sicurezza.",
   },
   {
     q: "Posso cambiare piano in qualsiasi momento?",

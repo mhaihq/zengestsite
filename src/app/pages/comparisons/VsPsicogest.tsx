@@ -26,7 +26,7 @@ const data = {
     { label: "Analisi pattern clinici nel tempo", zengest: "✓", competitor: "—" },
     { label: "Anonimizzazione dati prima dell'elaborazione AI", zengest: "✓", competitor: "—" },
     { label: "Audio eliminato automaticamente dopo la trascrizione", zengest: "✓", competitor: "—" },
-    { label: "Server esclusivamente in Europa (GDPR)", zengest: "✓", competitor: "✓" },
+    { label: "Cartella archiviata in Europa (GDPR)", zengest: "✓", competitor: "✓" },
     { label: "Conforme codice deontologico CNOP", zengest: "✓", competitor: "✓" },
     { label: "Scheda paziente", zengest: "✓", competitor: "✓" },
     { label: "Sistema Tessera Sanitaria (STS)", zengest: "In arrivo", competitor: "✓" },
@@ -58,7 +58,7 @@ const data = {
     },
     {
       q: "Le registrazioni delle sedute sono sicure?",
-      a: "Sì. L'audio viene eliminato definitivamente dopo la generazione della trascrizione — non viene conservato. Prima di qualsiasi elaborazione AI, nomi, luoghi e dati identificativi vengono anonimizzati automaticamente. I server sono esclusivamente in Europa, conformi GDPR e alle normative italiane.",
+      a: "Sì. L'audio viene eliminato dai nostri server dopo la trascrizione: non viene conservato. Prima della generazione della nota, nomi, luoghi e dati identificativi vengono pseudonimizzati automaticamente. Database, file e backup sono su server a Francoforte; i fornitori di trascrizione e AI sono elencati nel DPA.",
     },
     {
       q: "Ho bisogno del consenso del paziente per registrare?",

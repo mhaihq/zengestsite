@@ -20,7 +20,7 @@ export function Termini() {
           <h1 className="font-['Instrument_Serif'] text-4xl md:text-5xl text-[#00122F] leading-[1.1] tracking-[-0.02em] mb-3">
             Condizioni Generali di Servizio
           </h1>
-          <p className="font-['DM_Sans'] text-sm text-slate-400">Ultimo aggiornamento: [DATA]</p>
+          <p className="font-['DM_Sans'] text-sm text-slate-400">Ultimo aggiornamento: 9 novembre 2026</p>
         </div>
       </section>
 
@@ -33,7 +33,7 @@ export function Termini() {
               <dl className="space-y-3 mt-4">
                 {[
                   ["Servizio", "la piattaforma ZenGest, accessibile all'indirizzo app.zengest.it, che fornisce strumenti di supporto alla documentazione clinica basati su intelligenza artificiale per professionisti della salute mentale."],
-                  ["Fornitore", "Unozen di Matteo Grassi e Alessandro Lombardo, con sede in [INDIRIZZO], P.IVA [NUMERO] — titolare e gestore del Servizio."],
+                  ["Fornitore", "Unozen S.r.l., con sede in Via Cesare Battisti 15, 10123 Torino, P.IVA 13448760010, titolare e gestore del Servizio."],
                   ["Infrastruttura", "HANA Health Inc., società di diritto statunitense (Delaware), che fornisce l'infrastruttura tecnologica di voice AI e di elaborazione dati su cui si basa il Servizio, in qualità di sub-responsabile del trattamento."],
                   ["Utente o Professionista", "lo psicologo, psicoterapeuta o altro professionista della salute mentale che si registra e utilizza il Servizio."],
                   ["Paziente", "la persona assistita dall'Utente, i cui dati possono essere trattati nell'ambito dell'utilizzo del Servizio."],

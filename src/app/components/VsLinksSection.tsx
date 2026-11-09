@@ -69,7 +69,7 @@ const GROUPS: Group[] = [
   {
     title: "Conformità e sicurezza",
     rows: [
-      { label: "Server esclusivamente in Europa",        zengest: "yes",  chatgpt: "no",                      psicogest: "yes", gesto: "yes", appuntoo: "yes" },
+      { label: "Cartella archiviata in Europa",          zengest: "yes",  chatgpt: "no",                      psicogest: "yes", gesto: "yes", appuntoo: "yes" },
       { label: "DPA incluso per liberi professionisti",  zengest: "yes",  chatgpt: { partial: "Solo enterprise" }, psicogest: "yes", gesto: "yes", appuntoo: "yes" },
       { label: "Conforme Codice Deontologico CNOP",      zengest: "yes",  chatgpt: { partial: "Non verif." },  psicogest: "yes", gesto: "yes", appuntoo: "yes" },
     ],

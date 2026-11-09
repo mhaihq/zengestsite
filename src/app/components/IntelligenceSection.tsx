@@ -6,7 +6,7 @@ const timelineData = [
     id: 1,
     title: "ANONIMIZZAZIONE & PRIVACY",
     date: "ANONIMIZZAZIONE & PRIVACY",
-    content: "Pseudonimizzazione dei dati, controllo sul trattamento e infrastruttura europea. I dati clinici non lasciano mai lo spazio del professionista.",
+    content: "Pseudonimizzazione dei dati, controllo sul trattamento e infrastruttura europea. La cartella clinica resta su server europei, visibile solo al professionista.",
     category: "Privacy",
     icon: Lock,
     relatedIds: [2, 5],

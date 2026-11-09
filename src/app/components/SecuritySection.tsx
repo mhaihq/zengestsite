@@ -19,7 +19,7 @@ const items = [
   {
     icon: Server,
     title: "Infrastruttura europea",
-    description: "Server ospitati in data center nell'Unione Europea. Nessun dato clinico trasmesso al di fuori dei confini europei.",
+    description: "Database, file e backup su AWS a Francoforte. Trascrizione e generazione delle note passano oggi da fornitori statunitensi con garanzie contrattuali, e le stiamo portando in Europa.",
   },
   {
     icon: FileCheck,
