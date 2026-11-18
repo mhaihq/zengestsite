@@ -38,6 +38,10 @@ Due moduli, acquistabili separatamente o insieme. Prezzi IVA esclusa; con il pag
 ## Pagine principali
 
 - [Home](https://zengest.it/) — panoramica del prodotto
+- [Note cliniche AI](https://zengest.it/note-cliniche-ai) — registrazione, trascrizione e bozza di nota (SOAP, DAP, BIRP, modelli propri)
+- [Assistente Zen](https://zengest.it/assistente-ai) — assistente AI sul caso, agenti per approccio, documenti modificabili
+- [Cartella clinica](https://zengest.it/cartella-clinica) — scheda paziente, consenso digitale, documenti, contesto clinico
+- [Fatturazione](https://zengest.it/fatturazione) — fatture dalle sedute, Sistema TS, SdI, ENPAP e bollo
 - [Prezzi](https://zengest.it/pricing) — AI Clinica (Start, Pro, Plus) e Fatturazione
 - [Sicurezza](https://zengest.it/sicurezza) — dettaglio conformità GDPR, EU AI Act, infrastruttura
 - [Termini di Servizio](https://zengest.it/termini) — condizioni d'uso in italiano

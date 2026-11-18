@@ -6,7 +6,7 @@ export function CTAFinal() {
           Porta l'Intelligenza Artificiale nella tua pratica clinica, in sicurezza e sotto il tuo controllo.
         </h2>
         <p className="font-['DM_Sans'] text-base md:text-lg text-slate-500 leading-relaxed mb-10">
-          Partecipa all'accesso anticipato di ZenGest e aiutaci a costruire la cartella clinica AI pensata per psicologi e psicoterapeuti italiani.
+          Note cliniche, cartella, assistente AI e fatturazione, pensati per psicologi e psicoterapeuti italiani. Provali gratis per 30 giorni.
         </p>
         <a
           href="https://app.zengest.it/sign-up/"
@@ -15,7 +15,7 @@ export function CTAFinal() {
           Prova gratis
         </a>
         <p className="font-['DM_Sans'] text-xs text-slate-400 mt-5 leading-relaxed">
-          Posti limitati nella prima fase · Nessuna carta richiesta · 30 giorni gratuiti al lancio
+          30 giorni gratuiti · 20 sedute di prova · Nessuna carta richiesta
         </p>
       </div>
     </section>

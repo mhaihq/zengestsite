@@ -23,6 +23,10 @@ import { VsAppuntoo } from "./pages/comparisons/VsAppuntoo";
 import { VsChatgpt } from "./pages/comparisons/VsChatgpt";
 import { GuidaConsenso } from "./pages/GuidaConsenso";
 import { GuidaZenGest } from "./pages/GuidaZenGest";
+import { NoteClinicheAI } from "./pages/products/NoteClinicheAI";
+import { AssistenteAI } from "./pages/products/AssistenteAI";
+import { CartellaClinica } from "./pages/products/CartellaClinica";
+import { Fatturazione } from "./pages/products/Fatturazione";
 
 export default function App() {
   return (
@@ -33,6 +37,12 @@ export default function App() {
         <Toaster position="top-center" />
         <AnnouncementBar />
         <Navbar navLinks={[
+          { url: "/note-cliniche-ai", title: "Prodotto", subMenuLinks: [
+            { url: "/note-cliniche-ai", title: "Note cliniche AI" },
+            { url: "/assistente-ai", title: "Assistente Zen" },
+            { url: "/cartella-clinica", title: "Cartella clinica" },
+            { url: "/fatturazione", title: "Fatturazione" },
+          ] },
           { url: "/pricing", title: "Prezzi" },
           { url: "/guida", title: "Guida" },
           { url: "/blog", title: "Blog" },
@@ -60,6 +70,10 @@ export default function App() {
             <Route path="/vs/chatgpt" element={<VsChatgpt />} />
             <Route path="/guida-consenso" element={<GuidaConsenso />} />
             <Route path="/guida" element={<GuidaZenGest />} />
+            <Route path="/note-cliniche-ai" element={<NoteClinicheAI />} />
+            <Route path="/assistente-ai" element={<AssistenteAI />} />
+            <Route path="/cartella-clinica" element={<CartellaClinica />} />
+            <Route path="/fatturazione" element={<Fatturazione />} />
           </Routes>
         </main>
       </div>

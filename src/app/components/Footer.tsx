@@ -29,6 +29,10 @@ export function Footer() {
             <div>
               <p className="font-['DM_Sans'] text-[11px] font-semibold uppercase tracking-widest text-slate-400 mb-3">Prodotto</p>
               <div className="flex flex-col gap-2 font-['DM_Sans'] text-sm text-slate-500">
+                <Link to="/note-cliniche-ai" className="hover:text-[#00122F] transition-colors">Note cliniche AI</Link>
+                <Link to="/assistente-ai" className="hover:text-[#00122F] transition-colors">Assistente Zen</Link>
+                <Link to="/cartella-clinica" className="hover:text-[#00122F] transition-colors">Cartella clinica</Link>
+                <Link to="/fatturazione" className="hover:text-[#00122F] transition-colors">Fatturazione</Link>
                 <Link to="/pricing" className="hover:text-[#00122F] transition-colors">Prezzi</Link>
                 <Link to="/blog" className="hover:text-[#00122F] transition-colors">Blog</Link>
                 <Link to="/sicurezza" className="hover:text-[#00122F] transition-colors">Sicurezza</Link>

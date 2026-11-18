@@ -34,6 +34,7 @@ const PORT = 5179
 const STATIC_ROUTES = [
   '/', '/pricing', '/about', '/sicurezza', '/termini', '/dpa', '/terms',
   '/blog', '/video', '/guida', '/guida-consenso',
+  '/note-cliniche-ai', '/assistente-ai', '/cartella-clinica', '/fatturazione',
   '/vs/psicogest', '/vs/gesto', '/vs/appuntoo', '/vs/chatgpt',
   // noindex (kept routed):
   '/research', '/state-of-ai', '/contact',
@@ -46,6 +47,10 @@ const SITEMAP_EXCLUDE = new Set(['/research', '/state-of-ai', '/contact', '/term
 const SITEMAP_HINTS = {
   '/': { priority: '1.0', changefreq: 'weekly' },
   '/pricing': { priority: '0.9', changefreq: 'monthly' },
+  '/note-cliniche-ai': { priority: '0.9', changefreq: 'monthly' },
+  '/assistente-ai': { priority: '0.9', changefreq: 'monthly' },
+  '/cartella-clinica': { priority: '0.9', changefreq: 'monthly' },
+  '/fatturazione': { priority: '0.9', changefreq: 'monthly' },
   '/video': { priority: '0.8', changefreq: 'monthly' },
   '/blog': { priority: '0.8', changefreq: 'weekly' },
   '/about': { priority: '0.7', changefreq: 'monthly' },

@@ -500,7 +500,7 @@ const CHAPTERS: Chapter[] = [
     steps: [
       {
         title: "Dove trovi la fatturazione",
-        body: "La fatturazione si attiva sul tuo account su richiesta: scrivici dal Supporto. Quando è attiva trovi Fatturazione nella barra in alto e, nelle Impostazioni, una sezione Fatturazione con Profilo Fiscale, Credits, Prestazioni e Fatture pazienti.",
+        body: "Durante la prova gratuita puoi configurare la fatturazione e preparare le fatture; per inviarle attiva il modulo Fatturazione in Impostazioni → Abbonamento. Trovi Fatturazione nella barra in alto e, nelle Impostazioni, una sezione Fatturazione con Profilo Fiscale, Credits, Prestazioni e Fatture pazienti.",
         tip: "Usa la fatturazione da computer: da telefono non è nella barra in basso.",
         shot: "fatt-profilo",
         spot: [9.2, 57],
