@@ -756,7 +756,10 @@ export type Service = {
   text: string;
   /** Must match the scene's step names so the chip lights up with the drawing. */
   capabilities: string[];
+  /** Internal path (router link) or absolute URL (plain link). */
   href?: string;
+  /** Button label; defaults to "Scopri di più". */
+  cta?: string;
   price?: string;
   /** CSS background for this panel (gradient or url()). */
   bg?: string;
@@ -920,9 +923,14 @@ function ServiceCard({ service: s }: { service: Service }) {
         {(s.href || s.price) && (
           <div className="mt-7 flex flex-wrap items-center justify-between gap-3 lg:[@media(max-height:910px)]:mt-5">
             {s.price && <span className="text-sm text-slate-500">{s.price}</span>}
-            {s.href && (
+            {s.href && s.href.startsWith("http") && (
+              <a href={s.href} className="inline-flex items-center gap-1.5 rounded-xl bg-[#00122F] px-5 h-10 text-sm font-semibold text-white hover:bg-[#00122F]/90 transition-colors">
+                {s.cta ?? "Scopri di più"}
+              </a>
+            )}
+            {s.href && !s.href.startsWith("http") && (
               <Link to={s.href} className="inline-flex items-center gap-1.5 rounded-xl bg-[#00122F] px-5 h-10 text-sm font-semibold text-white hover:bg-[#00122F]/90 transition-colors">
-                Scopri di più
+                {s.cta ?? "Scopri di più"}
                 <span aria-hidden="true">→</span>
                 <span className="sr-only">: {s.title}</span>
               </Link>

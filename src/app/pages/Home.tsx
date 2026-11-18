@@ -1,9 +1,8 @@
 import { CTASection } from "../components/ui/hero-dithering-card";
-import { FeaturesMarquee } from "../components/FeaturesMarquee";
 import { ComparisonSection } from "../components/ComparisonSection";
 import { ProductsStackSection } from "../components/ProductsStackSection";
+import { SessionFilmSection, AskZenSection } from "../components/ProductTourSections";
 import { SecuritySection } from "../components/SecuritySection";
-import { IntelligenceSection } from "../components/IntelligenceSection";
 import { TestimonialsSection } from "../components/TestimonialsSection";
 import { TestimonialCarousel } from "../components/TestimonialCarousel";
 import { CTAFinal } from "../components/CTAFinal";
@@ -24,13 +23,13 @@ export function Home() {
         jsonLd={[organizationSchema, websiteSchema, softwareApplicationSchema]}
       />
       <CTASection />
-      <ComparisonSection />
-      <FeaturesMarquee />
-      <TestimonialsSection />
       <ProductsStackSection />
+      <SessionFilmSection />
+      <AskZenSection />
+      <ComparisonSection />
+      <TestimonialsSection />
       <TestimonialCarousel />
       <SecuritySection />
-      <IntelligenceSection />
       <VsLinksSection />
       <CTAFinal />
       <Footer />
