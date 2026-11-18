@@ -47,5 +47,5 @@ const PRODUCTS: Service[] = [
 const SHOWN = ["cartella"];
 
 export function ProductsStackSection() {
-  return <ServicesStack services={PRODUCTS.filter((p) => SHOWN.includes(p.id))} eyebrow="Dentro ZenGest" />;
+  return <ServicesStack services={PRODUCTS.filter((p) => SHOWN.includes(p.id))} eyebrow="Dentro ZenGest" className="pb-8 md:pb-11" />;
 }

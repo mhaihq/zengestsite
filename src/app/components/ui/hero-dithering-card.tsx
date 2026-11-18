@@ -1,4 +1,4 @@
-import { ZenGestShowcase } from "../ZenGestShowcase";
+import { useEffect, useRef } from "react";
 
 const BADGES = [
   {
@@ -43,43 +43,104 @@ const BADGES = [
   },
 ];
 
+// The blue-and-gold wash that used to frame the app showcase, now the hero's own backdrop.
+const HERO_BG = [
+  "radial-gradient(60% 55% at 6% 0%, rgba(122,155,232,0.75) 0%, transparent 62%)",
+  "radial-gradient(55% 50% at 96% 6%, rgba(167,188,245,0.7) 0%, transparent 62%)",
+  "radial-gradient(60% 60% at 100% 78%, rgba(247,214,140,0.8) 0%, transparent 64%)",
+  "radial-gradient(60% 55% at 0% 88%, rgba(59,111,212,0.35) 0%, transparent 62%)",
+  "radial-gradient(110% 55% at 50% 115%, rgba(240,225,190,0.9) 0%, transparent 58%)",
+  "linear-gradient(160deg, #eaf1fb 0%, #f4f4f9 45%, #faf3e6 100%)",
+].join(", ");
+
+/**
+ * Hero. It stays pinned while the next section (the deep-blue "Dentro ZenGest" panel)
+ * slides over it; meanwhile the text drifts up and fades and the backdrop drifts down,
+ * so the two layers move at different speeds. Wrap it and the next section in one
+ * `relative` container: the hero unpins when that container ends.
+ */
 export function CTASection() {
+  const root = useRef<HTMLElement>(null);
+  const content = useRef<HTMLDivElement>(null);
+  const backdrop = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = root.current;
+    const inner = content.current;
+    const bg = backdrop.current;
+    if (!el || !inner || !bg) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let raf = 0;
+    // A hero taller than the viewport pins by its bottom edge, so nothing is cut off.
+    const fit = () => {
+      el.style.top = `${Math.min(0, window.innerHeight - el.offsetHeight)}px`;
+    };
+    const update = () => {
+      raf = 0;
+      if (reduced) return;
+      const p = Math.min(1, Math.max(0, window.scrollY / el.offsetHeight));
+      inner.style.transform = `translate3d(0, ${(-p * 90).toFixed(1)}px, 0) scale(${(1 - p * 0.06).toFixed(4)})`;
+      inner.style.opacity = String(Math.max(0, 1 - p * 1.15));
+      bg.style.transform = `translate3d(0, ${(p * 70).toFixed(1)}px, 0)`;
+    };
+    const schedule = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    const onResize = () => {
+      fit();
+      schedule();
+    };
+    fit();
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", onResize);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
   return (
     <section
-      className="relative min-h-screen flex flex-col items-center justify-start px-6 py-20 md:py-28 overflow-hidden bg-[#F8FAFC]"
+      ref={root}
+      className="sticky top-0 z-0 -mt-16 md:-mt-20 flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 pt-28 pb-28 md:pt-36 md:pb-36"
     >
-      {/* Top badge */}
-      <div className="relative z-10 mb-8 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-sm border border-white/90 shadow-sm">
-        <img src="/ale.png" alt="Alessandro Lombardo" className="w-5 h-5 rounded-full object-cover object-top shrink-0" />
-        <span className="font-['DM_Sans'] text-xs font-medium text-[#00122F]">Sviluppato da psicologi italiani</span>
-      </div>
+      {/* Backdrop, a little taller than the hero so it can drift without showing an edge */}
+      <div ref={backdrop} aria-hidden="true" className="absolute inset-x-0 -top-24 -bottom-24 will-change-transform" style={{ background: HERO_BG }} />
 
-      {/* Headline */}
-      <h1 className="relative z-10 font-['Instrument_Serif'] text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center max-w-4xl leading-[1.05] tracking-[-0.025em] mb-5 text-[#00122F] px-2">
-        AI per Psicologi.<br />
-        Note, Assistente e Cartelle,<br className="hidden sm:block" /> in modo intelligente.
-      </h1>
+      <div ref={content} className="relative z-10 flex flex-col items-center will-change-transform">
+        {/* Top badge */}
+        <div className="mb-8 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-sm border border-white/90 shadow-sm">
+          <img src="/ale.png" alt="Alessandro Lombardo" className="w-5 h-5 rounded-full object-cover object-top shrink-0" />
+          <span className="font-['DM_Sans'] text-xs font-medium text-[#00122F]">Sviluppato da psicologi italiani</span>
+        </div>
 
-      {/* Subheadline */}
-      <p className="relative z-10 font-['DM_Sans'] text-base md:text-lg text-center max-w-2xl text-slate-600 mb-6 leading-relaxed px-2">
-        Trascrivi le sedute, aggiorna le cartelle e usa l'AI per note, piani di trattamento e analisi cliniche. Conforme al GDPR e al Codice Deontologico.
-      </p>
+        {/* Headline */}
+        <h1 className="font-['Instrument_Serif'] text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center max-w-4xl leading-[1.05] tracking-[-0.025em] mb-5 text-[#00122F] px-2">
+          AI per Psicologi.<br />
+          Note, Assistente e Cartelle,<br className="hidden sm:block" /> in modo intelligente.
+        </h1>
 
-      {/* Trust badges — above the CTA */}
-      <div className="relative z-10 flex flex-wrap items-center justify-center gap-3 mb-8">
-        {BADGES.map(b => (
-          <div key={b.label} className="inline-flex items-center gap-2.5 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-xl px-4 py-3 shadow-md">
-            {b.icon}
-            <div>
-              <p className="font-['DM_Sans'] text-[12px] font-bold text-[#00122F] leading-none mb-0.5">{b.label}</p>
-              <p className="font-['DM_Sans'] text-[11px] text-slate-500 leading-none">{b.sub}</p>
+        {/* Subheadline */}
+        <p className="font-['DM_Sans'] text-base md:text-lg text-center max-w-2xl text-[#00122F]/75 mb-8 leading-relaxed px-2">
+          Trascrivi le sedute, aggiorna le cartelle e usa l'AI per note, piani di trattamento e analisi cliniche. Conforme al GDPR e al Codice Deontologico.
+        </p>
+
+        {/* Trust badges, above the CTA */}
+        <div className="flex flex-wrap items-center justify-center gap-3 mb-9">
+          {BADGES.map(b => (
+            <div key={b.label} className="inline-flex items-center gap-2.5 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-xl px-4 py-3 shadow-md">
+              {b.icon}
+              <div>
+                <p className="font-['DM_Sans'] text-[12px] font-bold text-[#00122F] leading-none mb-0.5">{b.label}</p>
+                <p className="font-['DM_Sans'] text-[11px] text-slate-500 leading-none">{b.sub}</p>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      {/* CTA */}
-      <div className="relative z-10 flex items-center gap-3 mb-12">
+        {/* CTA */}
         <a
           href="https://app.zengest.it/sign-up/"
           className="inline-flex items-center justify-center gap-2 h-12 px-8 rounded-lg font-['DM_Sans'] font-medium text-white bg-[#00122F] hover:bg-[#00122F]/90 hover:scale-105 active:scale-95 transition-all duration-200 shadow-md text-base"
@@ -87,33 +148,6 @@ export function CTASection() {
           Prova gratis
         </a>
       </div>
-
-      {/* Product showcase — animated app-window tour, framed in its own gradient card */}
-      <div className="relative z-10 w-full max-w-6xl px-4">
-        <div
-          className="relative rounded-[32px] md:rounded-[40px] p-6 sm:p-8 md:p-14 overflow-hidden"
-          style={{
-            background: [
-              "radial-gradient(70% 65% at 8% -6%, rgba(122,155,232,0.9) 0%, transparent 62%)",
-              "radial-gradient(65% 60% at 95% 5%, rgba(167,188,245,0.85) 0%, transparent 62%)",
-              "radial-gradient(75% 70% at 100% 68%, rgba(247,214,140,0.85) 0%, transparent 64%)",
-              "radial-gradient(70% 62% at 0% 78%, rgba(59,111,212,0.45) 0%, transparent 62%)",
-              "radial-gradient(120% 62% at 50% 112%, rgba(240,225,190,0.9) 0%, transparent 58%)",
-              "linear-gradient(160deg, #eaf1fb 0%, #f2f2f8 45%, #faf3e6 100%)",
-            ].join(", "),
-            boxShadow: "0 30px 80px -24px rgba(0,18,47,0.22)",
-          }}
-        >
-          <div
-            className="absolute inset-x-12 bottom-4 h-16 pointer-events-none"
-            style={{ background: "radial-gradient(60% 100% at 50% 50%, rgba(0,18,47,0.15) 0%, transparent 75%)" }}
-          />
-          <ZenGestShowcase />
-        </div>
-      </div>
-
-      {/* Blend into next section */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, #F8FAFC)" }} />
     </section>
   );
 }

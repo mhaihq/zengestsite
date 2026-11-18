@@ -22,8 +22,13 @@ export function Home() {
         keywords="AI clinica, psicologi italiani, note cliniche automatiche, cartella clinica AI, ZenGest"
         jsonLd={[organizationSchema, websiteSchema, softwareApplicationSchema]}
       />
-      <CTASection />
-      <ProductsStackSection />
+      {/* The hero stays pinned while the deep-blue panel slides over it; it unpins when this wrapper ends. */}
+      <div className="relative">
+        <CTASection />
+        <div className="relative z-10 overflow-clip rounded-t-[28px] md:rounded-t-[44px] shadow-[0_-16px_48px_-16px_rgba(0,18,47,0.28)]">
+          <ProductsStackSection />
+        </div>
+      </div>
       <SessionFilmSection />
       <AskZenSection />
       <ComparisonSection />

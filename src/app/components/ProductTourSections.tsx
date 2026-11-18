@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import { Link } from "react-router";
 import { SessionFilm } from "./SessionFilm";
 import { AssistantWall } from "./ui/assistant-wall";
+import { SHEET } from "./ui/deep-blue";
 
 // Two homepage sections ported from the Unozen site (unozen.ai): the product
 // "film" that follows one session from recording to invoice, and the Assistente
@@ -36,7 +37,7 @@ function Cta({ to, more }: { to: string; more: string }) {
 
 export function SessionFilmSection() {
   return (
-    <section className="bg-white px-6 py-20 md:py-28">
+    <section id="come-funziona" className={`${SHEET} z-10 scroll-mt-20 bg-white px-6 pt-24 pb-28 md:pt-32 md:pb-36`}>
       <div className="mx-auto max-w-[1080px]">
         <div className="mx-auto mb-12 flex max-w-2xl flex-col items-center text-center">
           <Eyebrow>Dalla seduta alla fattura</Eyebrow>
@@ -106,7 +107,7 @@ export function AskZenSection() {
   const onSelect = useCallback((idx: number) => setI(idx < QUESTIONS.length ? idx : -1), []);
 
   return (
-    <section className="bg-slate-50 px-6 py-20 md:py-28 overflow-hidden">
+    <section className={`${SHEET} overflow-hidden bg-slate-50 px-6 pt-24 pb-28 md:pt-32 md:pb-40`}>
       <div className="mx-auto max-w-[1080px] font-['DM_Sans']">
         <div className="mx-auto mb-10 flex max-w-2xl flex-col items-center text-center">
           <Eyebrow>Assistente Zen</Eyebrow>

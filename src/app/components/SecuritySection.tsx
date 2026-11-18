@@ -35,7 +35,7 @@ const items = [
 
 export function SecuritySection() {
   return (
-    <section className="py-24 md:py-32 bg-white px-6">
+    <section className="relative -mt-8 md:-mt-11 rounded-t-[28px] md:rounded-t-[44px] pt-28 pb-24 md:pt-36 md:pb-32 bg-white px-6">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-24">
 
