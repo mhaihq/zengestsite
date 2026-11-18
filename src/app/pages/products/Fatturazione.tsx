@@ -44,12 +44,13 @@ export function Fatturazione() {
         body: (
           <>
             <p>100 fatture all'anno: €36 + IVA.<br />250 fatture all'anno: €48 + IVA.<br />500 fatture all'anno: €72 + IVA.</p>
-            <p>Puoi pagare anche mensilmente (da €3 al mese) e aggiungere 100 fatture a €16 + IVA. Funziona da solo o insieme ad AI Clinica.</p>
+            <p>Cartella clinica inclusa. Se finisci le fatture, aggiungi 100 fatture a €16 + IVA.</p>
+            <p>Insieme all'AI clinica la fatturazione costa uguale e si paga nello stesso abbonamento: €3, €4 o €6 al mese se l'AI è mensile.</p>
           </>
         ),
       }}
       faqs={[
-        { q: "Posso usare solo la fatturazione?", a: "Sì. Il modulo Fatturazione si attiva da solo o insieme ad AI Clinica, nello stesso abbonamento." },
+        { q: "Posso usare solo la fatturazione?", a: "Sì. La Fatturazione da sola include anche la cartella clinica dei pazienti e si paga una volta all'anno. Se vuoi anche le note AI, la aggiungi all'AI clinica nello stesso abbonamento." },
         { q: "Funziona con il regime forfettario?", a: "Sì. Scegli forfettario o ordinario nel profilo fiscale. Per il forfettario ZenGest mostra quanto hai fatturato rispetto alla soglia annuale." },
         { q: "Posso fatturare ad aziende ed enti?", a: "Sì. Per aziende ed enti la fattura va allo SdI come fattura elettronica: servono ragione sociale, partita IVA e codice SDI oppure PEC." },
         { q: "E se il paziente si oppone all'invio al Sistema TS?", a: "Nella scheda del paziente spunti l'opposizione all'invio delle spese al Sistema Tessera Sanitaria." },

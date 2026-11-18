@@ -40,11 +40,11 @@ export function CartellaClinica() {
         ),
       }}
       plan={{
-        title: "Incluso in AI Clinica",
+        title: "Inclusa in tutti e due i prodotti",
         body: (
           <>
-            <p>La cartella clinica è inclusa in tutti i piani AI Clinica: Start, Pro e Plus, da €19 + IVA al mese.</p>
-            <p>Aggiungi il modulo Fatturazione, da €36 + IVA all'anno, per emettere le fatture dalla scheda del paziente.</p>
+            <p>Con la Fatturazione, da €36 + IVA all'anno, se non ti serve l'AI.</p>
+            <p>Con l'AI clinica, da €19 + IVA al mese, insieme a note AI e Assistente Zen. Puoi aggiungere la fatturazione nello stesso pagamento.</p>
           </>
         ),
       }}

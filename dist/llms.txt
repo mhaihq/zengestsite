@@ -18,14 +18,16 @@ Psicologi e psicoterapeuti italiani in libera professione o in studio. Non è de
 
 ## Piani
 
-Due moduli, acquistabili separatamente o insieme. Prezzi IVA esclusa; con il pagamento annuale 2 mesi sono gratis.
+Due prodotti, Fatturazione e AI Clinica, acquistabili separatamente o insieme. In tutti e due è inclusa la cartella clinica. Prezzi IVA esclusa; con il pagamento annuale dell'AI Clinica 2 mesi sono gratis.
 
 - **AI Clinica Start** (€19/mese o €190/anno): 20 sedute/mese, note cliniche AI (SOAP, DAP, BIRP), cartella paziente, Ask ZenGest, timeline, template, export documenti
 - **AI Clinica Pro** (€39/mese o €390/anno): 50 sedute/mese, tutto di Start, supporto prioritario
 - **AI Clinica Plus** (€79/mese o €790/anno): 150 sedute/mese, tutto di Pro
-- **Fatturazione** (da €36/anno o €3/mese): 100, 250 o 500 fatture/anno, invio a SDI e al Sistema Tessera Sanitaria, note di credito; pacchetto da 100 fatture in più a €16
+- **Fatturazione** (€36, €48 o €72/anno): cartella clinica, 100, 250 o 500 fatture/anno, invio a SDI e al Sistema Tessera Sanitaria, note di credito, export per il commercialista; pacchetto da 100 fatture in più a €16; oltre 500 fatture su richiesta
+- **AI Clinica + Fatturazione**: la fatturazione costa uguale e si paga nello stesso abbonamento dell'AI (€3, €4 o €6/mese se l'AI è mensile). Start + 100 fatture €22/mese, Pro + 250 €43/mese, Plus + 500 €85/mese
 - **Prova gratuita**: 30 giorni, fino a 20 sedute, senza carta di credito
-- **Team & Enterprise**: piani per studi e strutture, su richiesta
+- **Team**: studi da 2 a 10 professionisti, ogni licenza al prezzo del piano AI scelto, 10% in meno da 5 licenze
+- **Enterprise**: oltre 10 professionisti, su preventivo
 
 ## Conformità e sicurezza
 

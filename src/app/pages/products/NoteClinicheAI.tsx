@@ -45,7 +45,7 @@ export function NoteClinicheAI() {
         body: (
           <>
             <p>Start: 20 sedute al mese, €19 + IVA.<br />Pro: 50 sedute al mese, €39 + IVA.<br />Plus: 150 sedute al mese, €79 + IVA.</p>
-            <p>Con il pagamento annuale, 2 mesi sono gratis. La prova dura 30 giorni, con 20 sedute.</p>
+            <p>Con la fatturazione aggiunta: €22, €43 o €85 + IVA al mese. Con il pagamento annuale, 2 mesi sono gratis. La prova dura 30 giorni, con 20 sedute.</p>
           </>
         ),
       }}
