@@ -18,9 +18,14 @@ Psicologi e psicoterapeuti italiani in libera professione o in studio. Non è de
 
 ## Piani
 
-- **Free**: 10 sedute/mese, note AI base, scheda paziente
-- **Clinical** (€39+IVA/mese): 50 sedute/mese, cartella completa, Ask ZenGest, timeline, export documenti
-- **Professional** (€79+IVA/mese): sedute illimitate, tutto di Clinical, processing prioritario, supporto prioritario
+Due moduli, acquistabili separatamente o insieme. Prezzi IVA esclusa; con il pagamento annuale 2 mesi sono gratis.
+
+- **AI Clinica Start** (€19/mese o €190/anno): 20 sedute/mese, note cliniche AI (SOAP, DAP, BIRP), cartella paziente, Ask ZenGest, timeline, template, export documenti
+- **AI Clinica Pro** (€39/mese o €390/anno): 50 sedute/mese, tutto di Start, supporto prioritario
+- **AI Clinica Plus** (€79/mese o €790/anno): 150 sedute/mese, tutto di Pro
+- **Fatturazione** (da €36/anno o €3/mese): 100, 250 o 500 fatture/anno, invio a SDI e al Sistema Tessera Sanitaria, note di credito; pacchetto da 100 fatture in più a €16
+- **Prova gratuita**: 30 giorni, fino a 20 sedute, senza carta di credito
+- **Team & Enterprise**: piani per studi e strutture, su richiesta
 
 ## Conformità e sicurezza
 
@@ -33,7 +38,7 @@ Psicologi e psicoterapeuti italiani in libera professione o in studio. Non è de
 ## Pagine principali
 
 - [Home](https://zengest.it/) — panoramica del prodotto
-- [Prezzi](https://zengest.it/pricing) — piani Free, Clinical, Professional
+- [Prezzi](https://zengest.it/pricing) — AI Clinica (Start, Pro, Plus) e Fatturazione
 - [Sicurezza](https://zengest.it/sicurezza) — dettaglio conformità GDPR, EU AI Act, infrastruttura
 - [Termini di Servizio](https://zengest.it/termini) — condizioni d'uso in italiano
 - [DPA](https://zengest.it/dpa) — accordo per il trattamento dei dati

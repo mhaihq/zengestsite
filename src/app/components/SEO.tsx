@@ -182,23 +182,31 @@ export const softwareApplicationSchema: Record<string, unknown> = {
   "offers": [
     {
       "@type": "Offer",
-      "name": "Free",
-      "price": "0",
-      "priceCurrency": "EUR"
+      "name": "AI Clinica Start",
+      "price": "19",
+      "priceCurrency": "EUR",
+      "description": "20 sedute/mese, note cliniche AI, cartella paziente, Ask ZenGest (al mese, IVA esclusa)"
     },
     {
       "@type": "Offer",
-      "name": "Clinical",
+      "name": "AI Clinica Pro",
       "price": "39",
       "priceCurrency": "EUR",
-      "description": "50 sedute/mese, cartella completa, Ask ZenGest, timeline, export documenti (IVA esclusa)"
+      "description": "50 sedute/mese, tutto di Start, supporto prioritario (al mese, IVA esclusa)"
     },
     {
       "@type": "Offer",
-      "name": "Professional",
+      "name": "AI Clinica Plus",
       "price": "79",
       "priceCurrency": "EUR",
-      "description": "Sedute illimitate, processing e supporto prioritari (IVA esclusa)"
+      "description": "150 sedute/mese, tutto di Pro (al mese, IVA esclusa)"
+    },
+    {
+      "@type": "Offer",
+      "name": "Fatturazione",
+      "price": "36",
+      "priceCurrency": "EUR",
+      "description": "100 fatture/anno con invio a SDI e Sistema Tessera Sanitaria (all'anno, IVA esclusa)"
     }
   ],
   "creator": {

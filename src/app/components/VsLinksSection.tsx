@@ -78,7 +78,7 @@ const GROUPS: Group[] = [
     title: "Gestione studio",
     rows: [
       { label: "Scheda paziente",                zengest: "yes",  chatgpt: "no",  psicogest: "yes", gesto: "yes",  appuntoo: "yes"  },
-      { label: "Fatturazione + STS",             zengest: "soon", chatgpt: "no",  psicogest: "yes", gesto: "yes",  appuntoo: "yes"  },
+      { label: "Fatturazione + STS",             zengest: "yes", chatgpt: "no",  psicogest: "yes", gesto: "yes",  appuntoo: "yes"  },
       { label: "Agenda e promemoria",            zengest: "soon", chatgpt: "no",  psicogest: "yes", gesto: "no",   appuntoo: "yes"  },
     ],
   },

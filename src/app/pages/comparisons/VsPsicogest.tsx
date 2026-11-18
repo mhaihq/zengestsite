@@ -29,12 +29,12 @@ const data = {
     { label: "Cartella archiviata in Europa (GDPR)", zengest: "✓", competitor: "✓" },
     { label: "Conforme codice deontologico CNOP", zengest: "✓", competitor: "✓" },
     { label: "Scheda paziente", zengest: "✓", competitor: "✓" },
-    { label: "Sistema Tessera Sanitaria (STS)", zengest: "In arrivo", competitor: "✓" },
-    { label: "Fattura elettronica SDI", zengest: "In arrivo", competitor: "✓" },
+    { label: "Sistema Tessera Sanitaria (STS)", zengest: "✓", competitor: "✓" },
+    { label: "Fattura elettronica SDI", zengest: "✓", competitor: "✓" },
     { label: "Agenda appuntamenti", zengest: "In arrivo", competitor: "✓" },
   ],
 
-  pricingZengest: "Da 19€/mese. Piano Pro a 39€/mese, Piano Studio a 69€/mese. Prova gratuita disponibile, nessuna carta di credito richiesta.",
+  pricingZengest: "AI Clinica da 19€/mese + IVA (Start, 20 sedute), Pro 39€/mese (50 sedute), Plus 79€/mese (150 sedute). Fatturazione con Sistema TS da 36€/anno. Prova gratuita di 30 giorni, nessuna carta di credito.",
   pricingCompetitor: "Da 25€/anno per il piano base (50 fatture). Fino a 240€/anno per il piano XL. Gratuito per gli iscritti OPL, OPC e Ordine degli Psicologi della Sardegna.",
 
   chooseZengest: [
@@ -54,7 +54,7 @@ const data = {
   faq: [
     {
       q: "ZenGest sostituisce PsicoGest?",
-      a: "No. ZenGest non è ancora uno strumento di fatturazione completo — la fattura sanitaria e il STS sono in sviluppo. Se stai cercando un tool per sostituire PsicoGest nella fatturazione, non siamo ancora lì. Se stai cercando di eliminare le note manuali e avere un AI che documenta le tue sedute, ZenGest è costruito esattamente per quello.",
+      a: "Può farlo. Con il modulo Fatturazione, da 36€/anno per 100 fatture, ZenGest invia le fatture a SDI e le spese al Sistema Tessera Sanitaria. Se ti serve solo la fatturazione, PsicoGest resta più economico, soprattutto se il tuo Ordine lo offre gratis. ZenGest ha senso se vuoi note cliniche e fatture nello stesso posto.",
     },
     {
       q: "Le registrazioni delle sedute sono sicure?",

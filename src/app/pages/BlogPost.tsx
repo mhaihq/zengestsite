@@ -145,12 +145,12 @@ export function BlogPost() {
         {/* CTA */}
         <div className="mt-16 p-8 rounded-2xl text-center" style={{ background: 'linear-gradient(160deg, #C8D9F0 0%, #D6E4F0 50%, #E8EEF5 100%)' }}>
           <p className="font-['Instrument_Serif'] text-2xl text-[#00122F] mb-2">Prova ZenGest gratis.</p>
-          <p className="font-['DM_Sans'] text-sm text-slate-600 mb-6">10 sedute al mese, nessuna carta di credito.</p>
+          <p className="font-['DM_Sans'] text-sm text-slate-600 mb-6">30 giorni e 20 sedute di prova, senza carta di credito.</p>
           <a
             href="https://app.zengest.it/sign-up/"
             className="inline-flex items-center justify-center h-11 px-8 rounded-xl font-['DM_Sans'] font-semibold text-sm text-white bg-[#00122F] hover:bg-[#00122F]/90 transition-all shadow-md"
           >
-            Inizia gratis
+            Inizia la prova gratuita
           </a>
         </div>
       </div>

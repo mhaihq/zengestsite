@@ -30,14 +30,14 @@ const data = {
     { label: "Costruito specificamente per psicologi", zengest: "✓", competitor: "—" },
     { label: "Agenda multi-operatore / multi-stanza", zengest: "In arrivo", competitor: "✓" },
     { label: "Promemoria WhatsApp automatici", zengest: "In arrivo", competitor: "✓" },
-    { label: "Fatturazione integrata con STS", zengest: "In arrivo", competitor: "✓" },
+    { label: "Fatturazione integrata con STS", zengest: "✓", competitor: "✓" },
     { label: "Multi-professione (fisio, nutri, osteo…)", zengest: "—", competitor: "✓" },
     { label: "Scheda paziente", zengest: "✓", competitor: "✓" },
     { label: "Cartella archiviata in Europa, GDPR", zengest: "✓", competitor: "✓" },
   ],
 
   pricingZengest:
-    "Da 19€/mese (Piano Base). Piano Pro 39€/mese, Piano Studio 69€/mese. Prova gratuita, nessuna carta di credito.",
+    "AI Clinica da 19€/mese + IVA (Start, 20 sedute), Pro 39€/mese (50 sedute), Plus 79€/mese (150 sedute). Fatturazione con Sistema TS da 36€/anno. Prova gratuita di 30 giorni, nessuna carta di credito.",
 
   pricingCompetitor:
     "Prezzi variabili in base al piano e al numero di professionisti. Disponibile prova gratuita sul sito.",
@@ -60,7 +60,7 @@ const data = {
   faq: [
     {
       q: "ZenGest e Appuntoo si integrano?",
-      a: "Non ancora nativamente, ma usarli insieme è semplice: Appuntoo per l'agenda e la fatturazione, ZenGest per la documentazione clinica. Ogni tool fa la sua parte.",
+      a: "Non ancora nativamente, ma usarli insieme è semplice: Appuntoo per l'agenda e i promemoria, ZenGest per la documentazione clinica e, se vuoi, per la fatturazione con Sistema TS. Ogni tool fa la sua parte.",
     },
     {
       q: "Appuntoo ha funzionalità AI per le note cliniche?",
@@ -68,7 +68,7 @@ const data = {
     },
     {
       q: "ZenGest supporta studi con più psicologi?",
-      a: "Sì, il Piano Studio a 69€/mese è pensato per team. Se gestisci uno studio con più professionisti e hai bisogno di documentazione clinica AI per tutti, è il piano giusto.",
+      a: "Sì, con i piani Team & Enterprise, pensati per studi con più professionisti e con fatturazione centralizzata. Scrivici a hello@zengest.it per un'offerta.",
     },
     {
       q: "Per uno psicologo in libera professione, quale scelgo?",

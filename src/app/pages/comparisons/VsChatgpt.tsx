@@ -306,7 +306,7 @@ export function VsChatgpt() {
                 <h3 className="font-['DM_Sans'] font-semibold text-[#00122F] text-base">ZenGest</h3>
               </div>
               <p className="text-slate-600 text-sm leading-relaxed font-['DM_Sans']">
-                Da 19€/mese (Piano Base). Piano Pro 39€/mese, Piano Studio 69€/mese. Prova gratuita, nessuna carta di credito.
+                AI Clinica da 19€/mese + IVA (Start, 20 sedute), Pro 39€/mese (50 sedute), Plus 79€/mese (150 sedute). Fatturazione con Sistema TS da 36€/anno. Prova gratuita di 30 giorni, nessuna carta di credito.
               </p>
             </div>
 

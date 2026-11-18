@@ -136,10 +136,10 @@ export function FatturazioneSection() {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 mb-5">
             <div className="inline-flex items-center rounded-full bg-[#0D9488] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-white font-['DM_Sans']">
-              In arrivo
+              Disponibile
             </div>
             <div className="inline-flex items-center rounded-full border border-slate-200 bg-white px-4 py-1.5 text-xs font-semibold text-slate-500 font-['DM_Sans']">
-              🕐 Estate 2026
+              Da €36/anno
             </div>
           </div>
           <h2 className="font-['Instrument_Serif'] text-4xl md:text-5xl lg:text-6xl text-black leading-[1.05] tracking-[-0.025em] mb-4">

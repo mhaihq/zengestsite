@@ -8,7 +8,7 @@ const data = {
   tagline: "Cosa fa davvero ciascuno",
   intro: [
     "Gesto è un software di fatturazione per psicologi con partita IVA. Fatture illimitate, Sistema Tessera Sanitaria incluso, consenso informato digitale, a 4,99€ al mese. È un prodotto solido per quello che promette di fare.",
-    "ZenGest non è un software di fatturazione.",
+    "ZenGest nasce per la documentazione clinica, e oggi fa anche le fatture.",
     "ZenGest registra le sedute, le trascrive, genera le note cliniche. Analizza i pattern nel tempo. Ricorda il contesto. Ti dice dove eri rimasto con ogni paziente senza che tu debba rileggere nulla.",
   ],
   whatZengest: "ZenGest registra la seduta con il consenso del paziente, riconosce automaticamente chi parla, trascrive con terminologia clinica italiana specializzata (DSM-5, approcci terapeutici, acronimi professionali), anonimizza i dati sensibili prima di qualsiasi elaborazione AI, ed elimina l'audio originale subito dopo. Quello che resta è una nota clinica generata in 60 secondi, nel formato che preferisci.",
@@ -20,14 +20,14 @@ const data = {
     { label: "Piano terapeutico generato dall'AI", zengest: "✓", competitor: "—" },
     { label: "Analisi pattern nel tempo", zengest: "✓", competitor: "—" },
     { label: "Terminologia DSM-5 / CBT / DBT / psicodinamica", zengest: "✓", competitor: "—" },
-    { label: "Fattura sanitaria STS inclusa", zengest: "In arrivo", competitor: "✓" },
-    { label: "Fatture illimitate", zengest: "✓", competitor: "✓" },
-    { label: "Consenso informato digitale", zengest: "In arrivo", competitor: "✓" },
+    { label: "Fattura sanitaria STS inclusa", zengest: "✓", competitor: "✓" },
+    { label: "Fatture illimitate", zengest: "100-500/anno", competitor: "✓" },
+    { label: "Consenso informato digitale", zengest: "✓", competitor: "✓" },
     { label: "Scheda paziente", zengest: "✓", competitor: "✓" },
     { label: "Cartella archiviata in Europa, GDPR", zengest: "✓", competitor: "✓" },
     { label: "Anonimizzazione dati pre-AI", zengest: "✓", competitor: "—" },
   ],
-  pricingZengest: "Da 19€/mese (Piano Base). Piano Pro 39€/mese, Piano Studio 69€/mese. Prova gratuita, nessuna carta di credito.",
+  pricingZengest: "AI Clinica da 19€/mese + IVA (Start, 20 sedute), Pro 39€/mese (50 sedute), Plus 79€/mese (150 sedute). Fatturazione con Sistema TS da 36€/anno. Prova gratuita di 30 giorni, nessuna carta di credito.",
   pricingCompetitor: "4,99€/mese con primo mese gratuito. Fatture illimitate incluse.",
   chooseZengest: [
     "La documentazione clinica è il collo di bottiglia del tuo lavoro",
@@ -44,7 +44,7 @@ const data = {
   faq: [
     {
       q: "ZenGest può sostituire Gesto del tutto?",
-      a: "Non ancora per la parte di fatturazione. Il STS e la fattura elettronica SDI sono in sviluppo. Se la fatturazione è la tua unica esigenza, Gesto la copre meglio per ora. Se vuoi eliminare la documentazione manuale, ZenGest fa cose che Gesto non fa affatto.",
+      a: "Sì. Con il modulo Fatturazione ZenGest invia le fatture a SDI e le spese al Sistema Tessera Sanitaria, con 100, 250 o 500 fatture all'anno. Se la fatturazione è la tua unica esigenza, Gesto con le fatture illimitate a 4,99€/mese resta una scelta economica. Se vuoi eliminare la documentazione manuale, ZenGest fa cose che Gesto non fa affatto.",
     },
     {
       q: "I 4,99€/mese di Gesto vs i 19€/mese di ZenGest: come scelgo?",
