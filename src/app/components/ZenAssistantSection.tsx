@@ -150,7 +150,7 @@ export function ZenAssistantSection() {
             <span className="font-['DM_Sans'] text-sm font-semibold text-[#3B6FD4]">Zen AI</span>
             <span className="font-['DM_Sans'] text-xs border border-slate-300 text-slate-400 rounded-full px-2.5 py-0.5">Beta</span>
           </div>
-          <h2 className="font-['Instrument_Serif'] text-4xl md:text-5xl lg:text-6xl text-[#00122F] leading-[1.05] tracking-[-0.025em] mb-4">
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-[#00122F] leading-[1.1] tracking-[-0.015em] mb-4">
             Non una chat generica.<br className="hidden md:block" /> <span style={{ background: "linear-gradient(135deg, #3B6FD4 0%, #A7BCF5 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Un assistente clinico.</span>
           </h2>
           <p className="font-['DM_Sans'] text-base md:text-lg text-slate-500 leading-relaxed max-w-2xl mx-auto mb-2">
@@ -210,7 +210,7 @@ export function ZenAssistantSection() {
               >
                 {msg.from === "zen" && (
                   <div className="w-7 h-7 rounded-full bg-[#3B6FD4] flex items-center justify-center shrink-0 mt-0.5">
-                    <span className="font-['Instrument_Serif'] text-white text-xs">Z</span>
+                    <span className="font-display text-white text-xs">Z</span>
                   </div>
                 )}
                 <div className={[

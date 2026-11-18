@@ -162,7 +162,7 @@ function AiPlanCard({ plan, annual }: { plan: typeof AI_PLANS[number]; annual: b
       )}
       <p className="font-['DM_Sans'] text-sm font-semibold text-slate-400 uppercase tracking-widest mb-2">{plan.name}</p>
       <div className="flex items-baseline gap-1.5">
-        <span className="font-['Instrument_Serif'] text-4xl text-[#00122F]">€{price}</span>
+        <span className="font-display text-4xl text-[#00122F]">€{price}</span>
         <span className="font-['DM_Sans'] text-sm text-slate-400">+ IVA / {annual ? "anno" : "mese"}</span>
       </div>
       <p className="font-['DM_Sans'] text-xs text-slate-400 min-h-[1rem] mt-1">
@@ -226,7 +226,7 @@ export function Pricing() {
         <div className="inline-flex items-center rounded-full bg-[#0D9488] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-white font-['DM_Sans'] mb-6">
           Prezzi
         </div>
-        <h1 className="font-['Instrument_Serif'] text-4xl md:text-5xl lg:text-6xl text-[#00122F] leading-[1.05] tracking-[-0.025em] mb-4 max-w-3xl mx-auto">
+        <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-[#00122F] leading-[1.1] tracking-[-0.015em] mb-4 max-w-3xl mx-auto">
           Il gestionale per psicologi.<br />
           <span style={G}>Con l'AI clinica, se la vuoi.</span>
         </h1>
@@ -242,7 +242,7 @@ export function Pricing() {
           {/* Fatturazione */}
           <div className="rounded-3xl border border-slate-200 bg-white p-6 md:p-7 flex flex-col">
             <div><RecordIncluded /></div>
-            <h2 className="font-['Instrument_Serif'] text-3xl text-[#00122F]">Fatturazione</h2>
+            <h2 className="font-display text-3xl text-[#00122F]">Fatturazione</h2>
             <p className="font-['DM_Sans'] text-sm text-slate-500 mt-1 mb-5">
               Per chi vuole il gestionale e le fatture, senza l'AI.
             </p>
@@ -251,7 +251,7 @@ export function Pricing() {
                 <div key={t.invoices} className="flex items-center justify-between px-4 py-3">
                   <span className="font-['DM_Sans'] text-sm font-semibold text-[#00122F]">{t.invoices} fatture</span>
                   <span className="text-right">
-                    <span className="font-['Instrument_Serif'] text-2xl text-[#00122F]">€{t.annual}</span>
+                    <span className="font-display text-2xl text-[#00122F]">€{t.annual}</span>
                     <span className="font-['DM_Sans'] text-xs text-slate-400"> + IVA / anno</span>
                   </span>
                 </div>
@@ -279,7 +279,7 @@ export function Pricing() {
             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
               <div>
                 <RecordIncluded />
-                <h2 className="font-['Instrument_Serif'] text-3xl text-[#00122F]">AI clinica</h2>
+                <h2 className="font-display text-3xl text-[#00122F]">AI clinica</h2>
                 <p className="font-['DM_Sans'] text-sm text-slate-500 mt-1">
                   Il gestionale, più note cliniche AI e Assistente Zen. Ogni piano ha tutte le funzioni: cambia il numero di sedute.
                 </p>

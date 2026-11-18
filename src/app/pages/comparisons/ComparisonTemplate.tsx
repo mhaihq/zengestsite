@@ -124,7 +124,7 @@ export function ComparisonTemplate(props: ComparisonProps) {
             </div>
 
             {/* H1 */}
-            <h1 className="font-['Instrument_Serif'] text-4xl md:text-5xl text-[#00122F] leading-tight mb-4">
+            <h1 className="font-display text-4xl md:text-5xl text-[#00122F] leading-tight mb-4">
               ZenGest vs {competitor}:<br />
               <span
                 style={{
@@ -161,7 +161,7 @@ export function ComparisonTemplate(props: ComparisonProps) {
         {/* ── 3. Cosa fa ciascuno ─────────────────────────────────────────── */}
         <section className="bg-[#F8FAFC] py-12">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="font-['Instrument_Serif'] text-2xl md:text-3xl text-[#00122F] mb-8 text-center">
+            <h2 className="font-display text-2xl md:text-3xl text-[#00122F] mb-8 text-center">
               Cosa fa ciascuno
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -197,7 +197,7 @@ export function ComparisonTemplate(props: ComparisonProps) {
         {/* ── 4. Feature comparison table ─────────────────────────────────── */}
         <section className="bg-white py-14">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="font-['Instrument_Serif'] text-2xl md:text-3xl text-[#00122F] mb-8 text-center">
+            <h2 className="font-display text-2xl md:text-3xl text-[#00122F] mb-8 text-center">
               Confronto funzionalità
             </h2>
 
@@ -235,7 +235,7 @@ export function ComparisonTemplate(props: ComparisonProps) {
         {/* ── 5. Pricing ──────────────────────────────────────────────────── */}
         <section className="bg-[#F8FAFC] py-14">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="font-['Instrument_Serif'] text-2xl md:text-3xl text-[#00122F] mb-8 text-center">
+            <h2 className="font-display text-2xl md:text-3xl text-[#00122F] mb-8 text-center">
               Prezzi
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -271,7 +271,7 @@ export function ComparisonTemplate(props: ComparisonProps) {
         {/* ── 6. Chi dovrebbe scegliere ───────────────────────────────────── */}
         <section className="bg-white py-14">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="font-['Instrument_Serif'] text-2xl md:text-3xl text-[#00122F] mb-8 text-center">
+            <h2 className="font-display text-2xl md:text-3xl text-[#00122F] mb-8 text-center">
               Chi dovrebbe scegliere cosa?
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -319,7 +319,7 @@ export function ComparisonTemplate(props: ComparisonProps) {
         {/* ── 7. FAQ ──────────────────────────────────────────────────────── */}
         <section className="bg-[#F8FAFC] py-14">
           <div className="max-w-3xl mx-auto px-6">
-            <h2 className="font-['Instrument_Serif'] text-2xl md:text-3xl text-[#00122F] mb-8 text-center">
+            <h2 className="font-display text-2xl md:text-3xl text-[#00122F] mb-8 text-center">
               Domande frequenti
             </h2>
 
@@ -366,7 +366,7 @@ export function ComparisonTemplate(props: ComparisonProps) {
           className="py-20"
         >
           <div className="max-w-3xl mx-auto px-6 text-center">
-            <h2 className="font-['Instrument_Serif'] text-3xl md:text-4xl text-[#00122F] mb-4 leading-tight">
+            <h2 className="font-display text-3xl md:text-4xl text-[#00122F] mb-4 leading-tight">
               {ctaText}
             </h2>
             <p className="text-slate-600 font-['DM_Sans'] text-base mb-8 max-w-xl mx-auto">

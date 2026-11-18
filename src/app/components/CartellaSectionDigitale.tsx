@@ -20,7 +20,7 @@ export function CartellaDigitaleSection() {
             <div className="inline-flex items-center rounded-full bg-[#0D9488] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-white font-['DM_Sans'] mb-6">
               Cartella digitale
             </div>
-            <h2 className="font-['Instrument_Serif'] text-4xl md:text-5xl lg:text-6xl text-black leading-[1.05] tracking-[-0.025em] mb-5">
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-black leading-[1.1] tracking-[-0.015em] mb-5">
               Carichi quello che hai.{" "}
               <span style={{ background: "linear-gradient(135deg, #3B6FD4 0%, #A7BCF5 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
                 Diventa cartella vera.

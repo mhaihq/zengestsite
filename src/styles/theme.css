@@ -184,7 +184,15 @@
   }
 }
 
+/* The site's serif, used by headings through the `font-display` class and, in
+   inline styles, through var(--zg-serif). Change the typeface here (and load it
+   in fonts.css) and every heading follows. */
+:root {
+  --zg-serif: "Newsreader", "Iowan Old Style", "Times New Roman", serif;
+}
+
 @theme inline {
+  --font-display: var(--zg-serif);
   --animate-marquee: marquee var(--duration) infinite linear;
   --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
 }

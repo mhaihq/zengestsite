@@ -28,7 +28,7 @@ export function About() {
           <div className="inline-flex items-center rounded-full bg-[#0D9488] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-white font-['DM_Sans'] mb-6">
             Chi Siamo
           </div>
-          <h1 className="font-['Instrument_Serif'] text-4xl md:text-5xl lg:text-6xl text-[#00122F] leading-[1.05] tracking-[-0.025em] mb-6">
+          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-[#00122F] leading-[1.1] tracking-[-0.015em] mb-6">
             Costruito da psicologi,{" "}
             <span style={G}>per psicologi.</span>
           </h1>
@@ -77,7 +77,7 @@ export function About() {
       {/* CTA */}
       <section className="px-6 pb-24">
         <div className="max-w-xl mx-auto text-center">
-          <h2 className="font-['Instrument_Serif'] text-3xl md:text-4xl text-[#00122F] leading-snug tracking-[-0.02em] mb-4">
+          <h2 className="font-display text-3xl md:text-4xl text-[#00122F] leading-snug tracking-[-0.01em] mb-4">
             Vuoi provare ZenGest?
           </h2>
           <p className="font-['DM_Sans'] text-sm text-slate-400 mb-8">Posti limitati nella prima fase · Nessuna carta richiesta · 30 giorni gratuiti al lancio</p>

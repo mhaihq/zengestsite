@@ -111,7 +111,7 @@ export function VsChatgpt() {
               ZenGest vs ChatGPT
             </div>
 
-            <h1 className="font-['Instrument_Serif'] text-4xl md:text-5xl text-[#00122F] leading-tight mb-4">
+            <h1 className="font-display text-4xl md:text-5xl text-[#00122F] leading-tight mb-4">
               ChatGPT per le note cliniche:<br />
               rischi, limiti e{' '}
               <span
@@ -151,7 +151,7 @@ export function VsChatgpt() {
           </p>
 
           {/* Section 2 — GDPR */}
-          <h2 className="font-['Instrument_Serif'] text-2xl text-[#00122F] mt-12 mb-4">
+          <h2 className="font-display text-2xl text-[#00122F] mt-12 mb-4">
             Il nodo GDPR che la maggior parte degli psicologi ignora
           </h2>
 
@@ -190,7 +190,7 @@ export function VsChatgpt() {
           </p>
 
           {/* Section 3 — Limiti tecnici */}
-          <h2 className="font-['Instrument_Serif'] text-2xl text-[#00122F] mt-12 mb-4">
+          <h2 className="font-display text-2xl text-[#00122F] mt-12 mb-4">
             I limiti tecnici, non solo quelli legali
           </h2>
 
@@ -228,7 +228,7 @@ export function VsChatgpt() {
           </ul>
 
           {/* Section 4 — Cosa fa ZenGest */}
-          <h2 className="font-['Instrument_Serif'] text-2xl text-[#00122F] mt-12 mb-4">
+          <h2 className="font-display text-2xl text-[#00122F] mt-12 mb-4">
             Cosa fa ZenGest di diverso
           </h2>
 
@@ -266,7 +266,7 @@ export function VsChatgpt() {
           </ul>
 
           {/* Section 5 — Feature comparison table */}
-          <h2 className="font-['Instrument_Serif'] text-2xl text-[#00122F] mt-12 mb-6 text-center">
+          <h2 className="font-display text-2xl text-[#00122F] mt-12 mb-6 text-center">
             Confronto funzionalità
           </h2>
 
@@ -295,7 +295,7 @@ export function VsChatgpt() {
           </div>
 
           {/* Section 6 — Pricing */}
-          <h2 className="font-['Instrument_Serif'] text-2xl text-[#00122F] mt-12 mb-6 text-center">
+          <h2 className="font-display text-2xl text-[#00122F] mt-12 mb-6 text-center">
             Prezzi
           </h2>
 
@@ -322,7 +322,7 @@ export function VsChatgpt() {
           </div>
 
           {/* Section 7 — La domanda giusta */}
-          <h2 className="font-['Instrument_Serif'] text-2xl text-[#00122F] mt-12 mb-4">
+          <h2 className="font-display text-2xl text-[#00122F] mt-12 mb-4">
             La domanda giusta non è "quanto costa"
           </h2>
 
@@ -337,7 +337,7 @@ export function VsChatgpt() {
           </p>
 
           {/* Section 8 — Chi usa ChatGPT */}
-          <h2 className="font-['Instrument_Serif'] text-2xl text-[#00122F] mt-12 mb-4">
+          <h2 className="font-display text-2xl text-[#00122F] mt-12 mb-4">
             Chi usa ChatGPT per le note e cosa fare adesso
           </h2>
 
@@ -352,7 +352,7 @@ export function VsChatgpt() {
           </p>
 
           {/* Section 9 — FAQ */}
-          <h2 className="font-['Instrument_Serif'] text-2xl text-[#00122F] mt-12 mb-6">
+          <h2 className="font-display text-2xl text-[#00122F] mt-12 mb-6">
             Domande frequenti
           </h2>
 
@@ -393,7 +393,7 @@ export function VsChatgpt() {
             }}
             className="rounded-2xl p-10 text-center mb-12"
           >
-            <h2 className="font-['Instrument_Serif'] text-2xl text-[#00122F] mb-3">
+            <h2 className="font-display text-2xl text-[#00122F] mb-3">
               Prova ZenGest gratis.
             </h2>
             <p className="font-['DM_Sans'] text-sm text-slate-600 mb-6">

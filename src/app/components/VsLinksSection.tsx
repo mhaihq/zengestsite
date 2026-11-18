@@ -109,7 +109,7 @@ export function VsLinksSection() {
           <div className="inline-flex items-center rounded-full bg-[#0D9488] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-white font-['DM_Sans'] mb-5">
             Confronta
           </div>
-          <h2 className="font-['Instrument_Serif'] text-4xl md:text-5xl text-[#00122F] leading-[1.05] tracking-[-0.025em]">
+          <h2 className="font-display text-4xl md:text-5xl text-[#00122F] leading-[1.1] tracking-[-0.015em]">
             Come si confronta{" "}
             <span style={G}>ZenGest?</span>
           </h2>

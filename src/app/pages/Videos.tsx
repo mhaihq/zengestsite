@@ -256,7 +256,7 @@ function PlaceholderThumb({ title }: { title: string }) {
         y={startY}
         fill="#ffffff"
         fontSize="8.5"
-        fontFamily="'Instrument Serif', Georgia, serif"
+        fontFamily="'Newsreader', Georgia, serif"
       >
         {lines.map((line, i) => (
           <tspan key={i} x="8" dy={i === 0 ? 0 : lineHeight}>
@@ -304,7 +304,7 @@ function VideoThumb({ video, onPlay }: { video: Video; onPlay: () => void }) {
         )}
       </div>
 
-      <h3 className="font-['Instrument_Serif'] text-[19px] text-[#00122F] leading-[1.25] mt-4 mb-1 group-hover:opacity-70 transition-opacity">
+      <h3 className="font-display text-[19px] text-[#00122F] leading-[1.25] mt-4 mb-1 group-hover:opacity-70 transition-opacity">
         {video.title}
       </h3>
       <p className="font-['DM_Sans'] text-[13.5px] text-slate-500 leading-relaxed line-clamp-2">
@@ -373,7 +373,7 @@ function PlayerModal({ video, onClose }: { video: Video | null; onClose: () => v
 
           {video && (
             <div className="mt-4 px-1">
-              <h2 className="font-['Instrument_Serif'] text-[22px] text-white leading-tight">{video.title}</h2>
+              <h2 className="font-display text-[22px] text-white leading-tight">{video.title}</h2>
               <p className="font-['DM_Sans'] text-[13.5px] text-white/70 mt-1">{video.description}</p>
             </div>
           )}
@@ -411,7 +411,7 @@ export function Videos() {
           <p className="font-['DM_Sans'] text-[11px] font-semibold tracking-[0.1em] uppercase text-slate-400 mb-4">
             ZenGest · Video guida
           </p>
-          <h1 className="font-['Instrument_Serif'] text-4xl md:text-5xl text-[#00122F] leading-[1.05] mb-3">
+          <h1 className="font-display text-4xl md:text-5xl text-[#00122F] leading-[1.1] mb-3">
             Impara a usare ZenGest,{' '}
             <span style={G}>passo dopo passo.</span>
           </h1>

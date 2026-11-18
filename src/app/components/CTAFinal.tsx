@@ -2,7 +2,7 @@ export function CTAFinal() {
   return (
     <section className="bg-white px-6 py-24 md:py-32">
       <div className="max-w-2xl mx-auto text-center">
-        <h2 className="font-['Instrument_Serif'] text-4xl md:text-5xl lg:text-6xl text-[#00122F] leading-[1.05] tracking-[-0.025em] mb-6">
+        <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-[#00122F] leading-[1.1] tracking-[-0.015em] mb-6">
           Porta l'Intelligenza Artificiale nella tua pratica clinica, in sicurezza e sotto il tuo controllo.
         </h2>
         <p className="font-['DM_Sans'] text-base md:text-lg text-slate-500 leading-relaxed mb-10">

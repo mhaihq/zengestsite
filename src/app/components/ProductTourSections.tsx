@@ -43,7 +43,7 @@ export function SessionFilmSection() {
         <div className="mb-10 grid gap-6 px-2 md:mb-14 md:grid-cols-[1.25fr_1fr] md:items-end md:gap-12">
           <div>
             <Eyebrow>Dalla seduta alla fattura</Eyebrow>
-            <h2 className="font-['Instrument_Serif'] text-[2.75rem] md:text-6xl lg:text-7xl text-[#00122F] leading-[1.02] tracking-[-0.03em]">
+            <h2 className="font-display text-[2.4rem] md:text-[2.6rem] lg:text-[3.4rem] text-[#00122F] leading-[1.1] tracking-[-0.015em]">
               Tu ascolti.<br />
               <span style={G}>Alla nota pensa ZenGest.</span>
             </h2>
@@ -141,7 +141,7 @@ export function AskZenSection() {
       <div className="pointer-events-none relative z-10 mx-auto max-w-[1200px] px-6 lg:flex lg:min-h-[100svh] lg:items-center">
         <div className="pointer-events-auto pt-24 pb-6 lg:max-w-[26rem] lg:pt-28 lg:pb-20 xl:max-w-[30rem]">
           <Eyebrow>Assistente Zen</Eyebrow>
-          <h2 className="font-['Instrument_Serif'] text-[2.75rem] md:text-5xl lg:text-[2.7rem] xl:text-[2.9rem] text-[#00122F] leading-[1.04] tracking-[-0.03em] mb-5">
+          <h2 className="font-display text-[2.4rem] md:text-5xl lg:text-[2.3rem] xl:text-[2.5rem] text-[#00122F] leading-[1.12] tracking-[-0.015em] mb-5">
             Chiedi quello che di solito <br className="hidden xl:block" /><span style={G}>cercheresti a mano.</span>
           </h2>
           <p className="text-base md:text-lg text-slate-600 leading-relaxed mb-7">

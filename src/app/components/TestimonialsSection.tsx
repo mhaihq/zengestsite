@@ -79,7 +79,7 @@ export function TestimonialsSection() {
           ">
             Testimonianze
           </div>
-          <h2 className="font-['Instrument_Serif'] text-4xl md:text-5xl lg:text-6xl text-[#00122F] leading-[1.05] tracking-[-0.025em] mb-4">
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-[#00122F] leading-[1.1] tracking-[-0.015em] mb-4">
             Chi lo usa, non torna indietro.
           </h2>
           <p className="font-['DM_Sans'] text-base md:text-lg text-slate-500 leading-relaxed">

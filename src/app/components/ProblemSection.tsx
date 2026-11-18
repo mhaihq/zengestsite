@@ -2,7 +2,7 @@ export function ProblemSection() {
   return (
     <section className="bg-white py-20 md:py-28 px-6">
       <div className="max-w-3xl mx-auto text-center">
-        <h2 className="font-['Instrument_Serif'] text-4xl md:text-5xl lg:text-6xl text-[#00122F] leading-[1.05] tracking-[-0.025em] mb-8">
+        <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-[#00122F] leading-[1.1] tracking-[-0.015em] mb-8">
           Non basta scrivere una nota.<br />Serve ricordare il caso.
         </h2>
         <p className="font-['DM_Sans'] text-base md:text-xl text-slate-500 leading-relaxed max-w-2xl mx-auto">

@@ -13,14 +13,14 @@ const ptComponents = {
       <p className="font-['DM_Sans'] text-[16px] text-slate-700 leading-[1.8] mb-6">{children}</p>
     ),
     h2: ({ children }: { children?: React.ReactNode }) => (
-      <h2 className="font-['Instrument_Serif'] text-2xl md:text-3xl text-[#00122F] leading-[1.2] mt-12 mb-4">{children}</h2>
+      <h2 className="font-display text-2xl md:text-3xl text-[#00122F] leading-[1.2] mt-12 mb-4">{children}</h2>
     ),
     h3: ({ children }: { children?: React.ReactNode }) => (
-      <h3 className="font-['Instrument_Serif'] text-xl md:text-2xl text-[#00122F] leading-[1.25] mt-10 mb-3">{children}</h3>
+      <h3 className="font-display text-xl md:text-2xl text-[#00122F] leading-[1.25] mt-10 mb-3">{children}</h3>
     ),
     blockquote: ({ children }: { children?: React.ReactNode }) => (
       <blockquote className="border-l-4 border-[#3B6FD4] pl-6 my-8">
-        <p className="font-['Instrument_Serif'] text-xl text-slate-600 leading-relaxed italic">{children}</p>
+        <p className="font-display text-xl text-slate-600 leading-relaxed italic">{children}</p>
       </blockquote>
     ),
   },
@@ -122,7 +122,7 @@ export function BlogPost() {
       {/* Header */}
       <div className="border-b border-slate-100">
         <div className="max-w-3xl mx-auto px-6 pt-12 pb-10">
-          <h1 className="font-['Instrument_Serif'] text-3xl md:text-4xl lg:text-5xl text-[#00122F] leading-[1.1] mb-4">
+          <h1 className="font-display text-3xl md:text-4xl lg:text-5xl text-[#00122F] leading-[1.1] mb-4">
             {post.titolo}
           </h1>
           {date && <p className="font-['DM_Sans'] text-[12px] text-slate-400">{date}</p>}
@@ -132,7 +132,7 @@ export function BlogPost() {
       {/* Body */}
       <div className="max-w-3xl mx-auto px-6 py-12 md:py-16">
         {post.estratto && (
-          <p className="font-['Instrument_Serif'] text-xl md:text-2xl text-slate-500 leading-relaxed mb-10 pb-10 border-b border-slate-100">
+          <p className="font-display text-xl md:text-2xl text-slate-500 leading-relaxed mb-10 pb-10 border-b border-slate-100">
             {post.estratto}
           </p>
         )}
@@ -144,7 +144,7 @@ export function BlogPost() {
 
         {/* CTA */}
         <div className="mt-16 p-8 rounded-2xl text-center" style={{ background: 'linear-gradient(160deg, #C8D9F0 0%, #D6E4F0 50%, #E8EEF5 100%)' }}>
-          <p className="font-['Instrument_Serif'] text-2xl text-[#00122F] mb-2">Prova ZenGest gratis.</p>
+          <p className="font-display text-2xl text-[#00122F] mb-2">Prova ZenGest gratis.</p>
           <p className="font-['DM_Sans'] text-sm text-slate-600 mb-6">30 giorni e 20 sedute di prova, senza carta di credito.</p>
           <a
             href="https://app.zengest.it/sign-up/"

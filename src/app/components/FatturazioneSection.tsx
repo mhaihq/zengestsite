@@ -142,7 +142,7 @@ export function FatturazioneSection() {
               Da €36/anno
             </div>
           </div>
-          <h2 className="font-['Instrument_Serif'] text-4xl md:text-5xl lg:text-6xl text-black leading-[1.05] tracking-[-0.025em] mb-4">
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-black leading-[1.1] tracking-[-0.015em] mb-4">
             Le fatture si fanno mentre lavori.<br className="hidden md:block" /> <span style={{ background: "linear-gradient(135deg, #3B6FD4 0%, #A7BCF5 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Non la sera.</span>
           </h2>
           <p className="font-['DM_Sans'] text-base text-slate-500 max-w-xl mx-auto leading-relaxed">
@@ -303,7 +303,7 @@ export function FatturazioneSection() {
 
         {/* Closing CTA */}
         <div className="mt-10 text-center max-w-2xl mx-auto px-6 py-5 bg-white border border-slate-100 rounded-2xl">
-          <p className="font-['Instrument_Serif'] italic text-xl md:text-2xl text-slate-800 leading-snug mb-6">
+          <p className="font-display italic text-xl md:text-2xl text-slate-800 leading-snug mb-6">
             Hai studiato per diventare <span className="not-italic text-orange-400">psicologo</span>,<br />non commercialista.
           </p>
           <a

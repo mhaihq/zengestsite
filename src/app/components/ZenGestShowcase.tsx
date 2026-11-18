@@ -18,7 +18,7 @@ const SUCCESS = "#059669" // verde di conferma, coerente con FatturazioneSection
 const NEUTRAL_TINT = "#F0F5FF" // tinta neutra per bolle e sfondi icona
 const SLATE = "#475569"
 const INK = "#00122F" // stesso navy dei pulsanti primari del sito
-const SERIF = '"Instrument Serif", "Times New Roman", serif'
+const SERIF = 'var(--zg-serif)'
 const SANS = '"DM Sans", system-ui, sans-serif'
 
 // Icone lucide-style (path 24×24), inline per non aggiungere dipendenze.

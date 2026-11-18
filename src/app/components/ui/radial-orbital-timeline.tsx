@@ -192,7 +192,7 @@ export default function RadialOrbitalTimeline({
             </div>
           )}
           {title && (
-            <h2 className="font-['Instrument_Serif'] text-4xl md:text-5xl lg:text-6xl font-normal leading-[1.05] text-[#00122F] mb-5 tracking-[-0.025em]">
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-normal leading-[1.1] text-[#00122F] mb-5 tracking-[-0.015em]">
               {title.includes(". ") ? (
                 <>
                   {title.split(". ")[0] + ". "}
@@ -223,7 +223,7 @@ export default function RadialOrbitalTimeline({
           {/* Central Orb */}
           <div className="absolute w-40 h-40 flex flex-col items-center justify-center z-10">
             <div className="w-20 h-20 rounded-full bg-[#3B6FD4] flex items-center justify-center shadow-lg">
-              <span className="font-['Instrument_Serif'] text-white text-xl tracking-wide">Zen</span>
+              <span className="font-display text-white text-xl tracking-wide">Zen</span>
             </div>
           </div>
 

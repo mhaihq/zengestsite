@@ -16,7 +16,7 @@ function PostCard({ post }: { post: PostCard }) {
   return (
     <article className="group border-b border-slate-100 py-7 last:border-0">
       <Link to={`/blog/${post.slug.current}`} className="block">
-        <h3 className="font-['Instrument_Serif'] text-[21px] text-[#00122F] leading-[1.3] mb-2 group-hover:opacity-70 transition-opacity">
+        <h3 className="font-display text-[21px] text-[#00122F] leading-[1.3] mb-2 group-hover:opacity-70 transition-opacity">
           {post.titolo}
         </h3>
       </Link>
@@ -46,7 +46,7 @@ function FeaturedPost({ post }: { post: PostCard }) {
         In evidenza
       </span>
       <Link to={`/blog/${post.slug.current}`} className="block mb-3 group">
-        <h2 className="font-['Instrument_Serif'] text-[32px] md:text-[40px] text-[#00122F] leading-[1.1] group-hover:opacity-70 transition-opacity">
+        <h2 className="font-display text-[32px] md:text-[40px] text-[#00122F] leading-[1.1] group-hover:opacity-70 transition-opacity">
           {post.titolo}
         </h2>
       </Link>
@@ -93,7 +93,7 @@ export function Blog() {
           <p className="font-['DM_Sans'] text-[11px] font-semibold tracking-[0.1em] uppercase text-slate-400 mb-4">
             ZenGest · Blog
           </p>
-          <h1 className="font-['Instrument_Serif'] text-4xl md:text-5xl text-[#00122F] leading-[1.05] mb-3">
+          <h1 className="font-display text-4xl md:text-5xl text-[#00122F] leading-[1.1] mb-3">
             Articoli, riflessioni{' '}
             <span style={G}>e aggiornamenti.</span>
           </h1>

@@ -117,7 +117,7 @@ export function CTASection() {
         </div>
 
         {/* Headline */}
-        <h1 className="font-['Instrument_Serif'] text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center max-w-4xl leading-[1.05] tracking-[-0.025em] mb-5 text-[#00122F] px-2">
+        <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center max-w-4xl leading-[1.1] tracking-[-0.015em] mb-5 text-[#00122F] px-2">
           AI per Psicologi.<br />
           Note, Assistente e Cartelle,<br className="hidden sm:block" /> in modo intelligente.
         </h1>

@@ -756,10 +756,8 @@ export type Service = {
   text: string;
   /** Must match the scene's step names so the chip lights up with the drawing. */
   capabilities: string[];
-  /** Internal path (router link) or absolute URL (plain link). */
+  /** Product page (router path), shown as a "Scopri di più" link. */
   href?: string;
-  /** Button label; defaults to "Scopri di più". */
-  cta?: string;
   price?: string;
   /** CSS background for this panel (gradient or url()). */
   bg?: string;
@@ -790,10 +788,12 @@ export type ServicesStackProps = {
   services: Service[];
   /** The line that sits above each title. */
   eyebrow?: string;
+  /** When set, every card gets a "Prova gratis" button pointing here. */
+  signUpUrl?: string;
   className?: string;
 };
 
-export function ServicesStack({ services, eyebrow = "In un solo posto", className }: ServicesStackProps) {
+export function ServicesStack({ services, eyebrow = "In un solo posto", signUpUrl, className }: ServicesStackProps) {
   const root = useRef<HTMLElement>(null);
   const cards = useRef<(HTMLDivElement | null)[]>([]);
   const [active, setActive] = useState(0);
@@ -855,12 +855,12 @@ export function ServicesStack({ services, eyebrow = "In un solo posto", classNam
             }}
             style={{ transformOrigin: "top center", willChange: "transform, opacity" }}
           >
-            <h2 className="font-['Instrument_Serif'] text-3xl text-white lg:sr-only">
+            <h2 className="font-display text-3xl text-white lg:sr-only">
               <span className="block text-white/55">{eyebrow}</span>
               <span className="block">{s.title}</span>
             </h2>
             <div className="mt-6 lg:mt-0">
-              <ServiceCard service={s} />
+              <ServiceCard service={s} signUpUrl={signUpUrl} />
             </div>
           </div>
         </div>
@@ -869,7 +869,7 @@ export function ServicesStack({ services, eyebrow = "In un solo posto", classNam
       {/* Sticky background: left-hand titles + cross-fading gradients + grain */}
       <div className="absolute inset-0 -z-10" aria-hidden="true">
         <div className="sticky top-0 grid h-screen w-full overflow-hidden py-20">
-          <div className="mx-auto hidden w-full max-w-[104.5rem] grid-cols-12 px-9 font-['Instrument_Serif'] text-[clamp(2.5rem,1.2vw+1.8rem,3.5rem)] leading-[1.05] tracking-[-0.02em] text-white lg:grid">
+          <div className="mx-auto hidden w-full max-w-[104.5rem] grid-cols-12 px-9 font-display text-[clamp(2.5rem,1.2vw+1.8rem,3.5rem)] leading-[1.1] tracking-[-0.01em] text-white lg:grid">
             <div className="col-span-5 flex h-full flex-col">
               <div className="flex h-1/2 flex-col justify-end">
                 <p className="text-white/55">{eyebrow}</p>
@@ -897,7 +897,7 @@ export function ServicesStack({ services, eyebrow = "In un solo posto", classNam
   );
 }
 
-function ServiceCard({ service: s }: { service: Service }) {
+function ServiceCard({ service: s, signUpUrl }: { service: Service; signUpUrl?: string }) {
   const [step, setStep] = useState<string>();
   return (
     <div className="overflow-hidden rounded-xl bg-gradient-to-b from-[#E8EEF9] to-[#F8F9FC] px-3 pt-4 lg:rounded-2xl lg:px-4 lg:pt-6">
@@ -920,18 +920,17 @@ function ServiceCard({ service: s }: { service: Service }) {
             </li>
           ))}
         </ul>
-        {(s.href || s.price) && (
-          <div className="mt-7 flex flex-wrap items-center justify-between gap-3 lg:[@media(max-height:910px)]:mt-5">
-            {s.price && <span className="text-sm text-slate-500">{s.price}</span>}
-            {s.href && s.href.startsWith("http") && (
-              <a href={s.href} className="inline-flex items-center gap-1.5 rounded-xl bg-[#00122F] px-5 h-10 text-sm font-semibold text-white hover:bg-[#00122F]/90 transition-colors">
-                {s.cta ?? "Scopri di più"}
+        {s.price && <p className="mt-7 text-sm text-slate-500 lg:[@media(max-height:910px)]:mt-5">{s.price}</p>}
+        {(signUpUrl || s.href) && (
+          <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-3">
+            {signUpUrl && (
+              <a href={signUpUrl} className="inline-flex items-center rounded-xl bg-[#00122F] px-5 h-10 text-sm font-semibold text-white hover:bg-[#00122F]/90 transition-colors">
+                Prova gratis
               </a>
             )}
-            {s.href && !s.href.startsWith("http") && (
-              <Link to={s.href} className="inline-flex items-center gap-1.5 rounded-xl bg-[#00122F] px-5 h-10 text-sm font-semibold text-white hover:bg-[#00122F]/90 transition-colors">
-                {s.cta ?? "Scopri di più"}
-                <span aria-hidden="true">→</span>
+            {s.href && (
+              <Link to={s.href} className="text-sm font-medium text-[#0D9488] hover:underline">
+                Scopri di più <span aria-hidden="true">→</span>
                 <span className="sr-only">: {s.title}</span>
               </Link>
             )}

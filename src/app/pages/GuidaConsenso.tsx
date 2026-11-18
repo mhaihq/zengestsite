@@ -14,7 +14,7 @@ const NAVY = "#00122F";
 const BLUE = "#3B6FD4";
 const BLUE_GRAD = "linear-gradient(135deg, #3B6FD4 0%, #A7BCF5 100%)";
 const HERO_GRAD = "linear-gradient(160deg, #C8D9F0 0%, #D6E4F0 30%, #E8EEF5 55%, #EDE8DC 80%, #E8DFC8 100%)";
-const SERIF = "font-['Instrument_Serif']"; // large display headings ONLY
+const SERIF = "font-display"; // large display headings ONLY
 const SANS = "font-['DM_Sans']";
 // Card/widget heading style — DM Sans bold, not the thin display serif (more readable at small sizes)
 const HEAD = "font-['DM_Sans'] font-bold tracking-[-0.01em]";

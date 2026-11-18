@@ -179,7 +179,7 @@ export function HowItWorks() {
           <div className="inline-flex items-center rounded-full bg-[#0D9488] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-white font-['DM_Sans'] mb-5">
             Cartella clinica
           </div>
-          <h2 className="font-['Instrument_Serif'] text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-black leading-[1.05] tracking-[-0.025em] mb-5">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-black leading-[1.1] tracking-[-0.015em] mb-5">
             Non dimenticarti di niente: registra e <span style={{ background: "linear-gradient(135deg, #3B6FD4 0%, #A7BCF5 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>ricordati di tutto.</span>
           </h2>
           <p className="font-['DM_Sans'] text-base md:text-lg text-slate-500 max-w-xl mx-auto leading-relaxed">
@@ -196,7 +196,7 @@ export function HowItWorks() {
                 <CardPrima />
               </div>
             </div>
-            <h3 className="font-['Instrument_Serif'] text-2xl text-black mb-1">Prima della seduta</h3>
+            <h3 className="font-display text-2xl text-black mb-1">Prima della seduta</h3>
             <p className="font-['DM_Sans'] text-sm text-slate-400 mb-2">Trovi già il riepilogo pronto.</p>
             <p className="font-['DM_Sans'] text-sm text-slate-500 leading-relaxed">
               Apri la scheda del paziente e ritrovi subito il contesto: ultima seduta, temi emersi, obiettivi aperti e punti da riprendere. Generato automaticamente dopo ogni seduta, senza nulla da scrivere.
@@ -210,7 +210,7 @@ export function HowItWorks() {
                 <CardDurante />
               </div>
             </div>
-            <h3 className="font-['Instrument_Serif'] text-2xl text-black mb-1">Durante la seduta</h3>
+            <h3 className="font-display text-2xl text-black mb-1">Durante la seduta</h3>
             <p className="font-['DM_Sans'] text-sm text-slate-400 mb-2">ZenGest ascolta. Tu parli col paziente.</p>
             <p className="font-['DM_Sans'] text-sm text-slate-500 leading-relaxed">
               Registra dal computer o dal telefono. ZenGest trascrive la seduta e prepara il materiale per la nota clinica. Se preferisci, puoi anche caricare un audio o dettare un riepilogo a fine seduta.
@@ -224,7 +224,7 @@ export function HowItWorks() {
                 <CardDopo />
               </div>
             </div>
-            <h3 className="font-['Instrument_Serif'] text-2xl text-black mb-1">Dopo la seduta</h3>
+            <h3 className="font-display text-2xl text-black mb-1">Dopo la seduta</h3>
             <p className="font-['DM_Sans'] text-sm text-slate-400 mb-2">Nota pronta. Storico aggiornato.</p>
             <p className="font-['DM_Sans'] text-sm text-slate-500 leading-relaxed">
               ZenGest genera una nota strutturata, aggiorna lo storico del paziente e ti permette di fare domande sul caso: cosa è cambiato, quali temi ricorrono, cosa riprendere la prossima volta.

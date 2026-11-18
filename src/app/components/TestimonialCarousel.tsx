@@ -28,7 +28,7 @@ export function TestimonialCarousel() {
               Costruito per psicologi, da psicologi
             </p>
 
-            <blockquote className="font-['Instrument_Serif'] text-2xl md:text-3xl text-white leading-[1.3] tracking-[-0.01em] mb-8">
+            <blockquote className="font-display text-2xl md:text-3xl text-white leading-[1.3] tracking-[-0.01em] mb-8">
               "Ho immaginato ZenGest per aiutare lo psicologo a fare meglio il proprio lavoro, partendo dalla mia pratica clinica, che poi ho condiviso con altri colleghi e colleghe. ZenGest è costruito insieme e per gli psicologi, perché possano continuare a fare meglio ciò che sanno fare: la clinica."
             </blockquote>
 

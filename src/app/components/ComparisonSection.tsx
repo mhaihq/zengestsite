@@ -48,7 +48,7 @@ export function ComparisonSection() {
           <div className={`${DARK_PILL} mb-5`}>
             Il vero rischio
           </div>
-          <h2 className="font-['Instrument_Serif'] text-4xl md:text-5xl lg:text-6xl text-white leading-[1.05] tracking-[-0.025em] mb-4">
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-white leading-[1.1] tracking-[-0.015em] mb-4">
             Stai ancora copiando le note su ChatGPT?
           </h2>
           <p className="font-['DM_Sans'] text-base md:text-lg text-white/70 max-w-2xl mx-auto leading-relaxed">
@@ -109,7 +109,7 @@ export function ComparisonSection() {
 
         {/* Closing statement */}
         <div className="mt-14 text-center">
-          <p className="font-['Instrument_Serif'] text-2xl md:text-3xl text-white leading-snug italic mb-6">
+          <p className="font-display text-2xl md:text-3xl text-white leading-snug italic mb-6">
             Non si tratta di smettere di usare l'AI.<br />Si tratta di farlo bene.
           </p>
           <a

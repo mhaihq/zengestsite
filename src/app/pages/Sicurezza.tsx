@@ -96,7 +96,7 @@ export function Sicurezza() {
           <div className="inline-flex items-center rounded-full bg-[#0D9488] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-white font-['DM_Sans'] mb-6">
             Sicurezza & Conformità
           </div>
-          <h1 className="font-['Instrument_Serif'] text-4xl md:text-5xl lg:text-6xl text-[#00122F] leading-[1.05] tracking-[-0.025em] mb-6">
+          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-[#00122F] leading-[1.1] tracking-[-0.015em] mb-6">
             Costruito per i dati clinici.{" "}
             <span style={G}>Non adattato.</span>
           </h1>
@@ -129,7 +129,7 @@ export function Sicurezza() {
       <section className="px-6 pb-20 bg-slate-50">
         <div className="max-w-3xl mx-auto pt-16">
           <p className="font-['DM_Sans'] text-xs font-semibold uppercase tracking-widest text-slate-400 mb-3 text-center">Le domande che ci vengono fatte</p>
-          <h2 className="font-['Instrument_Serif'] text-3xl md:text-4xl text-[#00122F] text-center leading-snug tracking-[-0.02em] mb-12">
+          <h2 className="font-display text-3xl md:text-4xl text-[#00122F] text-center leading-snug tracking-[-0.01em] mb-12">
             Le preoccupazioni degli psicologi.<br />
             <span style={G}>Le nostre risposte.</span>
           </h2>
@@ -158,7 +158,7 @@ export function Sicurezza() {
       <section className="px-6 py-20">
         <div className="max-w-3xl mx-auto">
           <p className="font-['DM_Sans'] text-xs font-semibold uppercase tracking-widest text-slate-400 mb-3 text-center">Una distinzione importante</p>
-          <h2 className="font-['Instrument_Serif'] text-3xl md:text-4xl text-[#00122F] text-center leading-snug tracking-[-0.02em] mb-8">
+          <h2 className="font-display text-3xl md:text-4xl text-[#00122F] text-center leading-snug tracking-[-0.01em] mb-8">
             Pseudonimizzazione, non anonimizzazione.
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
@@ -193,7 +193,7 @@ export function Sicurezza() {
       <section className="px-6 pb-20 bg-slate-50">
         <div className="max-w-2xl mx-auto pt-16">
           <p className="font-['DM_Sans'] text-xs font-semibold uppercase tracking-widest text-slate-400 mb-3 text-center">Cosa succede ai dati</p>
-          <h2 className="font-['Instrument_Serif'] text-3xl md:text-4xl text-[#00122F] text-center leading-snug tracking-[-0.02em] mb-12">
+          <h2 className="font-display text-3xl md:text-4xl text-[#00122F] text-center leading-snug tracking-[-0.01em] mb-12">
             Il flusso di una seduta.
           </h2>
           <div className="space-y-3">
@@ -216,7 +216,7 @@ export function Sicurezza() {
       <section className="px-6 py-20">
         <div className="max-w-3xl mx-auto">
           <p className="font-['DM_Sans'] text-xs font-semibold uppercase tracking-widest text-slate-400 mb-3 text-center">Quadro normativo</p>
-          <h2 className="font-['Instrument_Serif'] text-3xl md:text-4xl text-[#00122F] text-center leading-snug tracking-[-0.02em] mb-10">
+          <h2 className="font-display text-3xl md:text-4xl text-[#00122F] text-center leading-snug tracking-[-0.01em] mb-10">
             Le norme che si applicano.<br />
             <span style={G}>Come le rispettiamo.</span>
           </h2>
@@ -238,7 +238,7 @@ export function Sicurezza() {
       <section className="px-6 pb-20 bg-slate-50">
         <div className="max-w-3xl mx-auto pt-16">
           <p className="font-['DM_Sans'] text-xs font-semibold uppercase tracking-widest text-slate-400 mb-3 text-center">Catena del trattamento</p>
-          <h2 className="font-['Instrument_Serif'] text-3xl md:text-4xl text-[#00122F] text-center leading-snug tracking-[-0.02em] mb-4">
+          <h2 className="font-display text-3xl md:text-4xl text-[#00122F] text-center leading-snug tracking-[-0.01em] mb-4">
             Chi tratta i dati, e come.
           </h2>
           <p className="font-['DM_Sans'] text-sm text-slate-500 text-center mb-8 leading-relaxed max-w-xl mx-auto">
@@ -320,7 +320,7 @@ export function Sicurezza() {
       {/* CTA */}
       <section className="px-6 pb-24">
         <div className="max-w-xl mx-auto text-center">
-          <h2 className="font-['Instrument_Serif'] text-3xl md:text-4xl text-[#00122F] leading-snug tracking-[-0.02em] mb-4">
+          <h2 className="font-display text-3xl md:text-4xl text-[#00122F] leading-snug tracking-[-0.01em] mb-4">
             Hai domande sulla conformità?
           </h2>
           <p className="font-['DM_Sans'] text-sm text-slate-400 mb-8">Siamo disponibili per rispondere a qualsiasi domanda tecnica o legale sulla gestione dei dati clinici.</p>

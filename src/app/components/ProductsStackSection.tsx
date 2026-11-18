@@ -7,8 +7,7 @@ const PRODUCTS: Service[] = [
     title: "Cartella clinica",
     text: "La scheda del paziente, aggiornata a ogni seduta: consenso firmato, preparazione, sedute con il loro riepilogo, contesto clinico, documenti e note di andamento.",
     capabilities: ["Consenso digitale", "Prep Sessione", "Sessioni e riepilogo", "Contesto clinico", "Documenti", "Note di andamento"],
-    href: "https://app.zengest.it/sign-up/",
-    cta: "Prova gratis",
+    href: "/cartella-clinica",
     price: "Inclusa sia nella Fatturazione sia nell'AI clinica",
     bg: "linear-gradient(160deg, #00122F 0%, #0B3B4F 55%, #0D9488 100%)",
   },
@@ -41,11 +40,6 @@ const PRODUCTS: Service[] = [
   },
 ];
 
-// The homepage shows only the Cartella clinica panel: note, assistente and fatturazione
-// are covered by the session film and the Assistente Zen section right below it.
-// To bring a panel back, add its id here.
-const SHOWN = ["cartella"];
-
 export function ProductsStackSection() {
-  return <ServicesStack services={PRODUCTS.filter((p) => SHOWN.includes(p.id))} eyebrow="Dentro ZenGest" className="pb-8 md:pb-11" />;
+  return <ServicesStack services={PRODUCTS} eyebrow="Dentro ZenGest" signUpUrl="https://app.zengest.it/sign-up/" className="pb-8 md:pb-11" />;
 }

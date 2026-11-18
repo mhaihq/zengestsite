@@ -76,7 +76,7 @@ export function ProductTemplate(p: ProductPageProps) {
         <div className="inline-flex items-center rounded-full bg-[#0D9488] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-white font-['DM_Sans'] mb-6">
           {p.eyebrow}
         </div>
-        <h1 className="font-['Instrument_Serif'] text-4xl md:text-5xl lg:text-6xl text-[#00122F] leading-[1.05] tracking-[-0.025em] mb-5 max-w-3xl mx-auto">
+        <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-[#00122F] leading-[1.1] tracking-[-0.015em] mb-5 max-w-3xl mx-auto">
           {p.title}<br />
           <span style={G}>{p.titleAccent}</span>
         </h1>
@@ -98,7 +98,7 @@ export function ProductTemplate(p: ProductPageProps) {
       {/* Features */}
       <section className="px-6 py-20">
         <div className="max-w-5xl mx-auto">
-          <h2 className="font-['Instrument_Serif'] text-3xl md:text-4xl text-[#00122F] tracking-[-0.02em] mb-10 text-center">{p.featuresTitle}</h2>
+          <h2 className="font-display text-3xl md:text-4xl text-[#00122F] tracking-[-0.01em] mb-10 text-center">{p.featuresTitle}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {p.features.map(f => (
               <div key={f.title} className="rounded-2xl border border-slate-200 bg-white p-6">
@@ -114,11 +114,11 @@ export function ProductTemplate(p: ProductPageProps) {
       {/* Steps */}
       <section className="px-6 py-20 bg-slate-50">
         <div className="max-w-4xl mx-auto">
-          <h2 className="font-['Instrument_Serif'] text-3xl md:text-4xl text-[#00122F] tracking-[-0.02em] mb-10 text-center">{p.stepsTitle}</h2>
+          <h2 className="font-display text-3xl md:text-4xl text-[#00122F] tracking-[-0.01em] mb-10 text-center">{p.stepsTitle}</h2>
           <ol className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
             {p.steps.map((s, i) => (
               <li key={s.title} className="flex gap-4">
-                <span className="font-['Instrument_Serif'] text-3xl text-[#3B6FD4] leading-none w-8 shrink-0">{i + 1}</span>
+                <span className="font-display text-3xl text-[#3B6FD4] leading-none w-8 shrink-0">{i + 1}</span>
                 <div>
                   <h3 className="font-['DM_Sans'] text-base font-semibold text-[#00122F] mb-1">{s.title}</h3>
                   <p className="font-['DM_Sans'] text-sm text-slate-500 leading-relaxed">{s.body}</p>

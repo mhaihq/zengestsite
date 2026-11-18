@@ -17,7 +17,7 @@ const GREEN = "#0D9488"
 const GREEN_TINT = "#E7F5F3"
 const INK = "#00122F"
 const RED = "#c0564c"
-const SERIF = '"Instrument Serif", "Times New Roman", serif'
+const SERIF = 'var(--zg-serif)'
 const SANS = '"DM Sans", system-ui, sans-serif'
 const MONO = 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace'
 const MINT = "#5EEAD4"
@@ -181,7 +181,7 @@ function Kinetic({ scene, still }: { scene: number; still: boolean }) {
         </motion.div>
       </div>
       <div className="mt-2 overflow-hidden pb-[0.14em]">
-        <motion.div variants={lineV} className="text-[2.6rem] leading-[1.02] tracking-[-0.02em] text-white lg:text-[3.4rem] xl:text-[4.1rem]" style={{ fontFamily: SERIF }}>
+        <motion.div variants={lineV} className="text-[2.3rem] leading-[1.06] tracking-[-0.01em] text-white lg:text-[2.6rem] xl:text-[3.3rem]" style={{ fontFamily: SERIF }}>
           {s.word}
         </motion.div>
       </div>

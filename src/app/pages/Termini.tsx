@@ -17,7 +17,7 @@ export function Termini() {
           <div className="inline-flex items-center rounded-full bg-[#0D9488] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-white font-['DM_Sans'] mb-6">
             Documento legale
           </div>
-          <h1 className="font-['Instrument_Serif'] text-4xl md:text-5xl text-[#00122F] leading-[1.1] tracking-[-0.02em] mb-3">
+          <h1 className="font-display text-4xl md:text-5xl text-[#00122F] leading-[1.1] tracking-[-0.01em] mb-3">
             Condizioni Generali di Servizio
           </h1>
           <p className="font-['DM_Sans'] text-sm text-slate-400">Ultimo aggiornamento: 9 novembre 2026</p>
