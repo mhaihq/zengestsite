@@ -1,10 +1,7 @@
 import { CTASection } from "../components/ui/hero-dithering-card";
 import { FeaturesMarquee } from "../components/FeaturesMarquee";
-import { ZenAssistantSection } from "../components/ZenAssistantSection";
 import { ComparisonSection } from "../components/ComparisonSection";
-import { HowItWorks } from "../components/HowItWorks";
-import { CartellaDigitaleSection } from "../components/CartellaSectionDigitale";
-import { FatturazioneSection } from "../components/FatturazioneSection";
+import { ProductsStackSection } from "../components/ProductsStackSection";
 import { SecuritySection } from "../components/SecuritySection";
 import { IntelligenceSection } from "../components/IntelligenceSection";
 import { TestimonialsSection } from "../components/TestimonialsSection";
@@ -30,10 +27,7 @@ export function Home() {
       <ComparisonSection />
       <FeaturesMarquee />
       <TestimonialsSection />
-      <HowItWorks />
-      <CartellaDigitaleSection />
-      <FatturazioneSection />
-      <ZenAssistantSection />
+      <ProductsStackSection />
       <TestimonialCarousel />
       <SecuritySection />
       <IntelligenceSection />
