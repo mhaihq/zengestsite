@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useReducer, useRef, useState, type ReactNode } from "react"
-import { motion, useReducedMotion, useInView } from "motion/react"
+import { AnimatePresence, motion, useReducedMotion, useInView } from "motion/react"
 
 // "Film" di prodotto di ZenGest per la home (portato dal sito Unozen, con la palette di ZenGest): un'unica sequenza che segue una
 // seduta dall'inizio alla fine — registri → trascrive → scrive la nota →
@@ -19,6 +19,8 @@ const INK = "#00122F"
 const RED = "#c0564c"
 const SERIF = '"Instrument Serif", "Times New Roman", serif'
 const SANS = '"DM Sans", system-ui, sans-serif'
+const MONO = 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace'
+const MINT = "#5EEAD4"
 
 const ICON = {
   mic: "M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z M19 10v2a7 7 0 0 1-14 0v-2 M12 19v3",
@@ -80,7 +82,16 @@ const NOTE_READY = H_START(NOTE.length - 1) + FLY_FROM + FLY_MS + NOTE[NOTE.leng
 const DUR = [2500, TYPE_END + 1000, NOTE_READY + 1100, 5200, 3400]
 const LAST = DUR.length - 1
 
-const STEPS = ["Registri", "Trascrive", "Scrive la nota", "Fattura"]
+const STEPS = ["Registri", "Trascrive", "Nota", "Fattura"]
+
+// Didascalia cinetica: una parola grande per scena, accanto al film.
+const SCENES = [
+  { n: "01", word: "Registri.", line: "Un clic e la seduta parte: in presenza, online o da un audio." },
+  { n: "02", word: "Trascrive.", line: "Chi parla e cosa dice. Nomi e date diventano etichette neutre." },
+  { n: "03", word: "Scrive la nota.", line: "Le frasi che contano entrano nella bozza, nel tuo formato." },
+  { n: "04", word: "Fattura.", line: "Bollo calcolato e invio al Sistema TS, dalla stessa scheda." },
+  { n: "Fine", word: "Fatto.", line: "Bozza in cartella, fattura inviata. A te resta solo rileggere." },
+]
 
 /* ───────────────────────── Piano e camera ───────────────────────── */
 
@@ -93,29 +104,30 @@ const P = {
 }
 
 type Shot = { cx: number; cy: number; z: number }
-// Inquadratura per scena. Su telefono il piano è lo stesso ma la finestra è
-// stretta e verticale: la camera sta su un pannello alla volta.
+// Inquadratura per scena. Da 640px in su il film occupa un riquadro 780x640
+// (accanto, o sotto, la didascalia); su telefono la finestra è stretta e
+// verticale e la camera sta su un pannello alla volta.
 const VIEW = {
   desk: {
-    w: 1000,
-    h: 600,
+    w: 780,
+    h: 640,
     shots: [
-      { cx: 165, cy: 300, z: 1.9 },
-      { cx: 345, cy: 296, z: 1.48 },
-      { cx: 650, cy: 296, z: 1.48 },
-      { cx: 825, cy: 392, z: 1.95 },
-      { cx: 505, cy: 296, z: 1 },
+      { cx: 165, cy: 300, z: 1.85 },
+      { cx: 345, cy: 296, z: 1.18 },
+      { cx: 645, cy: 296, z: 1.12 },
+      { cx: 825, cy: 385, z: 1.85 },
+      { cx: 505, cy: 296, z: 0.8 },
     ] as Shot[],
   },
   phone: {
     w: 420,
-    h: 520,
+    h: 500,
     shots: [
-      { cx: 165, cy: 300, z: 1.45 },
-      { cx: 485, cy: 296, z: 1.2 },
+      { cx: 165, cy: 300, z: 1.4 },
+      { cx: 485, cy: 296, z: 1.18 },
       { cx: 800, cy: 250, z: 1.2 },
       { cx: 825, cy: 392, z: 1.3 },
-      { cx: 825, cy: 296, z: 1.12 },
+      { cx: 825, cy: 296, z: 1.1 },
     ] as Shot[],
   },
 }
@@ -135,15 +147,77 @@ function Panel({ box, children, show = true, still = false }: { box: { x: number
   return (
     <motion.div
       className="absolute overflow-hidden rounded-2xl border bg-white"
-      style={{ left: box.x, top: box.y, width: box.w, height: box.h, borderColor: "rgba(0,18,47,0.10)", boxShadow: "0 18px 50px rgba(0,18,47,0.10), 0 2px 6px rgba(0,18,47,0.05)", fontFamily: SANS }}
+      style={{ left: box.x, top: box.y, width: box.w, height: box.h, borderColor: "rgba(255,255,255,0.55)", boxShadow: "0 26px 70px rgba(0,0,0,0.45), 0 2px 8px rgba(0,0,0,0.28)", fontFamily: SANS }}
       initial={false}
-      animate={{ opacity: show ? 1 : 0, y: show ? 0 : 18 }}
-      transition={{ duration: still ? 0 : 0.55, ease: "easeOut" }}
+      animate={{ opacity: show ? 1 : 0, y: show ? 0 : 26, scale: show ? 1 : 0.95, filter: show ? "blur(0px)" : "blur(10px)" }}
+      transition={{ duration: still ? 0 : 0.7, ease: [0.2, 0.7, 0.2, 1] }}
     >
       {children}
     </motion.div>
   )
 }
+
+const EASE: [number, number, number, number] = [0.2, 0.7, 0.2, 1]
+const lineV = {
+  enter: { y: "112%" },
+  show: { y: "0%", transition: { duration: 0.65, ease: EASE } },
+  exit: { y: "-112%", transition: { duration: 0.28, ease: "easeIn" as const } },
+}
+const fadeV = {
+  enter: { opacity: 0, y: 10 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.18 } },
+  exit: { opacity: 0, transition: { duration: 0.18 } },
+}
+
+// La didascalia: numero, parola grande e una riga. A ogni scena la riga vecchia
+// esce verso l'alto e la nuova sale da sotto, dietro una maschera.
+function Kinetic({ scene, still }: { scene: number; still: boolean }) {
+  const s = SCENES[scene]
+  const body = (
+    <>
+      <div className="overflow-hidden">
+        <motion.div variants={lineV} className="text-[11px] font-semibold uppercase tracking-[0.22em]" style={{ fontFamily: MONO, color: MINT }}>
+          {s.n}
+        </motion.div>
+      </div>
+      <div className="mt-2 overflow-hidden pb-[0.14em]">
+        <motion.div variants={lineV} className="text-[2.6rem] leading-[1.02] tracking-[-0.02em] text-white lg:text-[3.4rem] xl:text-[4.1rem]" style={{ fontFamily: SERIF }}>
+          {s.word}
+        </motion.div>
+      </div>
+      <motion.p variants={fadeV} className="mt-3 max-w-[32ch] text-[14px] leading-relaxed text-white/65 lg:text-[15px]">
+        {s.line}
+      </motion.p>
+    </>
+  )
+  return (
+    <div className="min-h-[10.5rem] lg:min-h-[17rem]">
+      {still ? (
+        <motion.div initial={false} animate="show">{body}</motion.div>
+      ) : (
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div key={scene} initial="enter" animate="show" exit="exit" transition={{ staggerChildren: 0.07 }}>
+            {body}
+          </motion.div>
+        </AnimatePresence>
+      )}
+    </div>
+  )
+}
+
+const GRAIN = encodeURIComponent(
+  "<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(#n)'/></svg>",
+)
+const STAGE_BG = "linear-gradient(150deg, #00122F 0%, #06203F 55%, #0A2F4B 100%)"
+const GRID_BG = "linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)"
+// Dove sta la luce in ogni scena (in % del palco) e quanto pesano il blu e il verde acqua.
+const GLOW = [
+  { x: "52%", y: "40%", blue: 0.55, teal: 0.05 },
+  { x: "58%", y: "45%", blue: 0.5, teal: 0.2 },
+  { x: "70%", y: "42%", blue: 0.35, teal: 0.4 },
+  { x: "74%", y: "58%", blue: 0.22, teal: 0.55 },
+  { x: "64%", y: "48%", blue: 0.38, teal: 0.45 },
+]
 
 function Caret() {
   return <motion.span aria-hidden className="ml-px inline-block h-[1em] w-[1.5px] translate-y-[2px]" style={{ background: GREEN }} animate={{ opacity: [1, 0, 1] }} transition={{ duration: 0.8, repeat: Infinity }} />
@@ -170,7 +244,7 @@ export function SessionFilm() {
   useEffect(() => {
     const el = stageRef.current
     if (!el) return
-    const mq = window.matchMedia("(min-width: 768px)")
+    const mq = window.matchMedia("(min-width: 640px)")
     const update = () => {
       setStageW(el.clientWidth)
       setPhone(!mq.matches)
@@ -254,15 +328,50 @@ export function SessionFilm() {
   // Dissolvenza tra la fine del film e il nuovo inizio.
   const veil = !reduce && ((scene === LAST && ms > DUR[LAST] - 450) || (scene === 0 && ms < 150))
 
+  const glow = GLOW[scene]
+
   return (
-    <div className="mx-auto max-w-[1000px]" style={{ fontFamily: SANS }}>
+    <div className="mx-auto max-w-[1200px]" style={{ fontFamily: SANS }}>
       <div
-        ref={stageRef}
-        className="relative aspect-[420/520] w-full overflow-hidden rounded-[28px] border md:aspect-[1000/600]"
-        style={{ borderColor: "rgba(0,18,47,0.08)", background: "linear-gradient(160deg, rgba(255,255,255,0.85) 0%, rgba(236,242,251,0.9) 100%)", boxShadow: "0 30px 80px rgba(0,18,47,0.10)" }}
-        aria-label="Animazione illustrativa: ZenGest registra la seduta, la trascrive, scrive la nota clinica e invia la fattura"
-        role="img"
+        className="relative isolate overflow-hidden rounded-[26px] md:rounded-[36px]"
+        style={{ background: STAGE_BG, boxShadow: "0 40px 100px -30px rgba(0,18,47,0.55), 0 0 0 1px rgba(255,255,255,0.06) inset" }}
       >
+        {/* Fondo: griglia sottile, due luci che si spostano con la storia, grana */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10" style={{ backgroundImage: GRID_BG, backgroundSize: "48px 48px", maskImage: "radial-gradient(90% 80% at 60% 45%, #000 30%, transparent 85%)", WebkitMaskImage: "radial-gradient(90% 80% at 60% 45%, #000 30%, transparent 85%)" }} />
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute -z-10 h-[90%] w-[60%] -translate-x-1/2 -translate-y-1/2 rounded-full"
+          style={{ background: "radial-gradient(circle, #3B6FD4 0%, transparent 62%)", filter: "blur(60px)" }}
+          initial={false}
+          animate={{ left: glow.x, top: glow.y, opacity: glow.blue }}
+          transition={{ duration: reduce ? 0 : 1.4, ease: "easeInOut" }}
+        />
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute -z-10 h-[80%] w-[52%] -translate-x-1/2 -translate-y-1/2 rounded-full"
+          style={{ background: "radial-gradient(circle, #0D9488 0%, transparent 62%)", filter: "blur(70px)" }}
+          initial={false}
+          animate={{ left: `calc(${glow.x} + 14%)`, top: `calc(${glow.y} + 22%)`, opacity: glow.teal }}
+          transition={{ duration: reduce ? 0 : 1.4, ease: "easeInOut" }}
+        />
+        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.07]" style={{ backgroundImage: `url("data:image/svg+xml,${GRAIN}")` }} />
+
+        <div className="grid lg:grid-cols-[36%_64%] lg:grid-rows-[1fr_auto]">
+          {/* Didascalia cinetica */}
+          <div className="px-6 pt-7 sm:px-9 sm:pt-9 lg:flex lg:flex-col lg:justify-center lg:px-12 lg:pt-12 xl:px-14">
+            <p className="mb-5 text-[10.5px] font-semibold uppercase tracking-[0.2em] text-white/40 lg:mb-8" style={{ fontFamily: MONO }}>
+              Una seduta, dall'inizio alla fine
+            </p>
+            <Kinetic scene={scene} still={!!reduce} />
+          </div>
+
+          {/* Il film */}
+          <div
+            ref={stageRef}
+            className="relative aspect-[420/500] w-full overflow-hidden sm:aspect-[780/640] lg:col-start-2 lg:row-span-2 lg:row-start-1"
+            aria-label="Animazione illustrativa: ZenGest registra la seduta, la trascrive, scrive la bozza di nota clinica e invia la fattura"
+            role="img"
+          >
         {stageW !== null && (
           <div className="absolute left-0 top-0 origin-top-left" style={{ width: view.w, height: view.h, transform: `scale(${fit})` }}>
             <motion.div className="absolute inset-0" animate={{ opacity: veil ? 0 : 1 }} transition={{ duration: 0.4 }}>
@@ -274,6 +383,19 @@ export function SessionFilm() {
                 animate={cam}
                 transition={reduce || scene === 0 ? { duration: 0 } : { duration: 1.15, ease: [0.65, 0, 0.2, 1] }}
               >
+                {/* Onde attorno al registratore mentre la seduta è in corso */}
+                {recording && !reduce && [0, 1].map((k) => (
+                  <motion.span
+                    key={k}
+                    aria-hidden
+                    className="absolute rounded-full border"
+                    style={{ left: 165 - 150, top: 300 - 150, width: 300, height: 300, borderColor: "rgba(232,121,110,0.55)" }}
+                    initial={{ scale: 0.7, opacity: 0 }}
+                    animate={{ scale: [0.7, 1.55], opacity: [0.55, 0] }}
+                    transition={{ duration: 2.2, repeat: Infinity, delay: k * 1.1, ease: "easeOut" }}
+                  />
+                ))}
+
                 {/* 1 · Registrazione */}
                 <Panel box={P.rec} still={!!reduce}>
                   {!recording && !recDone ? (
@@ -423,6 +545,19 @@ export function SessionFilm() {
                     </div>
                 </Panel>
 
+                {/* Un anello che si allarga quando la fattura parte */}
+                {scene === 3 && invSent && !reduce && (
+                  <motion.span
+                    key="sent"
+                    aria-hidden
+                    className="absolute rounded-2xl"
+                    style={{ left: P.inv.x, top: P.inv.y, width: P.inv.w, height: P.inv.h, border: `2px solid ${MINT}` }}
+                    initial={{ opacity: 0.9, scale: 1 }}
+                    animate={{ opacity: 0, scale: 1.2 }}
+                    transition={{ duration: 0.9, ease: "easeOut" }}
+                  />
+                )}
+
                 {/* Frase che vola dalla trascrizione alla nota */}
                 {fly && (
                   <motion.span
@@ -456,35 +591,38 @@ export function SessionFilm() {
             </motion.div>
           </div>
         )}
+          </div>
+
+          {/* Barra dei passaggi: mostra dove siamo e permette di saltare */}
+          <div className="grid grid-cols-4 gap-2 px-6 pb-7 pt-4 sm:px-9 sm:pb-9 lg:gap-2.5 lg:px-12 lg:pb-12 lg:pt-0 xl:px-14" role="group" aria-label="Passaggi dell'animazione">
+            {STEPS.map((label, i) => {
+              const done = scene > i
+              const active = scene === i
+              const fill = done ? 1 : active ? Math.min(1, ms / DUR[i]) : 0
+              return (
+                <button
+                  key={label}
+                  type="button"
+                  onClick={() => dispatch({ type: "jump", scene: i })}
+                  disabled={!!reduce}
+                  aria-label={`Vai al passaggio ${i + 1}: ${label}`}
+                  className="group min-w-0 rounded-md py-1 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/70"
+                >
+                  <span className="block h-[3px] overflow-hidden rounded-full bg-white/15 transition-colors group-hover:bg-white/25">
+                    <span className="block h-full origin-left rounded-full" style={{ background: `linear-gradient(90deg, ${MINT}, #A7BCF5)`, transform: `scaleX(${fill})`, transition: active ? "transform 80ms linear" : "transform 300ms ease" }} />
+                  </span>
+                  <span className="mt-2 flex items-baseline gap-1.5 text-[11.5px] font-semibold transition-colors" style={{ color: active || done ? "#ffffff" : "rgba(255,255,255,0.45)" }}>
+                    <span className="hidden text-[10.5px] tabular-nums lg:inline" style={{ fontFamily: MONO }}>0{i + 1}</span>
+                    <span className="truncate lg:hidden">{label}</span>
+                  </span>
+                </button>
+              )
+            })}
+          </div>
+        </div>
       </div>
 
-      {/* Barra dei passaggi: mostra dove siamo e permette di saltare */}
-      <div className="mt-5 grid grid-cols-4 gap-2 md:gap-3" role="group" aria-label="Passaggi dell'animazione">
-        {STEPS.map((label, i) => {
-          const done = scene > i
-          const active = scene === i
-          const fill = done ? 1 : active ? Math.min(1, ms / DUR[i]) : 0
-          return (
-            <button
-              key={label}
-              type="button"
-              onClick={() => dispatch({ type: "jump", scene: i })}
-              disabled={!!reduce}
-              className="group min-w-0 rounded-md text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0D9488]"
-            >
-              <span className="block h-[3px] overflow-hidden rounded-full" style={{ background: "rgba(0,18,47,0.12)" }}>
-                <span className="block h-full origin-left rounded-full" style={{ background: PINE, transform: `scaleX(${fill})`, transition: active ? "transform 80ms linear" : "transform 300ms ease" }} />
-              </span>
-              <span className="mt-2 flex items-baseline gap-1.5 text-[11.5px] font-semibold md:text-[13px]" style={{ color: active || done ? PINE : "#78716c" }}>
-                <span className="hidden text-[10px] tabular-nums opacity-60 sm:inline">0{i + 1}</span>
-                <span className="truncate">{label}</span>
-              </span>
-            </button>
-          )
-        })}
-      </div>
-
-      <p className="mt-4 text-center text-[12px] text-stone-500">Interfaccia illustrativa: paziente e dati sono inventati.</p>
+      <p className="mt-4 text-center text-[12px] text-slate-400">Interfaccia illustrativa: paziente e dati sono inventati.</p>
     </div>
   )
 }
