@@ -40,6 +40,19 @@ const PRODUCTS: Service[] = [
   },
 ];
 
+// On the homepage the cards cover the two things nothing else on the page shows:
+// the patient record and invoicing. Note cliniche AI has the session film right
+// below, and Assistente Zen has its own full-screen section, so their cards would
+// say the same thing twice. To show a card again, add its id here.
+const ON_HOMEPAGE = ["cartella", "fatturazione"];
+
 export function ProductsStackSection() {
-  return <ServicesStack services={PRODUCTS} eyebrow="Dentro ZenGest" signUpUrl="https://app.zengest.it/sign-up/" className="pb-8 md:pb-11" />;
+  return (
+    <ServicesStack
+      services={PRODUCTS.filter((p) => ON_HOMEPAGE.includes(p.id))}
+      eyebrow="Dentro ZenGest"
+      signUpUrl="https://app.zengest.it/sign-up/"
+      className="pb-8 md:pb-11"
+    />
+  );
 }
